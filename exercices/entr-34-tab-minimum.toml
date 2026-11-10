@@ -1,0 +1,46 @@
+id = "entr-34"
+module = "entrainement"
+titre = "Le minimum et sa place"
+notion = "parcourir avec les indices"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Une des cinq cuves fuit : c’est celle qui a le moins de liquide. Laquelle ? Je les ai toutes reniflées, ça ne m’a pas aidé."
+
+lecon = '''
+- `for i in 0..tableau.len()` parcourt les **positions**
+- on garde la valeur minimale **et** sa position dans deux variables `mut`
+'''
+
+mission = '''
+Avec `[42, 17, 63, 8, 25]`, trouve la plus petite valeur et sa position (en partant de 0).
+
+Résultat attendu :
+
+```text
+Minimum : 8 (cuve 3)
+```
+'''
+
+sortie_attendue = '''
+Minimum : 8 (cuve 3)
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Commence avec `let mut min = cuves[0];` et `let mut position = 0;`", "`if cuves[i] < min { min = cuves[i]; position = i; }`"]
+
+solution = '''
+fn main() {
+    let cuves = [42, 17, 63, 8, 25];
+    let mut min = cuves[0];
+    let mut position = 0;
+    for i in 0..cuves.len() {
+        if cuves[i] < min {
+            min = cuves[i];
+            position = i;
+        }
+    }
+    println!("Minimum : {min} (cuve {position})");
+}
+'''

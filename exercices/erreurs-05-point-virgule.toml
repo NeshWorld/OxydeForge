@@ -1,0 +1,87 @@
+id = "erreurs-05"
+module = "erreurs"
+titre = "Le point-virgule de trop"
+notion = "expression, instruction et E0308"
+type = "lis-erreur"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Panne ! La machine à doubler ne rend rien. Rien du tout ! J'ai tapé dessus, ça n'a pas marché. Il paraît que c'est un point-virgule."
+
+lecon = '''
+En Rust, la **dernière ligne** d'une fonction, **sans `;`**, est la valeur renvoyée.
+
+```rust
+fn double(x: i32) -> i32 {
+    x * 2      // pas de ; → c'est la valeur renvoyée
+}
+```
+
+Le `;` change tout :
+
+| Ligne | Ce que c'est | Valeur |
+|---|---|---|
+| `x * 2` | une **expression** | le résultat du calcul |
+| `x * 2;` | une **instruction** | **rien**, noté `()` |
+
+> `()` se lit « unit » : c'est le « rien » de Rust, comme `None` quand une fonction Python n'a pas de `return`.
+
+**Lire l'erreur** :
+- `expected i32, found ()` : la fonction promet un `i32` (`-> i32`) mais ne renvoie **rien**
+- `implicitly returns ()` : « sans valeur finale, elle renvoie `()` »
+- `help: remove this semicolon` : le compilateur a trouvé le coupable
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l'erreur ci-dessous.
+
+Réécris-le en entier, corrigé : il doit afficher `42`.
+'''
+
+code_casse = '''
+fn double(x: i32) -> i32 {
+    x * 2;
+}
+
+fn main() {
+    println!("{}", double(21));
+}
+'''
+
+erreur = '''
+error[E0308]: mismatched types
+ --> main.rs:1:22
+  |
+1 | fn double(x: i32) -> i32 {
+  |    ------            ^^^ expected `i32`, found `()`
+  |    |
+  |    implicitly returns `()` as its body has no tail or `return` expression
+2 |     x * 2;
+  |          - help: remove this semicolon to return this value
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0308`.
+'''
+
+erreur_corrigee = "E0308"
+sortie_attendue = "42"
+
+criteres = [
+  "L'erreur `E0308` a **disparu**",
+  "Le programme affiche `42`",
+]
+
+indices = [
+  "Lis le `help:` : il dit exactement quoi faire.",
+  "Un seul caractère à enlever, à la ligne 2.",
+]
+
+solution = '''
+fn double(x: i32) -> i32 {
+    x * 2
+}
+
+fn main() {
+    println!("{}", double(21));
+}
+'''

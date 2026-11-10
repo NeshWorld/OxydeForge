@@ -1,0 +1,73 @@
+id = "bases-12"
+module = "bases"
+titre = "Deux sortes de texte"
+notion = "&str, String, push_str et push"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "La plaque d'accueil de Ferris est à moitié gravée : juste « Bonjour ». Il faut la compléter, et compter les caractères pour commander le métal. J'en ai compté 12. Puis 19."
+
+lecon = '''
+Rust a **deux** types de texte. C'est déroutant au début, mais logique.
+
+| Type | C'est quoi | Modifiable ? | Exemple |
+|---|---|---|---|
+| `&str` | un texte **emprunté**, souvent écrit en dur | **non** | `"Bonjour"` |
+| `String` | un texte qui t'**appartient** | **oui** (avec `mut`) | `String::from("Bonjour")` |
+
+Tout texte entre `" "` est un `&str`. Pour le modifier, il faut d'abord en faire une `String` :
+
+```rust
+let mut salut = String::from("Bonjour");
+salut.push_str(", Ferris");   // ajoute un texte
+salut.push('!');              // ajoute UN caractère
+```
+
+> Attention : `push` prend un **caractère** entre apostrophes `'!'`, pas un texte entre guillemets.
+
+| Rust | Python |
+|---|---|
+| `s.push_str("abc")` | `s += "abc"` |
+| `s.len()` | `len(s)` |
+
+> `len()` compte des **octets**, pas des lettres : un `é` en compte **2**. Pour un texte sans accent, c'est pareil.
+'''
+
+mission = '''
+Pars de `String::from("Bonjour")`.
+
+Avec `push_str` puis `push`, construis le texte `Bonjour, Ferris !`.
+
+Puis affiche exactement :
+
+```text
+Bonjour, Ferris !
+Longueur : 17
+```
+'''
+
+sortie_attendue = '''
+Bonjour, Ferris !
+Longueur : 17
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche le texte construit et sa longueur",
+]
+
+indices = [
+  "Sans `mut`, impossible de modifier la String : souviens-toi d'E0384.",
+  "`push_str(\", Ferris \")` ajoute la virgule, le nom et l'espace ; `push('!')` termine.",
+  "La longueur : `salut.len()`.",
+]
+
+solution = '''
+fn main() {
+    let mut salut = String::from("Bonjour");
+    salut.push_str(", Ferris ");
+    salut.push('!');
+    println!("{salut}");
+    println!("Longueur : {}", salut.len());
+}
+'''

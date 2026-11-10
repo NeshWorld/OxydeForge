@@ -1,0 +1,73 @@
+id = "bases-04"
+module = "bases"
+titre = "Ta première fonction"
+notion = "fn, paramètres et -> retour"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "La grande presse refuse de démarrer : elle a besoin du carré de sa pression. Une petite fonction, et elle repart ! J'ai essayé de calculer de tête… la presse n'a pas aimé."
+
+lecon = '''
+Une fonction se déclare avec `fn`. **Chaque paramètre a un type**, et le type renvoyé suit la flèche `->`.
+
+```rust
+fn double(x: i32) -> i32 {
+    x * 2
+}
+```
+
+| Morceau | Rôle | En Python |
+|---|---|---|
+| `fn double` | déclare la fonction | `def double` |
+| `x: i32` | paramètre **typé** (obligatoire) | `x` (ou `x: int`, optionnel) |
+| `-> i32` | le type **renvoyé** | `-> int` (optionnel) |
+| `x * 2` sans `;` | la **valeur renvoyée** | `return x * 2` |
+
+**Pas de `return`** : la dernière ligne **sans point-virgule** est la valeur renvoyée. `return` existe, mais on le garde pour sortir **en avance**.
+
+L'ordre ne compte pas : `main` peut appeler une fonction écrite **en dessous**.
+
+```rust
+fn main() {
+    println!("{}", double(21));   // 42
+}
+```
+'''
+
+mission = '''
+Écris une fonction `carre` qui reçoit un `i32` et renvoie son carré.
+
+Utilise-la dans `main` pour afficher exactement :
+
+```text
+Le carré de 9 est 81
+Le carré de 12 est 144
+```
+'''
+
+sortie_attendue = '''
+Le carré de 9 est 81
+Le carré de 12 est 144
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche les **deux carrés**",
+]
+
+indices = [
+  "La signature : `fn carre(n: i32) -> i32 {`",
+  "Dans le corps : `n * n`, **sans** point-virgule.",
+  "Dans `main` : `println!(\"Le carré de 9 est {}\", carre(9));`",
+]
+
+solution = '''
+fn carre(n: i32) -> i32 {
+    n * n
+}
+
+fn main() {
+    println!("Le carré de 9 est {}", carre(9));
+    println!("Le carré de 12 est {}", carre(12));
+}
+'''

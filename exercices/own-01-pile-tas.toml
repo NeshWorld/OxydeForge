@@ -1,0 +1,32 @@
+id = "own-01"
+module = "ownership"
+titre = "La pile et le tas"
+notion = "où vivent tes valeurs"
+type = "demo"
+# Reste visible même quand le reste du chapitre est masqué.
+intro = true
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Avant de parler de qui possède quoi, viens voir l'entrepôt. Il y a deux zones : les étagères bien rangées, et le grand hangar du fond. J'ai perdu une clé à molette dans le hangar en 2019."
+
+# Une démo : l'écran est animé par src/ui/PileTas.tsx, étape par étape.
+lecon = '''
+Où vont tes valeurs en mémoire, et que se passe-t-il quand on les copie, les déménage ou les clone ?
+'''
+
+mission = '''
+Avance avec **Suivant** (ou la flèche →) et regarde la mémoire se remplir, puis se vider.
+'''
+
+sortie_attendue = "5 5 Ferris Ferris"
+
+solution = '''
+fn main() {
+    let a = 5;
+    let b = a;
+    let s1 = String::from("Ferris");
+    let s2 = s1;
+    let s3 = s2.clone();
+    println!("{a} {b} {s2} {s3}");
+}
+'''

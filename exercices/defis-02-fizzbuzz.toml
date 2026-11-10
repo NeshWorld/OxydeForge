@@ -1,0 +1,91 @@
+id = "defis-02"
+module = "defis"
+titre = "FizzBuzz"
+notion = "for, if et %"
+type = "defi"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Commande spéciale ! Les ouvriers ont inventé un jeu pour la pause : Fizz, Buzz… Ils veulent un arbitre infaillible. Moi, je perds toujours au 15."
+
+lecon = '''
+- `a % b` : le **reste** de la division
+- `n % 3 == 0` : « n est divisible par 3 »
+- `if … else if … else`
+'''
+
+mission = '''
+Pour chaque nombre de 1 à 30, affiche :
+
+- `FizzBuzz` s'il est divisible par 3 **et** par 5
+- `Fizz` s'il est divisible par 3
+- `Buzz` s'il est divisible par 5
+- le nombre lui-même sinon
+
+```text
+1
+2
+Fizz
+4
+Buzz
+…
+```
+'''
+
+sortie_attendue = '''
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+Fizz
+22
+23
+Fizz
+Buzz
+26
+Fizz
+28
+29
+FizzBuzz
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche les **30 lignes** du FizzBuzz",
+]
+
+indices = [
+  "L'ordre des tests compte : le cas « 3 et 5 » doit passer **en premier**.",
+  "Divisible par 3 et par 5, c'est divisible par 15.",
+]
+
+solution = '''
+fn main() {
+    for n in 1..=30 {
+        if n % 15 == 0 {
+            println!("FizzBuzz");
+        } else if n % 3 == 0 {
+            println!("Fizz");
+        } else if n % 5 == 0 {
+            println!("Buzz");
+        } else {
+            println!("{n}");
+        }
+    }
+}
+'''

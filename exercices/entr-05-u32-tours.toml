@@ -1,0 +1,39 @@
+id = "entr-05"
+module = "entrainement"
+titre = "Le compteur de tours"
+notion = "u32 et grands entiers"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La grande roue tourne à 1 450 tours par minute, 8 heures par jour. J’ai voulu compter les tours à la main. J’ai eu le tournis."
+
+lecon = '''
+- `u32` : entier sans signe, jusqu’à environ 4,3 milliards
+- les `_` rendent un grand nombre lisible : `1_450` vaut 1450
+'''
+
+mission = '''
+La roue tourne à `1_450` tours par minute, 60 minutes par heure, 8 heures par jour (des `u32`). Affiche le nombre de tours par jour.
+
+Résultat attendu :
+
+```text
+Tours par jour : 696000
+```
+'''
+
+sortie_attendue = '''
+Tours par jour : 696000
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let par_jour = tours_minute * 60 * 8;`"]
+
+solution = '''
+fn main() {
+    let tours_minute: u32 = 1_450;
+    let par_jour = tours_minute * 60 * 8;
+    println!("Tours par jour : {par_jour}");
+}
+'''

@@ -1,0 +1,52 @@
+id = "own-21"
+module = "ownership"
+titre = "Le pic de température"
+notion = "parcourir une tranche"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Commande spéciale ! Le four a relevé ses températures toute la journée. Il me faut le pic du matin, et le pic de la journée entière. Et vite, ça chauffe."
+
+lecon = '''
+- `fn maximum(valeurs: &[i32]) -> i32` accepte le tableau entier **ou** une tranche
+- commence avec la première valeur : `let mut max = valeurs[0];`
+- `for &v in valeurs` récupère chaque valeur directement (le `&` « déballe » l’emprunt)
+'''
+
+mission = '''
+Écris `maximum`. Avec `[820, 950, 1010, 990, 1180, 1050]`, affiche le pic du matin (les 3 premières) puis celui de la journée.
+
+Résultat attendu :
+
+```text
+Pic du matin : 1010 degrés
+Pic de la journée : 1180 degrés
+```
+'''
+
+sortie_attendue = '''
+Pic du matin : 1010 degrés
+Pic de la journée : 1180 degrés
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Le matin : `maximum(&releves[..3])`", "Dans la boucle : `if v > max { max = v; }`"]
+
+solution = '''
+fn maximum(valeurs: &[i32]) -> i32 {
+    let mut max = valeurs[0];
+    for &v in valeurs {
+        if v > max {
+            max = v;
+        }
+    }
+    max
+}
+
+fn main() {
+    let releves = [820, 950, 1010, 990, 1180, 1050];
+    println!("Pic du matin : {} degrés", maximum(&releves[..3]));
+    println!("Pic de la journée : {} degrés", maximum(&releves));
+}
+'''

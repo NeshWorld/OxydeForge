@@ -1,0 +1,53 @@
+id = "entr-36"
+module = "entrainement"
+titre = "Les jours de la semaine"
+notion = "match sur des nombres"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le calendrier de l’atelier numérote les jours de 1 à 7. Moi je préfère les noms. Et le 9, c’est quel jour ? Ah. Aucun."
+
+lecon = '''
+- une branche par valeur : `1 => "lundi",`
+- `_` attrape tout le reste (ici : les numéros invalides)
+'''
+
+mission = '''
+Pour 1, 6 et 9, affiche le nom du jour (1 = lundi … 7 = dimanche), ou « inconnu ».
+
+Résultat attendu :
+
+```text
+Jour 1 : lundi
+Jour 6 : samedi
+Jour 9 : inconnu
+```
+'''
+
+sortie_attendue = '''
+Jour 1 : lundi
+Jour 6 : samedi
+Jour 9 : inconnu
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let nom = match n { 1 => \"lundi\", 2 => \"mardi\", …, _ => \"inconnu\" };`"]
+
+solution = '''
+fn main() {
+    for n in [1, 6, 9] {
+        let nom = match n {
+            1 => "lundi",
+            2 => "mardi",
+            3 => "mercredi",
+            4 => "jeudi",
+            5 => "vendredi",
+            6 => "samedi",
+            7 => "dimanche",
+            _ => "inconnu",
+        };
+        println!("Jour {n} : {nom}");
+    }
+}
+'''

@@ -1,0 +1,41 @@
+id = "entr-24"
+module = "entrainement"
+titre = "Du texte au nombre"
+notion = "shadowing et .parse()"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "L’apprenti a tapé son âge au clavier : « 42 ». Mais c’est du texte ! Je ne peux pas lui ajouter un an. Enfin, pas en texte."
+
+lecon = '''
+- `"42".parse()` transforme du texte en nombre
+- `.unwrap()` dit « je suis sûr que ça marche » (sinon le programme s’arrête)
+- le masquage garde **le même nom** : `let age: i32 = age.parse().unwrap();`
+'''
+
+mission = '''
+Pars de `let age = "42";`. Masque-le en nombre (`i32`), puis encore pour lui ajouter 1. Affiche le résultat.
+
+Résultat attendu :
+
+```text
+L'an prochain : 43 ans
+```
+'''
+
+sortie_attendue = '''
+L'an prochain : 43 ans
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Trois `let age` à la suite : le texte, le nombre, puis `age + 1`."]
+
+solution = '''
+fn main() {
+    let age = "42";
+    let age: i32 = age.parse().unwrap();
+    let age = age + 1;
+    println!("L'an prochain : {age} ans");
+}
+'''

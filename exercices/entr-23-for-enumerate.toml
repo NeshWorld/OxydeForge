@@ -1,0 +1,44 @@
+id = "entr-23"
+module = "entrainement"
+titre = "Le tableau de service"
+notion = "for, .iter() et .enumerate()"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Il faut afficher le tableau de service avec des numéros. Ferris, moi, et Rusty le chat de l’atelier. Oui, le chat est de service."
+
+lecon = '''
+- `.iter().enumerate()` donne des paires `(numéro, valeur)`, comme `enumerate` en Python
+- le numéro commence à **0** : affiche `i + 1` pour commencer à 1
+'''
+
+mission = '''
+Avec `["Ferris", "Kael", "Rusty"]`, affiche une liste numérotée à partir de 1.
+
+Résultat attendu :
+
+```text
+1. Ferris
+2. Kael
+3. Rusty
+```
+'''
+
+sortie_attendue = '''
+1. Ferris
+2. Kael
+3. Rusty
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for (i, nom) in equipe.iter().enumerate() { println!(\"{}. {nom}\", i + 1); }`"]
+
+solution = '''
+fn main() {
+    let equipe = ["Ferris", "Kael", "Rusty"];
+    for (i, nom) in equipe.iter().enumerate() {
+        println!("{}. {nom}", i + 1);
+    }
+}
+'''

@@ -1,0 +1,49 @@
+id = "entr-31"
+module = "entrainement"
+titre = "La température limite"
+notion = "const comme seuil"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le four ne doit jamais dépasser 1200 degrés. Une fois, il a fait 1250. J’ai encore l’odeur de moustache grillée dans le nez."
+
+lecon = '''
+- une constante sert souvent de **seuil** : on la compare dans un `if`
+- si le seuil change un jour, une seule ligne à modifier
+'''
+
+mission = '''
+Déclare `TEMPERATURE_MAX` (1200, en `i32`). Pour 800, 1250 et 1100, affiche « OK » ou « SURCHAUFFE ».
+
+Résultat attendu :
+
+```text
+800 degrés : OK
+1250 degrés : SURCHAUFFE
+1100 degrés : OK
+```
+'''
+
+sortie_attendue = '''
+800 degrés : OK
+1250 degrés : SURCHAUFFE
+1100 degrés : OK
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for t in [800, 1250, 1100] { if t > TEMPERATURE_MAX { … } else { … } }`"]
+
+solution = '''
+const TEMPERATURE_MAX: i32 = 1200;
+
+fn main() {
+    for t in [800, 1250, 1100] {
+        if t > TEMPERATURE_MAX {
+            println!("{t} degrés : SURCHAUFFE");
+        } else {
+            println!("{t} degrés : OK");
+        }
+    }
+}
+'''

@@ -1,0 +1,61 @@
+id = "own-02"
+module = "ownership"
+titre = "Les trois règles"
+notion = "propriétaire et portée"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Le patron a affiché trois règles sur la porte de la réserve. Je les ai lues trois fois. Je crois que j’en ai compris deux. Tu m’expliques la troisième ?"
+
+lecon = '''
+Rust ne range pas la mémoire comme Python. Il suit **trois règles**, vérifiées à la compilation :
+
+| # | Règle |
+|---|---|
+| 1 | Chaque valeur a **un propriétaire** : la variable qui la contient |
+| 2 | Il n’y a **qu’un seul** propriétaire à la fois |
+| 3 | Quand le propriétaire sort de sa portée (la `}`), la valeur est **libérée** |
+
+```rust
+fn main() {
+    {
+        let atelier = String::from("Fonderie");   // atelier possède la String
+        println!("{atelier}");
+    }   // ← fin de la portée : la String est libérée, ici, automatiquement
+}
+```
+
+> En Python, un **ramasse-miettes** passe de temps en temps pour libérer ce qui ne sert plus. Rust n’en a pas besoin : il sait **exactement** où chaque valeur meurt, grâce à la règle 3.
+
+Pas de ramasse-miettes, pas d’oubli de libération comme en C : c’est ce qui rend Rust à la fois **rapide** et **sûr**.
+'''
+
+mission = '''
+Dans un bloc `{ }`, crée une `String` « Fonderie » et affiche qu’elle ouvre. Après le bloc, affiche que l’atelier a fermé.
+
+Résultat attendu :
+
+```text
+Fonderie : ouverture
+L'atelier a fermé, sa String est libérée
+```
+'''
+
+sortie_attendue = '''
+Fonderie : ouverture
+L'atelier a fermé, sa String est libérée
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["La `String` vit dans le bloc : `{ let atelier = String::from(\"Fonderie\"); println!(…); }`", "Après la `}`, `atelier` n’existe plus : écris juste le message de fermeture."]
+
+solution = '''
+fn main() {
+    {
+        let atelier = String::from("Fonderie");
+        println!("{atelier} : ouverture");
+    }
+    println!("L'atelier a fermé, sa String est libérée");
+}
+'''

@@ -1,0 +1,66 @@
+id = "own-15"
+module = "ownership"
+titre = "La règle d’or des prêts"
+notion = "plusieurs lecteurs OU un écrivain"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Le règlement de la bibliothèque de l’atelier : on peut être plein à lire le même manuel, mais un seul à écrire dedans. Et personne ne lit pendant qu’on écrit. J’ai enfin compris !"
+humeur = "heureux"
+
+lecon = '''
+Toutes les erreurs de l’étage tiennent en **une** règle :
+
+> **Plusieurs lecteurs (`&`) OU un seul écrivain (`&mut`). Jamais les deux en même temps.**
+
+| Situation | Autorisé ? |
+|---|---|
+| `&` + `&` + `&` | ✅ autant de lecteurs qu’on veut |
+| un seul `&mut` | ✅ |
+| `&mut` + `&mut` | ❌ E0499 |
+| `&` + `&mut` | ❌ E0502 |
+
+**Et la durée d’un prêt ?** Il s’arrête à sa **dernière utilisation**, pas à la `}`. Donc ceci marche :
+
+```rust
+let r1 = &s;
+let r2 = &s;
+println!("{r1} {r2}");   // dernière utilisation des lecteurs
+let w = &mut s;          // ✅ les lecteurs ont fini
+w.push('!');
+```
+
+> C’est exactement la règle d’un verrou en base de données : plusieurs `SELECT` en même temps, mais un `UPDATE` attend que personne ne lise.
+'''
+
+mission = '''
+Avec `let mut s = String::from("forge");` : deux lecteurs affichent la valeur, puis un écrivain ajoute « ! », puis affiche le résultat final.
+
+Résultat attendu :
+
+```text
+Lecteurs : forge et forge
+Après l'écrivain : forge!
+```
+'''
+
+sortie_attendue = '''
+Lecteurs : forge et forge
+Après l'écrivain : forge!
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Deux `&s`, un `println!` qui les utilise, puis `let w = &mut s; w.push('!');`"]
+
+solution = '''
+fn main() {
+    let mut s = String::from("forge");
+    let r1 = &s;
+    let r2 = &s;
+    println!("Lecteurs : {r1} et {r2}");
+    let w = &mut s;
+    w.push('!');
+    println!("Après l'écrivain : {s}");
+}
+'''

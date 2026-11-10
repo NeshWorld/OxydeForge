@@ -1,0 +1,40 @@
+id = "entr-07"
+module = "entrainement"
+titre = "Jusqu’au Soleil"
+notion = "i64 et très grands nombres"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le télescope du toit dit que le Soleil est à 149 597 870 700 mètres. Ça ne rentre même pas dans la case du formulaire !"
+humeur = "surpris"
+
+lecon = '''
+- `i32` s’arrête vers 2,1 milliards : trop petit ici
+- `i64` va jusqu’à environ 9 milliards de milliards
+- écris le type : `let distance_m: i64 = 149_597_870_700;`
+'''
+
+mission = '''
+Stocke la distance Terre-Soleil en mètres dans un `i64`, puis affiche-la en kilomètres (division entière par 1000).
+
+Résultat attendu :
+
+```text
+Distance Terre-Soleil : 149597870 km
+```
+'''
+
+sortie_attendue = '''
+Distance Terre-Soleil : 149597870 km
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`distance_m / 1000`"]
+
+solution = '''
+fn main() {
+    let distance_m: i64 = 149_597_870_700;
+    println!("Distance Terre-Soleil : {} km", distance_m / 1000);
+}
+'''

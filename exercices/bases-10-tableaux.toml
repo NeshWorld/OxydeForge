@@ -1,0 +1,73 @@
+id = "bases-10"
+module = "bases"
+titre = "Les tableaux"
+notion = "[T; N], index, len et for"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Les températures de la semaine sont dans ce carnet… quelque part… ah, voilà ! Il me faut la plus chaude et la moyenne pour le rapport. Avant midi. Il est midi et quart."
+
+lecon = '''
+Un **tableau** range plusieurs valeurs **du même type**, avec une **taille fixe**.
+
+```rust
+let notes = [12, 15, 18, 14];
+let zeros = [0; 5];            // [0, 0, 0, 0, 0]
+```
+
+Son type s'écrit `[type; taille]` : ici `[i32; 4]`.
+
+| Action | Rust | Python (liste) |
+|---|---|---|
+| Lire une case | `notes[0]` | `notes[0]` |
+| Taille | `notes.len()` | `len(notes)` |
+| Parcourir | `for n in notes { … }` | `for n in notes:` |
+| Ajouter une case | **impossible** : taille fixe | `notes.append(…)` |
+
+> Pour une liste qui **grandit**, Rust a `Vec` : ce sera pour plus tard.
+
+**Sécurité** : `notes[10]` sur un tableau de 4 cases **arrête** le programme (un *panic*), au lieu de lire n'importe quoi en mémoire comme en C.
+'''
+
+mission = '''
+Les températures de la semaine : `[18, 21, 25, 19, 23]`.
+
+Avec **une seule boucle**, calcule le maximum et le total. Puis affiche exactement :
+
+```text
+Maximum : 25
+Moyenne : 21.2
+```
+'''
+
+sortie_attendue = '''
+Maximum : 25
+Moyenne : 21.2
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche le maximum et la moyenne",
+]
+
+indices = [
+  "Deux variables modifiables avant la boucle : `let mut max = temperatures[0];` et `let mut total = 0;`",
+  "Dans la boucle : `total += t;` et `if t > max { max = t; }`",
+  "La moyenne en décimal : `total as f64 / temperatures.len() as f64`.",
+]
+
+solution = '''
+fn main() {
+    let temperatures = [18, 21, 25, 19, 23];
+    let mut max = temperatures[0];
+    let mut total = 0;
+    for t in temperatures {
+        total += t;
+        if t > max {
+            max = t;
+        }
+    }
+    println!("Maximum : {max}");
+    println!("Moyenne : {}", total as f64 / temperatures.len() as f64);
+}
+'''

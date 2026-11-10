@@ -1,0 +1,45 @@
+id = "entr-41"
+module = "entrainement"
+titre = "Graver une enseigne"
+notion = "String::new, push_str et push"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Il faut graver l’enseigne de l’atelier, lettre par lettre. J’ai commencé par la fin. Ça faisait « !egroF ». On recommence."
+
+lecon = '''
+- `String::new()` crée une `String` **vide** (avec `let mut`)
+- `push_str("…")` ajoute un texte, `push('!')` ajoute **un** caractère
+- `.len()` donne la longueur (en octets)
+'''
+
+mission = '''
+Pars d’une `String` vide. Ajoute « Oxyde », puis « Forge », puis « ! ». Affiche-la, puis sa longueur.
+
+Résultat attendu :
+
+```text
+OxydeForge!
+11 caractères
+```
+'''
+
+sortie_attendue = '''
+OxydeForge!
+11 caractères
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let mut enseigne = String::new();`"]
+
+solution = '''
+fn main() {
+    let mut enseigne = String::new();
+    enseigne.push_str("Oxyde");
+    enseigne.push_str("Forge");
+    enseigne.push('!');
+    println!("{enseigne}");
+    println!("{} caractères", enseigne.len());
+}
+'''

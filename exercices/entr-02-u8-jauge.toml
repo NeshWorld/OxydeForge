@@ -1,0 +1,41 @@
+id = "entr-02"
+module = "entrainement"
+titre = "La jauge pleine"
+notion = "u8 et addition"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La jauge de vapeur affiche 200. J’ajoute 55… elle est pleine ! J’en ajoute encore un ? Non ? Bon, je ne touche plus à rien."
+
+lecon = '''
+- précise le type avec `: u8` : `let jauge: u8 = 200;`
+- deux `u8` s’additionnent en un `u8`
+- si le résultat dépassait 255, le programme **s’arrêterait** (panic) : Rust ne déborde jamais en silence
+'''
+
+mission = '''
+Crée `jauge` (un `u8` qui vaut 200) et `ajout` (un `u8` qui vaut 55). Affiche le total sur 255.
+
+Résultat attendu :
+
+```text
+Jauge : 255 / 255
+```
+'''
+
+sortie_attendue = '''
+Jauge : 255 / 255
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let total = jauge + ajout;` puis `println!(\"Jauge : {total} / {}\", u8::MAX);`"]
+
+solution = '''
+fn main() {
+    let jauge: u8 = 200;
+    let ajout: u8 = 55;
+    let total = jauge + ajout;
+    println!("Jauge : {total} / {}", u8::MAX);
+}
+'''

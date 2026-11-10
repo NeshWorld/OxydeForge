@@ -1,0 +1,41 @@
+id = "entr-06"
+module = "entrainement"
+titre = "Le pourcentage de boulons"
+notion = "u32, as f64 et {:.1}"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "On a utilisé 1 234 boulons sur 5 000. Le patron veut le pourcentage. J’ai trouvé 0 %. Le patron n’a pas ri."
+
+lecon = '''
+- entre deux entiers, `1234 / 5000` donne **0** (division entière)
+- il faut convertir **avant** de diviser : `utilises as f64 / total as f64`
+- `{:.1}` arrondit l’affichage à une décimale
+'''
+
+mission = '''
+Avec `utilises = 1_234` et `total = 5_000` (des `u32`), affiche le pourcentage utilisé, arrondi à une décimale.
+
+Résultat attendu :
+
+```text
+Utilisés : 24.7 %
+```
+'''
+
+sortie_attendue = '''
+Utilisés : 24.7 %
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let pct = utilises as f64 / total as f64 * 100.0;`", "Puis `{pct:.1}` dans le texte."]
+
+solution = '''
+fn main() {
+    let utilises: u32 = 1_234;
+    let total: u32 = 5_000;
+    let pct = utilises as f64 / total as f64 * 100.0;
+    println!("Utilisés : {pct:.1} %");
+}
+'''

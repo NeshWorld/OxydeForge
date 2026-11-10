@@ -1,0 +1,96 @@
+id = "own-01c"
+module = "ownership"
+titre = "A a-t-il encore le lingot ?"
+notion = "move et E0382"
+type = "lis-erreur"
+chaine = "lingot"
+intro = true
+
+# Généré par scripts/generer_lingot.mjs : modifie le générateur, pas ce fichier.
+kael = "Attends… j’ai passé le lingot à B, et là je veux le remontrer au patron… et je l’ai plus ?! Mais je l’avais dans les mains il y a deux secondes !"
+humeur = "surpris"
+
+lecon = '''
+Tu viens de passer le lingot de A à B. La question : **A l’a-t-il encore ?**
+
+Essayons. Le **code** ci-dessous ajoute une ligne qui **redemande son lingot à A** :
+
+```rust
+println!("Et A ? {forgeron_a}");   // A a-t-il encore le lingot ?
+```
+
+Et là, Rust **refuse de compiler**. Le lingot a déménagé chez B : A a les **mains vides**.
+
+**Lis l’erreur `E0382`** :
+- `value moved here` : **où** le lingot est parti (le passage à B)
+- `value borrowed here after move` : là où tu réclames un lingot que A n’a plus
+
+C’est **ça**, voir le *move* : Rust t’empêche de rattraper l’ancien propriétaire. 🔒
+'''
+
+mission = '''
+Ton code de l’étape 2 est déjà là (A tient, puis B tient). Le bloc **« Le code »** montre ce qui se passe si on **réaffiche A** : l’erreur `E0382`. Lis-la. Puis **ajoute une dernière ligne** qui dit la vérité, sans toucher au lingot : `A n'a plus rien dans les mains`.
+
+Résultat attendu :
+
+```text
+A tient : lingot d'acier
+B tient : lingot d'acier
+A n'a plus rien dans les mains
+```
+'''
+
+code_casse = '''
+fn main() {
+    let forgeron_a = String::from("lingot d'acier");
+    println!("A tient : {forgeron_a}");
+    let forgeron_b = forgeron_a;
+    println!("B tient : {forgeron_b}");
+    println!("Et A ? {forgeron_a}");
+}
+'''
+
+erreur = '''
+error[E0382]: borrow of moved value: `forgeron_a`
+ --> main.rs:6:23
+  |
+2 |     let forgeron_a = String::from("lingot d'acier");
+  |         ---------- move occurs because `forgeron_a` has type `String`, which does not implement the `Copy` trait
+3 |     println!("A tient : {forgeron_a}");
+4 |     let forgeron_b = forgeron_a;
+  |                      ---------- value moved here
+5 |     println!("B tient : {forgeron_b}");
+6 |     println!("Et A ? {forgeron_a}");
+  |                       ^^^^^^^^^^ value borrowed here after move
+  |
+help: consider cloning the value if the performance cost is acceptable
+  |
+4 |     let forgeron_b = forgeron_a.clone();
+  |                                ++++++++
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0382`.
+'''
+
+erreur_corrigee = "E0382"
+
+sortie_attendue = '''
+A tient : lingot d'acier
+B tient : lingot d'acier
+A n'a plus rien dans les mains
+'''
+
+criteres = ["L'erreur `E0382` a **disparu**", "Le programme affiche le **bon texte**"]
+
+indices = ["Tu n’as **pas** besoin de réafficher A (c’est justement ça qui casse). Ajoute juste une ligne de texte simple.", "`println!(\"A n'a plus rien dans les mains\");`"]
+
+solution = '''
+fn main() {
+    let forgeron_a = String::from("lingot d'acier");
+    println!("A tient : {forgeron_a}");
+    let forgeron_b = forgeron_a;
+    println!("B tient : {forgeron_b}");
+    println!("A n'a plus rien dans les mains");
+}
+'''

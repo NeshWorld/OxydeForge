@@ -1,0 +1,50 @@
+id = "own-23"
+module = "ownership"
+titre = "Le rapport de machine"
+notion = "&str + &[u32] → String"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Commande spéciale ! Le patron veut un rapport par machine : son nom et sa moyenne de production. Il veut ça « propre ». J’ai fait un rapport la dernière fois. Il était propre. Mais faux."
+
+lecon = '''
+- la fonction **emprunte** le nom et les chiffres : `fn rapport(nom: &str, production: &[u32]) -> String`
+- elle **fabrique** une `String` neuve avec `format!`, et la donne à l’appelant
+- moyenne : convertir avec `as f64` avant de diviser, puis `{:.1}`
+'''
+
+mission = '''
+Écris `rapport`. Affiche le rapport de « Presse » `[12, 15, 9]` et de « Four » `[30, 28]`.
+
+Résultat attendu :
+
+```text
+Presse : moyenne 12.0 pièces
+Four : moyenne 29.0 pièces
+```
+'''
+
+sortie_attendue = '''
+Presse : moyenne 12.0 pièces
+Four : moyenne 29.0 pièces
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Somme dans une boucle, puis `somme as f64 / production.len() as f64`.", "`format!(\"{nom} : moyenne {moyenne:.1} pièces\")`"]
+
+solution = '''
+fn rapport(nom: &str, production: &[u32]) -> String {
+    let mut somme = 0;
+    for p in production {
+        somme += p;
+    }
+    let moyenne = somme as f64 / production.len() as f64;
+    format!("{nom} : moyenne {moyenne:.1} pièces")
+}
+
+fn main() {
+    println!("{}", rapport("Presse", &[12, 15, 9]));
+    println!("{}", rapport("Four", &[30, 28]));
+}
+'''

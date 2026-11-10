@@ -1,0 +1,48 @@
+id = "entr-14"
+module = "entrainement"
+titre = "Sortir en avance avec return"
+notion = "return et division par zéro"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La machine à diviser a explosé quand j’ai divisé par zéro. Enfin, elle a fait « pfff ». Il faudrait qu’elle refuse AVANT de calculer."
+
+lecon = '''
+- d’habitude, la dernière ligne sans `;` est la valeur renvoyée
+- `return valeur;` sert à sortir **en avance**, au milieu de la fonction
+- typique : vérifier un cas impossible tout au début
+'''
+
+mission = '''
+Écris `diviser(a, b)` qui renvoie `0` si `b` vaut 0 (avec `return`), et `a / b` sinon. Affiche `diviser(10, 2)` puis `diviser(7, 0)`.
+
+Résultat attendu :
+
+```text
+10 / 2 = 5
+7 / 0 = 0 (refusé)
+```
+'''
+
+sortie_attendue = '''
+10 / 2 = 5
+7 / 0 = 0 (refusé)
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`if b == 0 { return 0; }` en première ligne.", "La dernière ligne reste `a / b`, sans `return`."]
+
+solution = '''
+fn diviser(a: i32, b: i32) -> i32 {
+    if b == 0 {
+        return 0;
+    }
+    a / b
+}
+
+fn main() {
+    println!("10 / 2 = {}", diviser(10, 2));
+    println!("7 / 0 = {} (refusé)", diviser(7, 0));
+}
+'''

@@ -1,0 +1,77 @@
+id = "bases-02"
+module = "bases"
+titre = "Des variables dans le texte"
+notion = "let et {} dans println!"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Le registre des machines a perdu ses étiquettes ! Chaque machine a un nom et un âge. Ferris, la vieille presse, a 7 ans. Je crois. Ou 8. Tu vérifieras ?"
+
+lecon = '''
+`let` crée une **variable**. Rust **devine** son type tout seul.
+
+```rust
+fn main() {
+    let nom = "Ferris";
+    let age = 7;
+}
+```
+
+> **Important** : un `let` s'écrit toujours **à l'intérieur** d'une fonction. En dehors, Rust refuse (`expected item, found keyword let`). Au niveau du fichier, seuls les `fn`, `const` et quelques autres sont permis. En Python, au contraire, on peut écrire du code n'importe où.
+
+Pour l'afficher, `println!` remplace chaque `{}` par une valeur, **dans l'ordre** :
+
+```rust
+println!("{} a {} ans", nom, age);
+```
+
+Ou plus court : le **nom** de la variable directement entre les accolades.
+
+```rust
+println!("{nom} a {age} ans");
+```
+
+| Rust | Python |
+|---|---|
+| `println!("{} a {} ans", nom, age)` | `print("{} a {} ans".format(nom, age))` |
+| `println!("{nom} a {age} ans")` | `print(f"{nom} a {age} ans")` |
+
+> **Attention** : entre les accolades, seulement un **nom** de variable. `{age + 1}` est refusé : pour un calcul, utilise `{}` et mets le calcul **après** la virgule.
+'''
+
+mission = '''
+Crée deux variables : `nom` qui vaut `"Ferris"` et `age` qui vaut `7`.
+
+Puis affiche exactement ces deux lignes :
+
+```text
+Ferris a 7 ans
+L'an prochain, Ferris aura 8 ans
+```
+
+Le `8` doit être **calculé** à partir de `age`.
+'''
+
+sortie_attendue = '''
+Ferris a 7 ans
+L'an prochain, Ferris aura 8 ans
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche les **deux lignes** demandées",
+]
+
+indices = [
+  "Première ligne : `println!(\"{nom} a {age} ans\");`",
+  "Pour la deuxième, le calcul `age + 1` va après la virgule, avec un `{}` dans le texte.",
+]
+
+solution = '''
+fn main() {
+    let nom = "Ferris";
+    let age = 7;
+    println!("{nom} a {age} ans");
+    println!("L'an prochain, {} aura {} ans", nom, age + 1);
+}
+'''

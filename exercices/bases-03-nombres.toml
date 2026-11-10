@@ -1,0 +1,79 @@
+id = "bases-03"
+module = "bases"
+titre = "Les nombres ont un type"
+notion = "i32, f64, division et as"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Les inspecteurs ont noté les quatre fours : 12, 15, 18 et 14. Ils veulent la moyenne. J'ai trouvé 14… puis 14,75… puis j'ai renversé mon café sur la feuille."
+
+lecon = '''
+En Rust, chaque nombre a un **type**, qui fixe sa **taille** et sa **nature**.
+
+| Type | Contient | Exemple | En SQL |
+|---|---|---|---|
+| `i32` | entier, positif ou négatif | `-42` | `integer` |
+| `u8` | entier **positif**, de 0 à 255 | `200` | — |
+| `u32` | entier **positif**, jusqu'à 4,3 milliards | `299_792` | — |
+| `i64` | **grand** entier | `9_000_000_000` | `bigint` |
+| `f64` | nombre **décimal** | `3.14` | `double precision` |
+
+**Lire un nom de type** : `i` = avec signe (positif **ou** négatif), `u` = sans signe (jamais négatif), et le nombre = la taille en bits. `u8` : sans signe, 8 bits.
+
+On peut **préciser** le type après `:` :
+
+```rust
+let notes: i32 = 59;
+let moyenne: f64 = 14.75;
+```
+
+**Le piège** : entre deux entiers, `/` fait une division **entière**.
+
+| Calcul | Résultat |
+|---|---|
+| `7 / 2` | `3` (la virgule est **coupée**) |
+| `7.0 / 2.0` | `3.5` |
+
+Pour passer d'entier à décimal : `as`.
+
+```rust
+let somme = 59;
+let moyenne = somme as f64 / 4.0;   // 14.75
+```
+
+> En Python, `/` donne toujours un décimal et `//` un entier. Rust n'a que `/` : c'est le **type** qui décide.
+'''
+
+mission = '''
+Quatre notes : `12`, `15`, `18` et `14`.
+
+Calcule leur somme, puis affiche exactement :
+
+```text
+Moyenne entière : 14
+Moyenne exacte : 14.75
+```
+'''
+
+sortie_attendue = '''
+Moyenne entière : 14
+Moyenne exacte : 14.75
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche la moyenne **entière** puis la moyenne **exacte**",
+]
+
+indices = [
+  "`let somme = 12 + 15 + 18 + 14;` puis `somme / 4` pour la moyenne entière.",
+  "Pour la moyenne exacte : `somme as f64 / 4.0`.",
+]
+
+solution = '''
+fn main() {
+    let somme = 12 + 15 + 18 + 14;
+    println!("Moyenne entière : {}", somme / 4);
+    println!("Moyenne exacte : {}", somme as f64 / 4.0);
+}
+'''

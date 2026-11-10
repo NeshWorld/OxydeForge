@@ -1,0 +1,62 @@
+id = "cesar-4"
+module = "cesar"
+titre = "Espaces et ponctuation"
+notion = "is_ascii_uppercase() et return"
+type = "etape"
+
+# Généré par scripts/generer_cesar.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai voulu coder « RDV A LA FORGE, 8H ! » et le programme s’est écroulé. Il paraît que l’espace l’a vexé. Tu peux regarder ?"
+humeur = "inquiet"
+
+lecon = '''
+L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, tu ne repars pas de zéro.
+
+Essaie d’abord **sans rien changer** : le programme plante avec `attempt to subtract with overflow`. L’espace vaut 32, et `32 - 65` est impossible dans un `u8` (pas de négatifs).
+
+La solution : ne décaler **que les majuscules**, et laisser le reste tel quel.
+
+- `c.is_ascii_uppercase()` vaut `true` si `c` est une lettre de `A` à `Z`
+- `!` veut dire **non** : `!c.is_ascii_uppercase()`
+- `return c;` sort **tout de suite** de la fonction, en renvoyant `c`
+'''
+
+mission = '''
+Fais en sorte que `decaler` laisse passer tout ce qui n’est pas une majuscule. Dans `main`, chiffre `RDV A LA FORGE, 8H !` avec la clé 3.
+
+Résultat attendu :
+
+```text
+UGY D OD IRUJH, 8K !
+```
+'''
+
+sortie_attendue = '''
+UGY D OD IRUJH, 8K !
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Au tout début de `decaler` : `if !c.is_ascii_uppercase() { return c; }`"]
+
+solution = '''
+fn decaler(c: char, cle: u8) -> char {
+    if !c.is_ascii_uppercase() {
+        return c;
+    }
+    let position = c as u8 - b'A';
+    let nouvelle = (position + cle) % 26;
+    (b'A' + nouvelle) as char
+}
+
+fn chiffrer(texte: &str, cle: u8) -> String {
+    let mut resultat = String::new();
+    for c in texte.chars() {
+        resultat.push(decaler(c, cle));
+    }
+    resultat
+}
+
+fn main() {
+    println!("{}", chiffrer("RDV A LA FORGE, 8H !", 3));
+}
+'''

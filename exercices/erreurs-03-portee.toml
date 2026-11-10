@@ -1,0 +1,90 @@
+id = "erreurs-03"
+module = "erreurs"
+titre = "La variable disparue"
+notion = "portée d'un bloc et E0425"
+type = "lis-erreur"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Panne ! Un message a été rangé dans un placard, et plus personne ne le trouve. Je jure que je l'avais posé juste là."
+
+lecon = '''
+Une variable **n'existe que dans son bloc** `{ }`.
+
+À l'accolade fermante `}`, elle est **détruite**.
+
+```rust
+fn main() {
+    let a = 1;          // a existe à partir d'ici…
+    {
+        let b = 2;      // b existe à partir d'ici…
+    }                   // …b est détruite ici
+    println!("{a}");    // a existe toujours
+}                       // …a est détruite ici
+```
+
+On appelle ça la **portée** (en anglais : *scope*).
+
+| | Python | Rust |
+|---|---|---|
+| Une variable créée dans un `if` ou une boucle | existe **encore après** | **disparaît** à la `}` |
+
+> C'est la base de tout Rust : quand une variable sort de sa portée, Rust **libère sa mémoire** tout seul. Pas besoin de ramasse-miettes.
+
+**Lire l'erreur** :
+- `cannot find value` : « je ne trouve pas cette valeur »
+- `in this scope` : « **ici**, à cet endroit du code »
+- le `help:` montre **où** la variable existait : ligne 3, dans un autre bloc
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l'erreur ci-dessous.
+
+Réécris-le en entier, corrigé : il doit afficher `Bonjour`.
+'''
+
+code_casse = '''
+fn main() {
+    {
+        let message = "Bonjour";
+    }
+    println!("{message}");
+}
+'''
+
+erreur = '''
+error[E0425]: cannot find value `message` in this scope
+ --> main.rs:5:16
+  |
+5 |     println!("{message}");
+  |                ^^^^^^^
+  |
+help: the binding `message` is available in a different scope in the same function
+ --> main.rs:3:13
+  |
+3 |         let message = "Bonjour";
+  |             ^^^^^^^
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0425`.
+'''
+
+erreur_corrigee = "E0425"
+sortie_attendue = "Bonjour"
+
+criteres = [
+  "L'erreur `E0425` a **disparu**",
+  "Le programme affiche `Bonjour`",
+]
+
+indices = [
+  "Le `println!` est en dehors du bloc où vit `message`.",
+  "Deux solutions : mettre le `println!` dans le bloc, ou créer `message` en dehors.",
+]
+
+solution = '''
+fn main() {
+    let message = "Bonjour";
+    println!("{message}");
+}
+'''

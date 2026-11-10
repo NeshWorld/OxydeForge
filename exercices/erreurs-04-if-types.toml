@@ -1,0 +1,78 @@
+id = "erreurs-04"
+module = "erreurs"
+titre = "Un if, deux types"
+notion = "if comme expression et E0308"
+type = "lis-erreur"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Panne ! Le panneau de statut affiche soit un mot, soit un nombre, et le compilateur dit que ça ne se fait pas. Il a toujours raison. C'est vexant."
+
+lecon = '''
+En Rust, un `if` peut **renvoyer une valeur**, comme le ternaire de Python.
+
+```rust
+let statut = if age >= 18 { "majeur" } else { "mineur" };
+```
+
+| Python | Rust |
+|---|---|
+| `"majeur" if age >= 18 else "mineur"` | `if age >= 18 { "majeur" } else { "mineur" }` |
+
+**La règle** : toutes les branches doivent renvoyer **le même type**.
+
+Pourquoi ? `statut` doit avoir **un seul type**, connu **avant** l'exécution. Rust ne peut pas deviner à l'avance quelle branche sera choisie.
+
+**Lire l'erreur** :
+- `if and else have incompatible types` : « le if et le else n'ont pas le même type »
+- `expected because of this` : la **première** branche décide du type attendu (`&str`, du texte)
+- `expected &str, found integer` : « j'attendais du texte, j'ai trouvé un entier »
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l'erreur ci-dessous.
+
+Réécris-le en entier, corrigé : il doit afficher `Statut : majeur`.
+'''
+
+code_casse = '''
+fn main() {
+    let age = 20;
+    let statut = if age >= 18 { "majeur" } else { 0 };
+    println!("Statut : {statut}");
+}
+'''
+
+erreur = '''
+error[E0308]: `if` and `else` have incompatible types
+ --> main.rs:3:51
+  |
+3 |     let statut = if age >= 18 { "majeur" } else { 0 };
+  |                                 --------          ^ expected `&str`, found integer
+  |                                 |
+  |                                 expected because of this
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0308`.
+'''
+
+erreur_corrigee = "E0308"
+sortie_attendue = "Statut : majeur"
+
+criteres = [
+  "L'erreur `E0308` a **disparu**",
+  "Le programme affiche `Statut : majeur`",
+]
+
+indices = [
+  "La branche `else` doit renvoyer du texte, comme la branche `if`.",
+  "Quel serait le contraire de `\"majeur\"` ?",
+]
+
+solution = '''
+fn main() {
+    let age = 20;
+    let statut = if age >= 18 { "majeur" } else { "mineur" };
+    println!("Statut : {statut}");
+}
+'''

@@ -1,0 +1,77 @@
+id = "bases-05"
+module = "bases"
+titre = "if renvoie une valeur"
+notion = "if, else if, else comme expression"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Les ouvriers ne savent jamais quoi mettre selon la température. Un panneau qui choisit pour eux, ce serait génial. Hier, je suis venu en short. Il faisait 4 degrés."
+
+lecon = '''
+Le `if` de Rust ressemble à celui de Python, avec des **accolades** et **sans** `:`.
+
+```rust
+if temperature > 25 {
+    println!("Il fait chaud");
+} else if temperature > 15 {
+    println!("Il fait doux");
+} else {
+    println!("Il fait froid");
+}
+```
+
+| Python | Rust |
+|---|---|
+| `if x > 25:` | `if x > 25 {` |
+| `elif` | `else if` |
+| parenthèses autour de la condition : permises | **inutiles** (le compilateur te le signalera) |
+
+**Le super-pouvoir** : un `if` **renvoie une valeur**. Chaque branche se termine **sans `;`**.
+
+```rust
+let tenue = if temperature > 25 { "short" } else { "pull" };
+```
+
+> Toutes les branches doivent renvoyer **le même type** : c'est l'erreur E0308 du chapitre « Lis l'erreur ».
+'''
+
+mission = '''
+Crée `let temperature = 12;`
+
+Avec **un seul** `let tenue = if …`, choisis la tenue :
+- plus de 25 → `"short"`
+- plus de 15 → `"t-shirt"`
+- sinon → `"pull"`
+
+Puis affiche exactement :
+
+```text
+Avec 12 degrés : pull
+```
+'''
+
+sortie_attendue = "Avec 12 degrés : pull"
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche `Avec 12 degrés : pull`",
+]
+
+indices = [
+  "La structure : `let tenue = if … { \"short\" } else if … { \"t-shirt\" } else { \"pull\" };`",
+  "N'oublie pas le `;` après la dernière accolade : il termine le `let`.",
+]
+
+solution = '''
+fn main() {
+    let temperature = 12;
+    let tenue = if temperature > 25 {
+        "short"
+    } else if temperature > 15 {
+        "t-shirt"
+    } else {
+        "pull"
+    };
+    println!("Avec {temperature} degrés : {tenue}");
+}
+'''

@@ -1,0 +1,43 @@
+id = "entr-27"
+module = "entrainement"
+titre = "Changer d’unité"
+notion = "shadowing et changement de type"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La route jusqu’à la mine fait 5 kilomètres. Le géomètre veut des mètres, puis des centimètres. Il est très, très précis, le géomètre."
+
+lecon = '''
+- le masquage peut **changer le type** : `f64` puis `i64`
+- `distance as i64` convertit un décimal en entier (la virgule est coupée)
+'''
+
+mission = '''
+Pars de `let distance = 5.0;` (km). Masque-la en mètres et affiche-la, puis en centimètres entiers (`i64`) et affiche-la.
+
+Résultat attendu :
+
+```text
+En mètres : 5000
+En centimètres : 500000
+```
+'''
+
+sortie_attendue = '''
+En mètres : 5000
+En centimètres : 500000
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let distance = distance * 1000.0;`", "`let distance = distance as i64 * 100;`"]
+
+solution = '''
+fn main() {
+    let distance = 5.0;
+    let distance = distance * 1000.0;
+    println!("En mètres : {distance}");
+    let distance = distance as i64 * 100;
+    println!("En centimètres : {distance}");
+}
+'''

@@ -1,0 +1,44 @@
+id = "entr-26"
+module = "entrainement"
+titre = "Le test de pression"
+notion = "shadowing dans un bloc"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Pendant le test, on triple la pression de la chaudière. Après le test, elle doit revenir comme avant. Normalement. J’espère."
+
+lecon = '''
+- un masquage **dans un bloc** `{ }` disparaît à la `}`
+- la variable d’avant **réapparaît**, intacte
+'''
+
+mission = '''
+Avec `pression = 10`, ouvre un bloc qui la masque en triple et l’affiche. Après le bloc, affiche-la encore.
+
+Résultat attendu :
+
+```text
+Pendant le test : 30 bars
+Après le test : 10 bars
+```
+'''
+
+sortie_attendue = '''
+Pendant le test : 30 bars
+Après le test : 10 bars
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`{ let pression = pression * 3; println!(…); }`"]
+
+solution = '''
+fn main() {
+    let pression = 10;
+    {
+        let pression = pression * 3;
+        println!("Pendant le test : {pression} bars");
+    }
+    println!("Après le test : {pression} bars");
+}
+'''

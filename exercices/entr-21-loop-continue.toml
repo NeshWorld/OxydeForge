@@ -1,0 +1,59 @@
+id = "entr-21"
+module = "entrainement"
+titre = "Sauter les pièces défectueuses"
+notion = "loop et continue"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Toutes les pièces dont le numéro est un multiple de 3 sont ratées. Ne les affiche pas ! Personne ne doit savoir. Surtout pas le patron."
+
+lecon = '''
+- `continue` **saute** la fin du tour et passe au suivant
+- avec un compteur manuel, incrémente **avant** le `continue`, sinon la boucle tourne en rond
+'''
+
+mission = '''
+Avec `loop`, parcours les pièces 1 à 10 et affiche seulement celles qui ne sont pas multiples de 3.
+
+Résultat attendu :
+
+```text
+Pièce 1 : bonne
+Pièce 2 : bonne
+Pièce 4 : bonne
+Pièce 5 : bonne
+Pièce 7 : bonne
+Pièce 8 : bonne
+Pièce 10 : bonne
+```
+'''
+
+sortie_attendue = '''
+Pièce 1 : bonne
+Pièce 2 : bonne
+Pièce 4 : bonne
+Pièce 5 : bonne
+Pièce 7 : bonne
+Pièce 8 : bonne
+Pièce 10 : bonne
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Ordre dans la boucle : `n += 1;`, puis `if n > 10 { break; }`, puis `if n % 3 == 0 { continue; }`, puis le `println!`."]
+
+solution = '''
+fn main() {
+    let mut n = 0;
+    loop {
+        n += 1;
+        if n > 10 {
+            break;
+        }
+        if n % 3 == 0 {
+            continue;
+        }
+        println!("Pièce {n} : bonne");
+    }
+}
+'''

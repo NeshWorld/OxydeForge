@@ -1,0 +1,94 @@
+id = "erreurs-02"
+module = "erreurs"
+titre = "Entier + décimal = refus"
+notion = "i32, f64 et E0277"
+type = "lis-erreur"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Panne ! Quelqu'un a mélangé des boulons entiers et des demi-boulons dans la même caisse, et le compilateur refuse de les additionner. Ce quelqu'un… bon, d'accord, c'est moi."
+humeur = "gene"
+
+lecon = '''
+En Python, `5 + 2.5` donne `7.5` : Python **convertit** l'entier pour toi.
+
+Rust, lui, **ne convertit jamais en cachette**.
+
+| Valeur | Type deviné par Rust |
+|---|---|
+| `5` | un **entier** (`i32` par défaut) |
+| `2.5` | un **décimal** (`f64` par défaut) |
+
+Un entier et un décimal ne s'additionnent pas : il faut que **les deux soient du même type**.
+
+Deux façons de corriger :
+- écrire le nombre directement en décimal : `5.0` au lieu de `5`
+- **convertir** avec `as` : `a as f64`
+
+> `as` est une conversion **explicite** : tu la vois dans le code, elle ne se fait jamais toute seule.
+
+**Lire l'erreur** :
+- `cannot add a float to an integer` : « impossible d'ajouter un décimal à un entier »
+- `{integer} + {float}` : les accolades veulent dire « un entier, je ne sais pas encore lequel »
+- la longue liste `the following other types…` : ce que Rust **sait** additionner. Tu peux l'ignorer
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l'erreur ci-dessous.
+
+Réécris-le en entier, corrigé : il doit afficher `Total : 7.5`.
+'''
+
+code_casse = '''
+fn main() {
+    let a = 5;
+    let b = 2.5;
+    let total = a + b;
+    println!("Total : {total}");
+}
+'''
+
+erreur = '''
+error[E0277]: cannot add a float to an integer
+ --> main.rs:4:19
+  |
+4 |     let total = a + b;
+  |                   ^ no implementation for `{integer} + {float}`
+  |
+  = help: the trait `Add<{float}>` is not implemented for `{integer}`
+  = help: the following other types implement trait `Add<Rhs>`:
+            `&f128` implements `Add<f128>`
+            `&f128` implements `Add`
+            `&f16` implements `Add<f16>`
+            `&f16` implements `Add`
+            `&f32` implements `Add<f32>`
+            `&f32` implements `Add`
+            `&f64` implements `Add<f64>`
+            `&f64` implements `Add`
+          and 56 others
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0277`.
+'''
+
+erreur_corrigee = "E0277"
+sortie_attendue = "Total : 7.5"
+
+criteres = [
+  "L'erreur `E0277` a **disparu**",
+  "Le programme affiche `Total : 7.5`",
+]
+
+indices = [
+  "Les deux nombres doivent être du même type : des décimaux.",
+  "Le plus simple : écrire `5.0` au lieu de `5`.",
+]
+
+solution = '''
+fn main() {
+    let a = 5.0;
+    let b = 2.5;
+    let total = a + b;
+    println!("Total : {total}");
+}
+'''

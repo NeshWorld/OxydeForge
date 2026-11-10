@@ -1,0 +1,2262 @@
+/* Palette néon d'OxydeForge : voir IDEES.md, section Palette. */
+:root {
+  --bg: #090c11;
+  --bg-panel: #0e1218;
+  --bg-editor: #0b0f15;
+  --bg-raised: #161c26;
+  --line: #1d2430;
+  --line-strong: #2d3747;
+  --text: #e1e7f0;
+  --text-dim: #9aa7ba;
+  --text-faint: #66738a;
+  --accent: #ff7a1a;
+  --accent-hover: #ff9a52;
+  --on-accent: #1a0c02;
+  --danger: #ff3d7f;
+  --warn: #ffd23f;
+  --success: #c8ff4d;
+  --info: #62b0ff;
+  --syn-keyword: #7cc4ff;
+  --syn-macro: var(--accent);
+  --syn-type: #b9e769;
+  --syn-string: #7ff0d0;
+  --syn-number: #e2a3ff;
+  --syn-param: #ff6b6b;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', Consolas, monospace;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 0.9375rem/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--info);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+code {
+  font: 500 0.87em var(--mono);
+  color: var(--accent);
+  background: rgba(255, 122, 26, 0.09);
+  padding: 1px 5px;
+}
+
+kbd {
+  font: 0.6875rem var(--mono);
+  opacity: 0.65;
+  margin-left: 6px;
+}
+
+.boot {
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  height: 100%;
+  padding: 24px;
+  font-family: var(--mono);
+  color: var(--text-dim);
+}
+
+/* Démarrage : engrenages + barre penchée, comme Nullforge */
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: var(--bg);
+  font: 0.875rem var(--mono);
+  color: var(--text-dim);
+  transition: opacity 0.3s linear;
+}
+
+.boot-overlay.leaving-fade {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Les morceaux prennent le relais : l'écran d'origine disparaît d'un coup, sans flash. */
+.boot-overlay.leaving-shatter {
+  visibility: hidden;
+}
+
+/* Sortie : l'écran se découpe, puis les morceaux s'éteignent du bas vers le haut */
+.shatter {
+  position: fixed;
+  inset: 0;
+  z-index: 31;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shatter-tile {
+  position: absolute;
+  overflow: hidden;
+  /* Durées et délais posés par Shatter.tsx, lamelle par lamelle. */
+  animation-name: shatter-cut, shatter-out;
+  /* Pas de steps() : un arrondi (progression 0,99999…) bloquait certaines lamelles sur un palier. */
+  animation-timing-function: ease-out, linear;
+  animation-fill-mode: forwards, forwards;
+}
+
+/* La copie complète de l'écran, décalée : chaque morceau n'en montre que sa portion. */
+.shatter-copy {
+  position: absolute;
+  inset: auto;
+  visibility: visible;
+}
+
+/* 1. La découpe : chaque morceau rétrécit un peu, les fentes s'ouvrent,
+   et leurs bords rougeoient comme du métal tranché. */
+@keyframes shatter-cut {
+  to {
+    transform: scaleY(0.86);
+    box-shadow:
+      0 0 0 1px rgba(255, 122, 26, 0.75),
+      0 0 10px rgba(255, 122, 26, 0.35);
+  }
+}
+
+/* 2. Le fondu : le morceau s'éteint en glissant à peine vers le bas. */
+@keyframes shatter-out {
+  /* Repart exactement de la fin de la découpe, sinon le morceau sauterait. */
+  from {
+    opacity: 1;
+    transform: scaleY(0.86);
+    box-shadow:
+      0 0 0 1px rgba(255, 122, 26, 0.75),
+      0 0 10px rgba(255, 122, 26, 0.35);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0.86);
+    box-shadow: 0 0 0 1px rgba(255, 122, 26, 0);
+  }
+}
+
+/* La puce : zone invisible autour des engrenages et de la barre, au-dessus du circuit. */
+.boot-chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 36px;
+}
+
+.boot-status {
+  min-height: 1.6em;
+  color: var(--text);
+}
+
+.boot-verb {
+  font-weight: 700;
+  white-space: pre;
+  color: var(--accent);
+}
+
+/* Le circuit imprimé, sur tout l'écran, derrière la puce. */
+.circuits {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.trace {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trace.off {
+  stroke: rgba(195, 204, 216, 0.16);
+}
+
+.trace.on {
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 3px rgba(255, 122, 26, 0.7));
+}
+
+.pin {
+  fill: #3a4352;
+  transition: fill 0.25s;
+}
+
+.pin.lit {
+  fill: var(--accent);
+}
+
+/* Le décor : composants éteints et voyants en veille, plus sombres que les vraies pistes. */
+.dead-trace {
+  fill: none;
+  stroke: rgba(195, 204, 216, 0.07);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.part {
+  fill: #11161e;
+  stroke: rgba(195, 204, 216, 0.1);
+  stroke-width: 1.5;
+}
+
+.part-leg {
+  fill: rgba(195, 204, 216, 0.1);
+}
+
+.led {
+  opacity: 0.12;
+  animation: led-veille 10s infinite;
+}
+
+.led-info { fill: var(--info); }
+.led-warn { fill: var(--warn); }
+.led-success { fill: var(--success); }
+.led-danger { fill: var(--danger); }
+
+/* Presque toujours éteint, un bref éclat, puis plus rien. */
+@keyframes led-veille {
+  0%, 92%, 100% { opacity: 0.12; }
+  95% { opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led {
+    animation: none;
+  }
+}
+
+.via {
+  fill: rgba(195, 204, 216, 0.16);
+  transition: fill 0.2s;
+}
+
+.via.lit {
+  fill: var(--accent);
+}
+
+.pad {
+  fill: var(--bg);
+  stroke: rgba(195, 204, 216, 0.16);
+  stroke-width: 2;
+  transition:
+    fill 0.2s,
+    stroke 0.2s;
+}
+
+.pad.lit {
+  fill: var(--accent);
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 4px rgba(255, 122, 26, 0.9));
+}
+
+.gears {
+  width: min(420px, calc(100vw - 56px));
+  height: auto;
+  margin-bottom: 6px;
+}
+
+.gear {
+  fill: var(--text);
+}
+
+.gear-rust,
+.gear-rust-r {
+  fill: var(--accent);
+}
+
+/* La taille vient de l'attribut fontSize du SVG : ici, seulement l'épaisseur et la police. */
+.gear-rust-r {
+  font-family: var(--sans);
+  font-weight: 700;
+}
+
+.gear-hole {
+  fill: var(--bg);
+}
+
+.gear-spin {
+  animation: gear-turn linear infinite;
+}
+
+@keyframes gear-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.boot-bar-zone {
+  position: relative;
+  width: min(420px, calc(100vw - 56px));
+  height: 44px;
+}
+
+/* Toute la barre est penchée : cadre et segments suivent la même diagonale. */
+.boot-bar {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+  height: 100%;
+  padding: 4px;
+  background: var(--bg-raised);
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  transform: skewX(-20deg);
+  transition: background-color 0.2s linear;
+}
+
+.boot-bar i {
+  border-radius: 1px;
+  background: var(--accent);
+  opacity: 0;
+}
+
+.boot-bar i.on {
+  opacity: 1;
+}
+
+.boot-bar.full {
+  background: var(--accent);
+}
+
+/* Le bouton recouvre la barre : son texte reste droit, seule la barre est penchée. */
+.boot-enter {
+  position: absolute;
+  inset: 0;
+  font: 700 1rem var(--mono);
+  color: var(--on-accent);
+}
+
+.boot-enter:focus-visible {
+  outline: none;
+}
+
+.boot-enter span {
+  animation: boot-breathe 3.6s ease-in-out infinite;
+}
+
+.boot-enter span::before {
+  content: '$ ';
+  opacity: 0.6;
+}
+
+@keyframes boot-breathe {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gear-spin,
+  .boot-enter span {
+    animation: none;
+  }
+}
+
+.boot pre {
+  max-width: 80ch;
+  white-space: pre-wrap;
+  color: var(--danger);
+}
+
+/* Structure : menu | énoncé | éditeur */
+.app {
+  display: grid;
+  grid-template-columns: 264px minmax(360px, 0.8fr) minmax(480px, 1.2fr);
+  /* 100 % plutôt que 100vh : dans un artefact, la page vit dans un cadre qui a ses propres marges. */
+  height: 100%;
+  overflow: hidden;
+}
+
+.app.sidebar-collapsed {
+  grid-template-columns: 54px minmax(360px, 0.8fr) minmax(480px, 1.2fr);
+}
+
+/* Écran étroit (téléphone, petite fenêtre) : les panneaux s'empilent et la page défile. */
+@media (max-width: 900px) {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .app,
+  .app.sidebar-collapsed {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .sidebar {
+    max-height: 45vh;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* .app devant : plus précis que la règle .sidebar, écrite plus bas dans le fichier. */
+  .app .sidebar-rail {
+    flex-direction: row;
+    max-height: none;
+    padding: 8px 16px;
+  }
+
+  .brief,
+  .demo {
+    overflow: visible;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    border-right: 0;
+  }
+
+  .workspace {
+    min-height: 90vh;
+  }
+
+  .toolbar {
+    flex-wrap: wrap;
+  }
+
+  .toolbar-actions {
+    flex-wrap: wrap;
+  }
+
+  .compare,
+  .demo-split,
+  .pt-scene {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .kael-face {
+    width: 80px;
+    height: 92px;
+  }
+}
+
+.sidebar-toggle {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  font: 700 16px/1 var(--mono);
+  color: var(--text-dim);
+}
+
+.sidebar-toggle:hover {
+  color: var(--accent);
+  background: var(--bg-raised);
+}
+
+.sidebar-rail {
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.rail-count {
+  font: 11px var(--mono);
+  color: var(--text-dim);
+}
+
+/* Passage à l'exercice suivant (voir src/ui/transition.ts) */
+.swap-stage {
+  position: fixed;
+  z-index: 15;
+  overflow: hidden;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--line);
+}
+
+.swap-layer {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: 0;
+}
+
+.swap-w {
+  transition:
+    opacity 160ms linear,
+    filter 160ms linear;
+}
+
+.swap-w.out {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+.swap-w.hidden {
+  opacity: 0;
+}
+
+.swap-stage :is(.kael-card, .mission, .md-code, .rustc, .hint, .md-table, .broken, summary) {
+  transition: opacity 0.2s linear;
+}
+
+.swap-gone {
+  opacity: 0 !important;
+}
+
+.swap-code {
+  position: fixed;
+  z-index: 15;
+  overflow: hidden;
+  background: var(--bg-editor);
+  pointer-events: none;
+}
+
+.swap-code pre {
+  margin: 0;
+  padding: 14px 0;
+  font: 0.875rem/1.65 var(--mono);
+  white-space: pre;
+  color: var(--text);
+}
+
+.swap-num {
+  display: inline-block;
+  width: 44px;
+  padding-right: 14px;
+  text-align: right;
+  color: var(--text-faint);
+}
+
+.swap-output {
+  position: fixed;
+  z-index: 15;
+  overflow: hidden;
+  background: var(--bg-panel);
+  pointer-events: none;
+  transition: opacity 0.4s linear;
+}
+
+/* Réglages (taille du texte), comme dans Nullforge */
+.sidebar-settings {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: 8px 14px;
+  color: var(--text-dim);
+}
+
+.sidebar-rail .sidebar-settings {
+  margin: 0;
+}
+
+.sidebar-settings:hover,
+.sidebar-settings[aria-pressed='true'] {
+  color: var(--accent);
+}
+
+.settings-panel {
+  grid-column: 2 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+  overflow: auto;
+  font-size: 1.125rem;
+  background: var(--bg-editor);
+}
+
+.settings-card {
+  width: min(560px, 100%);
+}
+
+.settings-card h2 {
+  margin: 0 0 28px;
+  font-size: 2.25rem;
+}
+
+.settings-card h3 {
+  margin: 28px 0 6px;
+  font-size: 1.25rem;
+}
+
+.settings-help {
+  margin-bottom: 14px;
+  font-size: 0.9375rem;
+  color: var(--text-dim);
+}
+
+.settings-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.settings-sizes button {
+  flex: 1;
+  padding: 10px 14px;
+  white-space: nowrap;
+  color: var(--text-dim);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.settings-sizes button:hover {
+  color: var(--text);
+}
+
+.settings-sizes button[aria-pressed='true'] {
+  color: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.settings-link {
+  width: 100%;
+  padding: 10px 14px;
+  text-align: left;
+  font-family: var(--mono);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.settings-link:hover {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.settings-done {
+  display: block;
+  margin: 32px 0 0 auto;
+  padding: 10px 28px;
+}
+
+/* Les deux zones colorées des réglages : verte (afficher tout) et DANGER (effacer). */
+.settings-zone {
+  margin-top: 28px;
+  padding: 4px 18px 18px;
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+}
+
+.settings-zone h3 {
+  margin-top: 14px;
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.zone-verte {
+  border-color: rgba(200, 255, 77, 0.35);
+  border-left-color: var(--success);
+  background: rgba(200, 255, 77, 0.04);
+}
+
+.zone-verte h3 {
+  color: var(--success);
+}
+
+.zone-danger {
+  border-color: rgba(255, 61, 127, 0.35);
+  border-left-color: var(--danger);
+  background: rgba(255, 61, 127, 0.05);
+}
+
+.zone-danger h3 {
+  color: var(--danger);
+}
+
+/* L'interrupteur de la zone verte. */
+.zone-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  color: var(--text-dim);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.zone-toggle:hover {
+  color: var(--text);
+}
+
+.zone-switch {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--line-strong);
+  transition: background 0.15s;
+}
+
+.zone-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: transform 0.15s, background 0.15s;
+}
+
+.zone-toggle[aria-pressed='true'] {
+  color: var(--success);
+  box-shadow: inset 0 0 0 1px var(--success);
+}
+
+.zone-toggle[aria-pressed='true'] .zone-switch {
+  background: rgba(200, 255, 77, 0.3);
+}
+
+.zone-toggle[aria-pressed='true'] .zone-switch::after {
+  transform: translateX(16px);
+  background: var(--success);
+}
+
+/* Le bouton rouge, et sa confirmation en deux clics. */
+.danger-button,
+.danger-go {
+  padding: 10px 16px;
+  color: var(--danger);
+  box-shadow: inset 0 0 0 1px var(--danger);
+}
+
+.danger-button:hover,
+.danger-go:hover {
+  color: var(--bg);
+  background: var(--danger);
+}
+
+.danger-confirm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.danger-confirm span {
+  font-weight: 700;
+  color: var(--danger);
+}
+
+.danger-cancel {
+  padding: 10px 16px;
+  color: var(--text-dim);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zone-switch,
+  .zone-switch::after {
+    transition: none;
+  }
+}
+
+/* Barre latérale */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg);
+  border-right: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 18px 14px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font: 700 19px var(--mono);
+}
+
+.brand h1 {
+  font: 700 1rem/1.2 var(--mono);
+  letter-spacing: 0.02em;
+}
+
+.brand p {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.brand-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px 14px;
+  font: 0.75rem var(--mono);
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--line);
+}
+
+.meter-track {
+  flex: 1;
+  height: 4px;
+  background: var(--line);
+}
+
+.meter-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.module-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0 14px;
+}
+
+.module h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 16px 18px 6px;
+  font: 700 0.6875rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.module h2 small {
+  font: 400 0.6875rem var(--sans);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-faint);
+}
+
+.module-erreurs h2 {
+  color: var(--danger);
+}
+
+.module ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 18px 7px 15px;
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--text-dim);
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--bg-panel);
+  color: var(--text);
+}
+
+.nav-item.active {
+  background: var(--bg-raised);
+  color: var(--text);
+  border-left-color: var(--accent);
+}
+
+.nav-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.nav-item:disabled:hover {
+  background: none;
+  color: var(--text-dim);
+}
+
+.module-erreurs .nav-item.active {
+  border-left-color: var(--danger);
+}
+
+.module-defis h2 {
+  color: var(--warn);
+}
+
+.module-defis .nav-item.active {
+  border-left-color: var(--warn);
+}
+
+.nav-state {
+  flex: none;
+  width: 20px;
+  padding-top: 1px;
+  font: 0.75rem/1.45 var(--mono);
+  color: var(--text-faint);
+}
+
+.nav-state.done {
+  color: var(--success);
+}
+
+/* Énoncé */
+.brief {
+  overflow-y: auto;
+  padding: 24px 26px 40px;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--line);
+}
+
+.eyebrow {
+  font: 0.75rem var(--mono);
+  color: var(--accent);
+}
+
+.type-tag {
+  color: var(--text-dim);
+}
+
+.brief-head h2 {
+  margin-top: 4px;
+  font-size: 1.6875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.brief h3,
+.lesson summary {
+  font: 700 0.75rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Kael, le technicien de la fonderie */
+.kael-card {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin-top: 34px;
+  padding: 12px 16px 12px 0;
+  background: rgba(255, 122, 26, 0.06);
+  border: 1px solid rgba(255, 122, 26, 0.3);
+  border-radius: 6px;
+}
+
+.kael-card.kael-lis-erreur {
+  background: rgba(255, 61, 127, 0.06);
+  border-color: rgba(255, 61, 127, 0.35);
+}
+
+.kael-card.kael-defi {
+  background: rgba(255, 210, 63, 0.05);
+  border-color: rgba(255, 210, 63, 0.3);
+}
+
+/* Le visage de Kael, détouré : il dépasse un peu en haut de sa bulle, sans cadre. */
+.kael-face {
+  flex: none;
+  position: relative;
+  width: 104px;
+  height: 118px;
+  margin: -34px 0 -12px 4px;
+}
+
+.kael-face img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45));
+}
+
+.kael-face.shake {
+  animation: kael-sursaut 0.45s ease-in-out;
+}
+
+@keyframes kael-sursaut {
+  20% {
+    transform: translateX(-4px) rotate(-3deg);
+  }
+  40% {
+    transform: translateX(4px) rotate(3deg);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+.kael-body {
+  padding-bottom: 2px;
+}
+
+/* ALERTE, CHEF : les bords de la fenêtre s'illuminent en rouge quand le code est refusé.
+   3 pulsations franches (1,8 s), puis une lueur calme qui reste jusqu'à la prochaine compilation réussie.
+   Photosensibilité : une pulsation toutes les 0,6 s au plus, et seuls les bords brillent. */
+.alarme {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow:
+    inset 0 0 0 3px #ff2b3a,
+    inset 0 0 38px 6px rgba(255, 43, 58, 0.55),
+    inset 0 0 120px 20px rgba(255, 43, 58, 0.18);
+}
+
+.alarme.on {
+  opacity: 1;
+  animation:
+    alarme-pulse 0.6s ease-in-out 3,
+    alarme-veille 2.4s ease-in-out 1.8s infinite;
+}
+
+@keyframes alarme-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes alarme-veille {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alarme.on,
+  .kael-face.shake {
+    animation: none;
+  }
+
+  .alarme.on {
+    opacity: 0.6;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.kael-label {
+  margin-bottom: 4px;
+  font: 700 0.6875rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.kael-lis-erreur .kael-label {
+  color: var(--danger);
+}
+
+.kael-defi .kael-label {
+  color: var(--warn);
+}
+
+.kael-label span {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-faint);
+}
+
+.kael-text {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.kael-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(5, 7, 10, 0.75);
+  animation: demo-rise 0.3s ease-out both;
+}
+
+.kael-welcome-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(560px, 100%);
+  padding: 26px 28px;
+  background: var(--bg-panel);
+  border: 1px solid var(--accent);
+  border-top-width: 3px;
+}
+
+.kael-welcome-head {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* À l'accueil, Kael sort franchement du haut de la carte. */
+.kael-welcome-head .kael-face {
+  width: 130px;
+  height: 148px;
+  margin: -70px 0 0 -6px;
+}
+
+.kael-welcome-head div {
+  padding-bottom: 12px;
+}
+
+.kael-welcome-head h2 {
+  font-size: 1.25rem;
+}
+
+.kael-welcome-head p {
+  font: 0.75rem var(--mono);
+  color: var(--text-faint);
+}
+
+.kael-welcome-card .primary {
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+.victory-kael {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.demo .kael-card {
+  margin-top: 14px;
+  max-width: 80ch;
+}
+
+.lesson {
+  margin-top: 22px;
+}
+
+.lesson summary {
+  cursor: pointer;
+  padding-bottom: 8px;
+}
+
+.mission {
+  margin-top: 24px;
+  padding: 16px 18px;
+  background: var(--bg);
+  border-left: 3px solid var(--accent);
+}
+
+.mission h3 {
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.broken,
+.criteria,
+.hints {
+  margin-top: 24px;
+}
+
+.broken h3 {
+  margin-bottom: 10px;
+}
+
+.criteria ul {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.criteria li {
+  display: flex;
+  gap: 10px;
+  padding: 3px 0;
+  color: var(--text-dim);
+}
+
+.criterion-mark {
+  flex: none;
+  width: 14px;
+  text-align: center;
+  font-family: var(--mono);
+}
+
+.criterion-detail {
+  display: block;
+  font: 0.75rem/1.4 var(--mono);
+  color: var(--text-dim);
+}
+
+.criteria li.pass {
+  color: var(--text);
+}
+
+.criteria li.pass .criterion-mark {
+  color: var(--success);
+}
+
+.criteria li.fail,
+.criteria li.fail .criterion-mark {
+  color: var(--danger);
+}
+
+.hints h3 {
+  margin-bottom: 10px;
+}
+
+.hint {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  background: var(--bg-raised);
+}
+
+.hint-number {
+  flex: none;
+  font: 700 12px/1.8 var(--mono);
+  color: var(--warn);
+}
+
+/* Démo « Dans la machine » : occupe l'énoncé ET l'éditeur */
+.demo {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 24px 32px 28px;
+  background: var(--bg-panel);
+}
+
+.demo-head h2 {
+  margin-top: 4px;
+  font-size: 1.6875rem;
+  font-weight: 600;
+}
+
+.demo-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-pipeline button {
+  padding: 6px 12px;
+  font: 0.8125rem var(--mono);
+  color: var(--text-faint);
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.demo-pipeline .passed button {
+  color: var(--text-dim);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+.demo-pipeline .current button {
+  color: var(--on-accent);
+  background: var(--accent);
+  box-shadow: none;
+}
+
+.demo-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 24px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.demo-caption {
+  max-width: 72ch;
+  animation: demo-rise 0.4s ease-out both;
+}
+
+.demo-caption h3 {
+  margin-bottom: 6px;
+  font-size: 1.125rem;
+  color: var(--accent);
+}
+
+.demo-laius {
+  margin-top: 16px;
+  padding: 16px 18px;
+  background: var(--bg);
+  border-left: 3px solid var(--info);
+}
+
+.demo-laius h4 {
+  margin: 0 0 8px;
+  font: 700 0.75rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--info);
+}
+
+.demo-laius p {
+  margin: 0 0 12px;
+}
+
+.demo-laius tbody th {
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.demo-nuance {
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.demo-laius .demo-nuance {
+  margin: 0;
+}
+
+.demo-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.demo-count {
+  font: 0.8125rem var(--mono);
+  color: var(--text-faint);
+}
+
+.demo-file {
+  min-width: min(420px, 100%);
+  animation: demo-rise 0.4s ease-out both;
+}
+
+.demo-file-name {
+  display: inline-block;
+  padding: 3px 10px;
+  font: 0.75rem var(--mono);
+  color: var(--text-dim);
+  background: var(--bg-raised);
+}
+
+.demo-file .md-code {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+/* ① les jetons arrivent un par un */
+.demo-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.demo-token {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--bg-editor);
+  border: 1px solid var(--line-strong);
+  animation: demo-pop 0.35s ease-out both;
+}
+
+.demo-token code {
+  font-size: 1rem;
+  background: none;
+  color: var(--text);
+}
+
+.demo-token code.tok-keyword {
+  color: var(--syn-keyword);
+}
+
+.demo-token code.tok-macro {
+  color: var(--syn-macro);
+}
+
+.demo-token code.tok-string {
+  color: var(--syn-string);
+}
+
+.demo-token code.tok-punct {
+  color: var(--text-dim);
+}
+
+.demo-token small,
+.demo-tree small,
+.demo-verif small,
+.demo-exe small {
+  font: 0.6875rem var(--mono);
+  color: var(--text-faint);
+}
+
+/* ② l'arbre se construit niveau par niveau */
+.demo-tree {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-tree li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 0;
+  animation: demo-rise 0.4s ease-out both;
+}
+
+.demo-tree code {
+  padding: 4px 10px;
+  font-size: 0.9375rem;
+  border: 1px solid rgba(255, 122, 26, 0.4);
+}
+
+.demo-branch {
+  font-family: var(--mono);
+  color: var(--text-faint);
+}
+
+/* 3. les vérifications : un code accepté, un code refusé, côte à côte */
+.demo-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  width: 100%;
+}
+
+.demo-verif {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+}
+
+.demo-verif .md-code {
+  margin: 0;
+}
+
+.demo-verif .demo-file-name {
+  align-self: flex-start;
+}
+
+.demo-verif ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-verif li {
+  display: flex;
+  gap: 12px;
+  animation: demo-rise 0.35s ease-out both;
+}
+
+.demo-verif li span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-check-mark {
+  font: 700 1.1rem var(--mono);
+  color: var(--success);
+}
+
+.demo-verif li.fail .demo-check-mark,
+.demo-verif li.fail strong,
+.demo-verif li.fail small {
+  color: var(--danger);
+}
+
+/* Le tampon se pose en bas à droite de sa colonne, sans cacher les contrôles. */
+.demo-stamp {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  padding: 6px 14px;
+  font: 700 1.25rem var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--success);
+  background: rgba(9, 12, 17, 0.85);
+  border: 3px solid var(--success);
+  transform: rotate(-12deg);
+  animation: demo-stamp 0.3s ease-in both;
+}
+
+.demo-verif.ko .demo-stamp {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.demo-verif.ko {
+  border-color: rgba(255, 61, 127, 0.35);
+}
+
+/* ④ le binaire défile, puis main.exe apparaît */
+.demo-machine {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.demo-binary {
+  margin: 0;
+  font: 0.8125rem/1.5 var(--mono);
+  color: var(--accent);
+}
+
+.demo-binary span {
+  animation: demo-flash 0.3s ease-out both;
+}
+
+.demo-exe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 22px;
+  border: 2px solid var(--accent);
+  animation: demo-pop 0.4s ease-out both;
+}
+
+.demo-exe-icon {
+  font: 700 2rem var(--mono);
+  color: var(--accent);
+}
+
+/* ⑤ le terminal */
+.demo-terminal {
+  width: min(460px, 100%);
+  background: #05070a;
+  border: 1px solid var(--line-strong);
+  animation: demo-rise 0.3s ease-out both;
+}
+
+.demo-terminal-bar {
+  padding: 4px 10px;
+  font: 0.6875rem var(--mono);
+  color: var(--text-faint);
+  border-bottom: 1px solid var(--line);
+}
+
+.demo-terminal pre {
+  margin: 0;
+  padding: 12px 14px;
+  font: 0.9375rem/1.7 var(--mono);
+  white-space: pre-wrap;
+}
+
+.demo-terminal .timing {
+  padding: 0 14px 10px;
+}
+
+.demo-typed {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  color: var(--text-dim);
+  animation: demo-type 0.9s steps(12, end) both;
+}
+
+.demo-output {
+  color: var(--success);
+  animation: demo-rise 0.3s ease-out 1.2s both;
+}
+
+.demo-real {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+@keyframes demo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes demo-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes demo-flash {
+  from {
+    opacity: 0;
+    color: #fff;
+  }
+}
+
+@keyframes demo-stamp {
+  from {
+    opacity: 0;
+    transform: rotate(-12deg) scale(2.2);
+  }
+}
+
+@keyframes demo-type {
+  from {
+    width: 0;
+  }
+  to {
+    width: 12ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo *,
+  .demo-caption {
+    animation: none !important;
+  }
+}
+
+/* Démo « La pile et le tas » (src/ui/PileTas.tsx) */
+.pt-scene {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, 330px) 1fr 1fr;
+  gap: 18px;
+  padding: 18px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.pt-col h3 {
+  margin: 0 0 4px;
+  font: 700 0.75rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.pt-sub {
+  margin-bottom: 12px;
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+}
+
+.pt-code {
+  margin: 0;
+  padding: 10px 0;
+  font: 0.875rem/1.9 var(--mono);
+  background: var(--bg-editor);
+  border: 1px solid var(--line);
+}
+
+.pt-code div {
+  padding: 0 12px;
+  white-space: pre;
+  opacity: 0.4;
+  transition:
+    opacity 0.2s,
+    background 0.2s;
+}
+
+.pt-code div.done {
+  opacity: 0.85;
+}
+
+.pt-code div.now {
+  opacity: 1;
+  background: rgba(255, 122, 26, 0.12);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.pt-kw {
+  color: var(--syn-keyword);
+}
+
+.pt-st {
+  color: var(--syn-string);
+}
+
+.pt-nb {
+  color: var(--syn-number);
+}
+
+.pt-ty {
+  color: var(--syn-type);
+}
+
+/* La pile : des cases empilées du bas vers le haut, comme des assiettes. */
+.pt-pile {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  min-height: 280px;
+  padding: 10px;
+  border: 2px solid var(--line-strong);
+  border-top: 0;
+}
+
+.pt-case {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  font: 0.875rem var(--mono);
+  background: var(--bg-raised);
+  border: 1px solid var(--line-strong);
+  animation: pt-pose 0.35s ease-out both;
+  transition:
+    opacity 0.3s,
+    filter 0.3s;
+}
+
+.pt-nom {
+  min-width: 28px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.pt-val {
+  color: var(--syn-number);
+}
+
+.pt-meta {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.pt-case.morte {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+.pt-case.morte .pt-nom::after {
+  content: ' ✗ déménagé';
+  font-weight: 400;
+  color: var(--danger);
+}
+
+.pt-case.part {
+  animation: pt-part 0.4s ease-in forwards;
+}
+
+/* Le tas : des blocs posés là où il y a de la place. */
+.pt-tas {
+  position: relative;
+  min-height: 280px;
+  border: 2px dashed var(--line-strong);
+}
+
+.pt-bloc {
+  position: absolute;
+  display: flex;
+  gap: 2px;
+  padding: 6px;
+  background: rgba(127, 240, 208, 0.08);
+  border: 1px solid rgba(127, 240, 208, 0.5);
+  animation: pt-pose 0.35s ease-out both;
+  transition: opacity 0.4s;
+}
+
+.pt-bloc span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 30px;
+  font: 700 0.875rem var(--mono);
+  color: var(--syn-string);
+  background: var(--bg-editor);
+}
+
+.pt-bloc.libere {
+  opacity: 0;
+}
+
+.pt-fleches {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.pt-fleches path:not(marker path) {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 400;
+  animation: pt-trace 0.5s ease-out both;
+}
+
+.pt-python {
+  margin-top: 10px;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  background: var(--bg-raised);
+  border-left: 3px solid var(--info);
+}
+
+@keyframes pt-pose {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes pt-part {
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes pt-trace {
+  from {
+    stroke-dashoffset: 400;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-case,
+  .pt-bloc,
+  .pt-fleches path {
+    animation: none !important;
+  }
+}
+
+/* Contenu rédigé */
+.md p,
+.md ul,
+.md blockquote {
+  margin: 0 0 10px;
+}
+
+.md > :last-child {
+  margin-bottom: 0;
+}
+
+.md ul {
+  padding-left: 18px;
+}
+
+.md li {
+  margin-bottom: 3px;
+}
+
+.md li::marker {
+  color: var(--text-faint);
+}
+
+.md blockquote {
+  padding: 2px 0 2px 12px;
+  color: var(--text-dim);
+  border-left: 2px solid var(--line-strong);
+}
+
+.md-table {
+  margin: 0 0 12px;
+  overflow-x: auto;
+}
+
+.md-table table {
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.md-table th,
+.md-table td {
+  padding: 6px 12px 6px 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.md-table th {
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* Une ligne verticale entre deux colonnes : on voit tout de suite où finit chaque cellule. */
+.md-table :is(th, td) + :is(th, td) {
+  padding-left: 12px;
+  border-left: 1px solid var(--line-strong);
+}
+
+.md-code,
+.rustc {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  font: 0.8125rem/1.6 var(--mono);
+  background: var(--bg-editor);
+  border: 1px solid var(--line);
+}
+
+.tok-keyword {
+  color: var(--syn-keyword);
+  font-weight: 500;
+}
+
+.tok-macro {
+  color: var(--syn-macro);
+}
+
+.tok-type {
+  color: var(--syn-type);
+}
+
+.tok-string {
+  color: var(--syn-string);
+}
+
+.tok-number {
+  color: var(--syn-number);
+}
+
+.tok-comment {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+/* Messages de rustc */
+.rustc {
+  color: var(--text);
+  border-left: 3px solid var(--danger);
+}
+
+.rustc-error {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.rustc-warning {
+  color: var(--warn);
+  font-weight: 700;
+}
+
+.rustc-help {
+  color: var(--info);
+}
+
+.rustc-gutter {
+  color: var(--text-dim);
+}
+
+/* Espace de travail */
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--bg-editor);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.forge-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 0.6875rem var(--mono);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  color: var(--text-faint);
+}
+
+.forge-light i {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+}
+
+.primary,
+.secondary,
+.ghost {
+  padding: 7px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.primary:hover {
+  background: var(--accent-hover);
+}
+
+.secondary {
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+.secondary:hover {
+  box-shadow: inset 0 0 0 1px var(--text-dim);
+}
+
+.ghost {
+  color: var(--text-dim);
+}
+
+.ghost:hover {
+  color: var(--text);
+  background: var(--bg-raised);
+}
+
+.hints .ghost {
+  padding-left: 0;
+}
+
+.editor-pane {
+  position: relative;
+  flex: 1 1 56%;
+  min-height: 160px;
+  overflow: hidden;
+}
+
+.editor-host {
+  height: 100%;
+}
+
+.output {
+  flex: 1 1 44%;
+  display: flex;
+  flex-direction: column;
+  min-height: 170px;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--line-strong);
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+}
+
+.tabs button {
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tabs button[aria-selected='true'] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.output-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.empty {
+  padding: 18px;
+  color: var(--text-faint);
+  font-size: 0.875rem;
+}
+
+.empty.working {
+  color: var(--accent);
+}
+
+.empty.problem {
+  color: var(--warn);
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.forge-light.busy i {
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* Résultats */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.results .rustc {
+  margin: 0;
+}
+
+.result-tag {
+  font: 700 0.8125rem var(--mono);
+}
+
+.result-tag.ok {
+  color: var(--success);
+}
+
+.result-tag.fail {
+  color: var(--danger);
+}
+
+.timing {
+  font: 0.75rem var(--mono);
+  color: var(--text-faint);
+}
+
+.result-label {
+  font: 700 0.6875rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.program-output {
+  margin: 0;
+  padding: 10px 14px;
+  font: 0.875rem/1.6 var(--mono);
+  white-space: pre-wrap;
+  color: var(--text);
+  background: var(--bg-editor);
+  border-left: 3px solid var(--success);
+}
+
+.program-error {
+  color: var(--danger);
+  border-left-color: var(--danger);
+}
+
+/* Mode web : ton code à côté de la solution */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.compare-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.compare-col .md-code {
+  margin: 0;
+}
+
+.compare-note {
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.victory {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  color: var(--success);
+  background: rgba(200, 255, 77, 0.1);
+  border-block: 1px solid var(--success);
+}

@@ -1,0 +1,65 @@
+id = "own-09"
+module = "ownership"
+titre = "Prêter sans donner : &"
+notion = "les références"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Le voisin m’a demandé ma clé de 12. Je la lui ai PRÊTÉE. Il me l’a rendue ! Ça m’a tellement ému que j’ai pleuré un peu. Un tout petit peu."
+
+lecon = '''
+Au lieu de **donner** une `String`, on peut la **prêter** avec `&`.
+
+```rust
+fn longueur(s: &String) -> usize {   // s est une RÉFÉRENCE : un prêt
+    s.len()
+}   // fin du prêt : rien n’est libéré, la String n’appartient pas à s
+
+let nom = String::from("Ferris");
+let n = longueur(&nom);   // on prête nom…
+println!("{nom}");         // ✅ …et on l’a toujours !
+```
+
+| Écriture | Sens |
+|---|---|
+| `fn f(s: String)` | « donne-la moi » : elle déménage |
+| `fn f(s: &String)` | « prête-la moi » : tu la gardes |
+| `f(&nom)` | on prête `nom` |
+
+Emprunter s’appelle *borrowing* en anglais : c’est le fameux **borrow checker**, le vérificateur de prêts de rustc.
+
+> Compare avec l’exercice « Mesurer sans perdre » : plus besoin de rendre la `String` dans un tuple !
+'''
+
+mission = '''
+Écris `longueur(s: &String) -> usize`. Prête-lui « Ferris », affiche sa longueur, puis affiche encore le nom pour prouver que tu l’as gardé.
+
+Résultat attendu :
+
+```text
+Ferris : 6 lettres
+Toujours à moi : Ferris
+```
+'''
+
+sortie_attendue = '''
+Ferris : 6 lettres
+Toujours à moi : Ferris
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["L’appel : `longueur(&nom)`, avec le `&`."]
+
+solution = '''
+fn longueur(s: &String) -> usize {
+    s.len()
+}
+
+fn main() {
+    let nom = String::from("Ferris");
+    let n = longueur(&nom);
+    println!("{nom} : {n} lettres");
+    println!("Toujours à moi : {nom}");
+}
+'''

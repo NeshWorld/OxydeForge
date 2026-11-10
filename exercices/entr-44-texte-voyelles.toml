@@ -1,0 +1,46 @@
+id = "entr-44"
+module = "entrainement"
+titre = "Compter les voyelles"
+notion = ".chars() et match sur des caractères"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le graveur facture les voyelles plus cher, va savoir pourquoi. Combien y en a-t-il dans « fonderie » ? Je dis 3. Ou 4. Bon, compte."
+
+lecon = '''
+- `.chars()` parcourt un texte **caractère par caractère**
+- un caractère s’écrit entre apostrophes : `'a'`
+- `'a' | 'e' | 'i' =>` : plusieurs caractères dans une branche ; `_ => {}` ne fait rien
+'''
+
+mission = '''
+Compte les voyelles (a, e, i, o, u, y) du mot « fonderie » et affiche le total.
+
+Résultat attendu :
+
+```text
+Voyelles dans fonderie : 4
+```
+'''
+
+sortie_attendue = '''
+Voyelles dans fonderie : 4
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for c in mot.chars() { match c { … => voyelles += 1, _ => {} } }`"]
+
+solution = '''
+fn main() {
+    let mot = "fonderie";
+    let mut voyelles = 0;
+    for c in mot.chars() {
+        match c {
+            'a' | 'e' | 'i' | 'o' | 'u' | 'y' => voyelles += 1,
+            _ => {}
+        }
+    }
+    println!("Voyelles dans {mot} : {voyelles}");
+}
+'''

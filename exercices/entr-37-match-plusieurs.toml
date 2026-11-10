@@ -1,0 +1,50 @@
+id = "entr-37"
+module = "entrainement"
+titre = "Semaine ou week-end"
+notion = "match avec | et intervalles"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le samedi et le dimanche, l’atelier est fermé. Sauf pour moi, qui oublie à chaque fois. J’ai pris un café avec le chat, samedi."
+
+lecon = '''
+- `6 | 7 =>` : plusieurs valeurs pour une même branche
+- `1..=5 =>` : tout un intervalle
+'''
+
+mission = '''
+Pour 3, 6, 7 et 9, affiche « travail » (1 à 5), « week-end » (6 ou 7) ou « jour invalide ».
+
+Résultat attendu :
+
+```text
+Jour 3 : travail
+Jour 6 : week-end
+Jour 7 : week-end
+Jour 9 : jour invalide
+```
+'''
+
+sortie_attendue = '''
+Jour 3 : travail
+Jour 6 : week-end
+Jour 7 : week-end
+Jour 9 : jour invalide
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`1..=5 => \"travail\", 6 | 7 => \"week-end\", _ => \"jour invalide\",`"]
+
+solution = '''
+fn main() {
+    for jour in [3, 6, 7, 9] {
+        let type_jour = match jour {
+            1..=5 => "travail",
+            6 | 7 => "week-end",
+            _ => "jour invalide",
+        };
+        println!("Jour {jour} : {type_jour}");
+    }
+}
+'''

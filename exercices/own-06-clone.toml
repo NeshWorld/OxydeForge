@@ -1,0 +1,57 @@
+id = "own-06"
+module = "ownership"
+titre = "Cloner, et ce que ça coûte"
+notion = ".clone()"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai photocopié le grand plan de la fonderie, juste au cas où. 400 pages. La photocopieuse a fondu. Il paraît qu’il faut cloner avec modération."
+
+lecon = '''
+`.clone()` fabrique une **vraie copie**, complète et indépendante.
+
+```rust
+let original = String::from("Modèle");
+let mut copie = original.clone();
+copie.push_str(" bis");   // on modifie la copie…
+// …l’original n’a pas bougé
+```
+
+**Le prix** : cloner une `String`, c’est recopier **tout** son texte en mémoire. Avec un texte de 10 lettres, rien. Avec un fichier entier, c’est lent.
+
+| Quand cloner | Quand éviter |
+|---|---|
+| tu as vraiment besoin de **deux** versions indépendantes | juste pour faire taire E0382 sans réfléchir |
+
+> En Rust, chaque `.clone()` se **voit** dans le code. C’est voulu : les copies coûteuses ne se cachent jamais.
+'''
+
+mission = '''
+Clone « Modèle » dans une copie modifiable, ajoute « (copie) » à la copie seulement, puis affiche les deux.
+
+Résultat attendu :
+
+```text
+Original : Modèle
+Copie : Modèle (copie)
+```
+'''
+
+sortie_attendue = '''
+Original : Modèle
+Copie : Modèle (copie)
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let mut copie = original.clone();`"]
+
+solution = '''
+fn main() {
+    let original = String::from("Modèle");
+    let mut copie = original.clone();
+    copie.push_str(" (copie)");
+    println!("Original : {original}");
+    println!("Copie : {copie}");
+}
+'''

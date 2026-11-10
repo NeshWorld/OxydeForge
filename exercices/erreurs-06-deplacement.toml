@@ -1,0 +1,92 @@
+id = "erreurs-06"
+module = "erreurs"
+titre = "La String déplacée"
+notion = "ownership, déplacement et E0382"
+type = "lis-erreur"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Panne ! J'ai donné le nom de Ferris à une autre machine… et maintenant Ferris n'a plus de nom. Le compilateur parle de « déménagement ». Aide-moi, je n'y comprends rien !"
+
+lecon = '''
+Voici **la** notion qui rend Rust unique : l'**ownership** (la possession).
+
+**La règle** : une valeur a **un seul propriétaire** à la fois.
+
+```rust
+let a = String::from("Ferris");
+let b = a;      // la String DÉMÉNAGE de a vers b
+```
+
+Après `let b = a;`, c'est `b` le propriétaire. `a` est **vide** : Rust interdit de s'en servir.
+
+| | Python | Rust |
+|---|---|---|
+| `b = a` | **deux noms**, un seul objet | l'objet **déménage** : `a` n'est plus utilisable |
+
+**Pourquoi ?** Quand le propriétaire sort de sa portée, Rust **libère la mémoire**. Avec deux propriétaires, elle serait libérée **deux fois** : c'est un bug grave en C.
+
+**Pour avoir deux String** : `.clone()` fabrique une **vraie copie**.
+
+> Les nombres (`i32`, `f64`…) ne déménagent pas : ils sont **copiés**, car c'est minuscule. D'où le `does not implement the Copy trait` : une `String` ne se copie pas toute seule.
+
+**Lire l'erreur** :
+- `borrow of moved value` : « tu utilises une valeur qui a **déménagé** »
+- `value moved here` : **où** elle est partie (ligne 3)
+- `help: consider cloning` : la correction, avec des `+++` sous ce qu'il faut ajouter
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l'erreur ci-dessous.
+
+Réécris-le en entier, corrigé : il doit afficher `Ferris et Ferris`.
+'''
+
+code_casse = '''
+fn main() {
+    let a = String::from("Ferris");
+    let b = a;
+    println!("{a} et {b}");
+}
+'''
+
+erreur = '''
+error[E0382]: borrow of moved value: `a`
+ --> main.rs:4:16
+  |
+2 |     let a = String::from("Ferris");
+  |         - move occurs because `a` has type `String`, which does not implement the `Copy` trait
+3 |     let b = a;
+  |             - value moved here
+4 |     println!("{a} et {b}");
+  |                ^ value borrowed here after move
+  |
+help: consider cloning the value if the performance cost is acceptable
+  |
+3 |     let b = a.clone();
+  |              ++++++++
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0382`.
+'''
+
+erreur_corrigee = "E0382"
+sortie_attendue = "Ferris et Ferris"
+
+criteres = [
+  "L'erreur `E0382` a **disparu**",
+  "Le programme affiche `Ferris et Ferris`",
+]
+
+indices = [
+  "Le `help:` propose une solution à la ligne 3.",
+  "`.clone()` fabrique une copie : `a` garde la sienne.",
+]
+
+solution = '''
+fn main() {
+    let a = String::from("Ferris");
+    let b = a.clone();
+    println!("{a} et {b}");
+}
+'''

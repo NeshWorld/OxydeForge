@@ -1,0 +1,86 @@
+id = "bases-07"
+module = "bases"
+titre = "Masquer une variable"
+notion = "le shadowing"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Le compteur de la chaudière affiche une valeur dans le local technique, et une autre dehors. C'est normal ! Je t'explique… enfin, la leçon t'explique, c'est plus sûr."
+
+lecon = '''
+En Rust, on peut **redéclarer** une variable avec le même nom : la nouvelle **masque** l'ancienne.
+
+```rust
+let x = 5;
+let x = x + 1;      // un NOUVEAU x, qui vaut 6
+```
+
+On appelle ça le **shadowing** (« faire de l'ombre »).
+
+**Différence avec `mut`** :
+
+| | `let mut x` puis `x = …` | `let x` puis `let x = …` |
+|---|---|---|
+| Combien de variables ? | **une seule**, modifiée | **deux**, la 2e cache la 1re |
+| Le type peut changer ? | **non** | **oui** |
+
+Exemple où le type change :
+
+```rust
+let espaces = "   ";          // du texte
+let espaces = espaces.len();  // un nombre : 3
+```
+
+**Dans un bloc**, le masquage s'arrête à la `}` : l'ancienne variable **réapparaît**.
+
+```rust
+let x = 6;
+{
+    let x = x * 2;
+    println!("{x}");   // 12
+}
+println!("{x}");       // 6
+```
+'''
+
+mission = '''
+Crée `let niveau = 1;`
+
+Masque-le une première fois pour qu'il vaille `2`.
+
+Puis, **dans un bloc** `{ }`, masque-le encore pour qu'il vaille dix fois plus, et affiche-le.
+
+Après le bloc, affiche-le à nouveau. Résultat attendu :
+
+```text
+Dans le bloc : 20
+Dehors : 2
+```
+'''
+
+sortie_attendue = '''
+Dans le bloc : 20
+Dehors : 2
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche `20` dans le bloc, puis `2` dehors",
+]
+
+indices = [
+  "Premier masquage : `let niveau = niveau + 1;`",
+  "Dans le bloc : `let niveau = niveau * 10;` puis le `println!`.",
+]
+
+solution = '''
+fn main() {
+    let niveau = 1;
+    let niveau = niveau + 1;
+    {
+        let niveau = niveau * 10;
+        println!("Dans le bloc : {niveau}");
+    }
+    println!("Dehors : {niveau}");
+}
+'''

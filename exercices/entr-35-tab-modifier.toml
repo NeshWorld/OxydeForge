@@ -1,0 +1,43 @@
+id = "entr-35"
+module = "entrainement"
+titre = "Un tableau modifiable"
+notion = "let mut, tableau[i] = … et {:?}"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Inventaire ! Trois étagères : 10, 0 et 5 pièces. On a livré 7 pièces sur la deuxième, puis une pièce de plus partout. J’ai tout noté sur ma main. Elle est pleine."
+
+lecon = '''
+- `let mut stocks = [10, 0, 5];` : le tableau devient modifiable
+- `stocks[1] = 7;` change une case
+- `{:?}` affiche le tableau entier : `[11, 8, 6]`
+'''
+
+mission = '''
+Pars de `[10, 0, 5]`. Mets 7 dans la deuxième case, puis ajoute 1 à chaque case, et affiche le tableau avec `{:?}`.
+
+Résultat attendu :
+
+```text
+Stocks : [11, 8, 6]
+```
+'''
+
+sortie_attendue = '''
+Stocks : [11, 8, 6]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for i in 0..stocks.len() { stocks[i] += 1; }`"]
+
+solution = '''
+fn main() {
+    let mut stocks = [10, 0, 5];
+    stocks[1] = 7;
+    for i in 0..stocks.len() {
+        stocks[i] += 1;
+    }
+    println!("Stocks : {:?}", stocks);
+}
+'''

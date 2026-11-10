@@ -1,0 +1,41 @@
+id = "entr-28"
+module = "entrainement"
+titre = "Le prix du boulon"
+notion = "const f64"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le boulon coûte 15 centimes, depuis toujours et pour toujours. Le patron l’a gravé sur le mur. Avec mon front, presque."
+
+lecon = '''
+- `const PRIX_BOULON: f64 = 0.15;` : type **obligatoire**, nom en MAJUSCULES
+- une constante se déclare en dehors de `main`
+'''
+
+mission = '''
+Déclare `PRIX_BOULON` (0.15). Calcule le prix de 120 boulons et affiche-le avec deux décimales.
+
+Résultat attendu :
+
+```text
+120 boulons : 18.00 €
+```
+'''
+
+sortie_attendue = '''
+120 boulons : 18.00 €
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let quantite = 120;` puis `PRIX_BOULON * quantite as f64`"]
+
+solution = '''
+const PRIX_BOULON: f64 = 0.15;
+
+fn main() {
+    let quantite = 120;
+    let total = PRIX_BOULON * quantite as f64;
+    println!("{quantite} boulons : {total:.2} €");
+}
+'''

@@ -1,0 +1,53 @@
+id = "entr-13"
+module = "entrainement"
+titre = "Une fonction qui répond oui ou non"
+notion = "fonction -> bool"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Les engrenages pairs vont à gauche, les impairs à droite. Ou l’inverse ? Bref, il me faut une fonction qui dit si un nombre est pair."
+
+lecon = '''
+- une fonction peut renvoyer un `bool` : `fn est_pair(n: i32) -> bool`
+- une comparaison **est** déjà un `bool` : `n % 2 == 0` suffit, pas besoin de `if`
+'''
+
+mission = '''
+Écris `est_pair(n)`. Pour chaque nombre de 1 à 4, affiche s’il est pair ou impair.
+
+Résultat attendu :
+
+```text
+1 : impair
+2 : pair
+3 : impair
+4 : pair
+```
+'''
+
+sortie_attendue = '''
+1 : impair
+2 : pair
+3 : impair
+4 : pair
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Le corps tient en une ligne : `n % 2 == 0`", "Dans la boucle : `if est_pair(n) { … } else { … }`"]
+
+solution = '''
+fn est_pair(n: i32) -> bool {
+    n % 2 == 0
+}
+
+fn main() {
+    for n in 1..=4 {
+        if est_pair(n) {
+            println!("{n} : pair");
+        } else {
+            println!("{n} : impair");
+        }
+    }
+}
+'''

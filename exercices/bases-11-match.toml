@@ -1,0 +1,85 @@
+id = "bases-11"
+module = "bases"
+titre = "match, le super if"
+notion = "match, intervalles et _"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Le contrôle qualité note chaque pièce sur 20, et il faut tamponner une mention dessus. Attention : quelqu'un a mis 25 sur 20 à une pièce. Je ne dirai pas qui… Bon d'accord, c'était moi."
+humeur = "gene"
+
+lecon = '''
+`match` compare une valeur à une **liste de motifs**, et exécute la **première** branche qui correspond.
+
+```rust
+let mention = match note {
+    0..=9 => "insuffisant",
+    10..=13 => "passable",
+    14..=20 => "bien",
+    _ => "note invalide",
+};
+```
+
+| Motif | Correspond à |
+|---|---|
+| `7` | exactement 7 |
+| `0..=9` | de 0 à 9 compris |
+| `1 \| 3 \| 5` | 1, 3 **ou** 5 |
+| `_` | **tout le reste** |
+
+**La règle d'or** : un `match` doit couvrir **tous** les cas possibles. Sinon, le compilateur refuse (erreur E0004). Le `_` sert de filet.
+
+> C'est le `match` de Python 3.10, ou un `CASE WHEN` en SQL, mais **vérifié** : impossible d'oublier un cas.
+
+Comme `if`, un `match` **renvoie une valeur** : toutes les branches doivent avoir le même type.
+'''
+
+mission = '''
+Pour chaque note du tableau `[8, 12, 16, 25]`, affiche sa mention :
+
+- de 0 à 9 → `insuffisant`
+- de 10 à 13 → `passable`
+- de 14 à 20 → `bien`
+- sinon → `invalide`
+
+Résultat attendu :
+
+```text
+8 : insuffisant
+12 : passable
+16 : bien
+25 : invalide
+```
+'''
+
+sortie_attendue = '''
+8 : insuffisant
+12 : passable
+16 : bien
+25 : invalide
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche les **4 mentions**",
+]
+
+indices = [
+  "Une boucle `for note in [8, 12, 16, 25] { … }`.",
+  "Dans la boucle : `let mention = match note { … };`",
+  "Le dernier motif, `_`, attrape le 25.",
+]
+
+solution = '''
+fn main() {
+    for note in [8, 12, 16, 25] {
+        let mention = match note {
+            0..=9 => "insuffisant",
+            10..=13 => "passable",
+            14..=20 => "bien",
+            _ => "invalide",
+        };
+        println!("{note} : {mention}");
+    }
+}
+'''

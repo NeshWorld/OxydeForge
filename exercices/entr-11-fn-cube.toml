@@ -1,0 +1,53 @@
+id = "entr-11"
+module = "entrainement"
+titre = "Une fonction en appelle une autre"
+notion = "fonctions qui s’appellent"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai une fonction qui fait les carrés. Pour les cubes, je me suis dit : et si une fonction en appelait une autre ? Ça marche, ce truc ?"
+
+lecon = '''
+- une fonction peut **appeler** une autre fonction, comme en Python
+- une fonction **sans** `->` ne renvoie rien : `fn afficher(n: i32) { … }`
+- la dernière ligne **sans** `;` est la valeur renvoyée
+'''
+
+mission = '''
+Écris `carre`, puis `cube` qui **utilise** `carre`, puis `afficher(n)` qui affiche le cube de `n`. Appelle `afficher(3)` et `afficher(4)`.
+
+Résultat attendu :
+
+```text
+3 au cube = 27
+4 au cube = 64
+```
+'''
+
+sortie_attendue = '''
+3 au cube = 27
+4 au cube = 64
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`fn cube(x: i32) -> i32 { carre(x) * x }`", "`fn afficher(n: i32) { println!(\"{n} au cube = {}\", cube(n)); }`"]
+
+solution = '''
+fn carre(x: i32) -> i32 {
+    x * x
+}
+
+fn cube(x: i32) -> i32 {
+    carre(x) * x
+}
+
+fn afficher(n: i32) {
+    println!("{n} au cube = {}", cube(n));
+}
+
+fn main() {
+    afficher(3);
+    afficher(4);
+}
+'''

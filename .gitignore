@@ -1,0 +1,26 @@
+# Dépendances et fichiers générés
+node_modules
+dist
+dist-artefact
+src-tauri/target
+src-tauri/gen
+*.log
+
+# Données personnelles : progression, sauvegardes, carnet de bord
+sauvegarde-*.json
+progression*.json
+IDEES.md
+
+# Secrets : ne jamais publier
+.env
+.env.*
+*.pem
+*.key
+
+# Outils et système
+.claude/
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store

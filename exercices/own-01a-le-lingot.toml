@@ -1,0 +1,51 @@
+id = "own-01a"
+module = "ownership"
+titre = "Le lingot sort de la forge"
+notion = "un seul propriétaire"
+type = "etape"
+chaine = "lingot"
+intro = true
+
+# Généré par scripts/generer_lingot.mjs : modifie le générateur, pas ce fichier.
+kael = "Nouveau chapitre, nouvelle pièce. Un lingot d’acier, du vrai. Regarde-moi le tenir : il est à moi, rien qu’à moi."
+humeur = "sur-de-lui"
+
+lecon = '''
+Un **lingot**, dans la forge, ça ne se tient qu’à **une seule paire de mains** à la fois.
+
+C’est **exactement** la règle n°1 de Rust : chaque valeur a **un seul propriétaire**.
+
+Le lingot sera une `String`. Le forgeron qui le tient sera une **variable**.
+
+```rust
+let forgeron_a = String::from("lingot d'acier");  // A fabrique le lingot
+println!("A tient : {forgeron_a}");
+```
+
+> `{forgeron_a}` dans le `println!` affiche ce que A tient entre les mains.
+'''
+
+mission = '''
+Crée le lingot : une `String` « lingot d’acier » tenue par `forgeron_a`. Puis affiche `A tient : …`.
+
+Résultat attendu :
+
+```text
+A tient : lingot d'acier
+```
+'''
+
+sortie_attendue = '''
+A tient : lingot d'acier
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let forgeron_a = String::from(\"lingot d'acier\");`", "`println!(\"A tient : {forgeron_a}\");`"]
+
+solution = '''
+fn main() {
+    let forgeron_a = String::from("lingot d'acier");
+    println!("A tient : {forgeron_a}");
+}
+'''

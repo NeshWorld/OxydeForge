@@ -1,0 +1,48 @@
+id = "defis-03"
+module = "defis"
+titre = "Somme des pairs"
+notion = "mut, boucle et condition"
+type = "defi"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Commande spéciale ! La comptabilité veut la somme des numéros de casier pairs, de 1 à 100. Pourquoi ? Je n'ai pas osé demander."
+
+lecon = '''
+- `let mut total = 0;` : un compteur **modifiable**
+- `total += n;` : ajoute `n` au compteur
+- un nombre est **pair** si `n % 2 == 0`
+'''
+
+mission = '''
+Calcule la somme de tous les nombres **pairs** de 1 à 100.
+
+Affiche exactement :
+
+```text
+Somme des pairs de 1 à 100 : 2550
+```
+'''
+
+sortie_attendue = "Somme des pairs de 1 à 100 : 2550"
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche la bonne somme",
+]
+
+indices = [
+  "Sans `mut`, le compteur ne peut pas changer.",
+  "Bonus : `(2..=100).step_by(2)` ne parcourt **que** les pairs.",
+]
+
+solution = '''
+fn main() {
+    let mut total = 0;
+    for n in 1..=100 {
+        if n % 2 == 0 {
+            total += n;
+        }
+    }
+    println!("Somme des pairs de 1 à 100 : {total}");
+}
+'''

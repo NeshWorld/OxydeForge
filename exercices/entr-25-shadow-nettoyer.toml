@@ -1,0 +1,41 @@
+id = "entr-25"
+module = "entrainement"
+titre = "Nettoyer une étiquette"
+notion = "shadowing, .trim() et .to_uppercase()"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Les étiquettes de l’imprimante sortent avec des espaces partout et en minuscules. Le patron veut du propre, en MAJUSCULES."
+
+lecon = '''
+- `.trim()` enlève les espaces au début et à la fin
+- `.to_uppercase()` met en majuscules (et renvoie une `String`)
+- chaque étape peut masquer la précédente : `let nom = nom.trim();`
+'''
+
+mission = '''
+Pars de `let nom = "  Ferris  ";`. Masque-le deux fois (sans espaces, puis en majuscules), et affiche-le entre crochets.
+
+Résultat attendu :
+
+```text
+[FERRIS]
+```
+'''
+
+sortie_attendue = '''
+[FERRIS]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let nom = nom.trim();` puis `let nom = nom.to_uppercase();`", "Les crochets montrent qu’il n’y a plus d’espaces : `println!(\"[{nom}]\");`"]
+
+solution = '''
+fn main() {
+    let nom = "  Ferris  ";
+    let nom = nom.trim();
+    let nom = nom.to_uppercase();
+    println!("[{nom}]");
+}
+'''

@@ -1,0 +1,44 @@
+id = "entr-33"
+module = "entrainement"
+titre = "Compter les reçus"
+notion = "parcourir et compter"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le contrôle qualité a noté six pièces. Il faut savoir combien ont au moins 10. J’ai compté 4. Puis 5. Puis j’ai recompté : 4. Je crois."
+
+lecon = '''
+- un compteur `mut` qui part de 0
+- on l’augmente dans la boucle quand la condition est vraie
+'''
+
+mission = '''
+Avec les notes `[12, 8, 15, 9, 17, 11]`, compte celles qui valent au moins 10. Affiche « Reçues : X sur 6 ».
+
+Résultat attendu :
+
+```text
+Reçues : 4 sur 6
+```
+'''
+
+sortie_attendue = '''
+Reçues : 4 sur 6
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`if note >= 10 { recues += 1; }`", "Le 6 vient de `notes.len()`."]
+
+solution = '''
+fn main() {
+    let notes = [12, 8, 15, 9, 17, 11];
+    let mut recues = 0;
+    for note in notes {
+        if note >= 10 {
+            recues += 1;
+        }
+    }
+    println!("Reçues : {recues} sur {}", notes.len());
+}
+'''

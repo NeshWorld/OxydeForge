@@ -1,0 +1,82 @@
+id = "own-14"
+module = "ownership"
+titre = "Lire pendant qu’on écrit"
+notion = "& et &mut en même temps, E0502"
+type = "lis-erreur"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Panne ! J’étais en train de lire l’inventaire quand l’apprenti l’a modifié sous mon nez. J’ai compté des boulons qui n’existaient plus."
+
+lecon = '''
+Rust interdit aussi de **modifier** une valeur pendant que quelqu’un la **lit**.
+
+Logique : le lecteur croit voir une valeur… qui change sous ses yeux.
+
+```rust
+let lecture = &stocks;         // un lecteur commence
+stocks.push_str(" + 5");       // ❌ on écrit pendant qu’il lit encore…
+println!("{lecture}");         // …car il lit ici
+```
+
+**Lire l’erreur** :
+- `cannot borrow stocks as mutable because it is also borrowed as immutable` : on veut écrire, mais quelqu’un lit
+- `immutable borrow later used here` : là où le lecteur sert encore
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l’erreur, puis réécris-le : le lecteur doit **finir** avant que l’écriture commence.
+
+Résultat attendu :
+
+```text
+Avant : 10 boulons
+Après : 10 boulons + 5
+```
+'''
+
+code_casse = '''
+fn main() {
+    let mut stocks = String::from("10 boulons");
+    let lecture = &stocks;
+    stocks.push_str(" + 5");
+    println!("Avant : {lecture}");
+    println!("Après : {stocks}");
+}
+'''
+
+erreur = '''
+error[E0502]: cannot borrow `stocks` as mutable because it is also borrowed as immutable
+ --> main.rs:4:5
+  |
+3 |     let lecture = &stocks;
+  |                   ------- immutable borrow occurs here
+4 |     stocks.push_str(" + 5");
+  |     ^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+5 |     println!("Avant : {lecture}");
+  |                        ------- immutable borrow later used here
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0502`.
+'''
+
+erreur_corrigee = "E0502"
+
+sortie_attendue = '''
+Avant : 10 boulons
+Après : 10 boulons + 5
+'''
+
+criteres = ["L'erreur `E0502` a **disparu**", "Le programme affiche le **bon texte**"]
+
+indices = ["Déplace le `println!(\"Avant : …\")` juste après `let lecture = &stocks;`."]
+
+solution = '''
+fn main() {
+    let mut stocks = String::from("10 boulons");
+    let lecture = &stocks;
+    println!("Avant : {lecture}");
+    stocks.push_str(" + 5");
+    println!("Après : {stocks}");
+}
+'''

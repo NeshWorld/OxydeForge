@@ -1,0 +1,40 @@
+id = "entr-10"
+module = "entrainement"
+titre = "La moyenne pondérée"
+notion = "f64 et coefficients"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "L’apprenti a eu 12,5 en soudure (coefficient 2) et 15 en forge (coefficient 3). Il dit qu’il a 14 de moyenne. Je n’ose pas vérifier tout seul."
+
+lecon = '''
+- moyenne pondérée : (note1 × coef1 + note2 × coef2) / (coef1 + coef2)
+- écris `15.0` et pas `15` pour rester en `f64`
+'''
+
+mission = '''
+Calcule la moyenne pondérée de 12.5 (coef 2) et 15.0 (coef 3), affichée avec deux décimales.
+
+Résultat attendu :
+
+```text
+Moyenne : 14.00
+```
+'''
+
+sortie_attendue = '''
+Moyenne : 14.00
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`(12.5 * 2.0 + 15.0 * 3.0) / 5.0`"]
+
+solution = '''
+fn main() {
+    let soudure = 12.5;
+    let forge = 15.0;
+    let moyenne = (soudure * 2.0 + forge * 3.0) / 5.0;
+    println!("Moyenne : {moyenne:.2}");
+}
+'''

@@ -1,0 +1,48 @@
+id = "entr-03b"
+module = "entrainement"
+titre = "Le bain de trempe"
+notion = "i32, négatifs et priorités"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le bain de trempe démarre à 5 degrés et perd 3 degrés par heure. Je l’ai oublié 7 heures. Il est gelé ou pas ?"
+
+lecon = '''
+- `*` passe **avant** `-` : `10 - 2 * 4` vaut 2, pas 32
+- un résultat peut devenir **négatif** : `2 - 9` vaut -7 (en `i32`, pas en `u32` !)
+- `.abs()` enlève le signe : `(-7).abs()` vaut 7
+'''
+
+mission = '''
+Le bain démarre à 5 degrés et perd 3 degrés par heure pendant 7 heures. Affiche la température finale, combien de degrés sous zéro, puis la chute totale.
+
+Résultat attendu :
+
+```text
+Température finale : -16 degrés
+Sous zéro de : 16 degrés
+Chute totale : 21 degrés
+```
+'''
+
+sortie_attendue = '''
+Température finale : -16 degrés
+Sous zéro de : 16 degrés
+Chute totale : 21 degrés
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let fin = depart - perte * heures;`", "`fin.abs()` pour « sous zéro ».", "La chute : `depart - fin`."]
+
+solution = '''
+fn main() {
+    let depart: i32 = 5;
+    let perte: i32 = 3;
+    let heures: i32 = 7;
+    let fin = depart - perte * heures;
+    println!("Température finale : {fin} degrés");
+    println!("Sous zéro de : {} degrés", fin.abs());
+    println!("Chute totale : {} degrés", depart - fin);
+}
+'''

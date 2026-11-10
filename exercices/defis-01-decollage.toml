@@ -1,0 +1,57 @@
+id = "defis-01"
+module = "defis"
+titre = "Compte à rebours"
+notion = "for à l'envers"
+type = "defi"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Commande spéciale ! La fusée de livraison décolle tout à l'heure, il faut le compte à rebours sur le grand écran. Pas de pression. Enfin si, un peu. C'est une fusée."
+
+lecon = '''
+- `for i in 1..=10` compte de 1 à 10
+- `.rev()` **inverse** une suite : `(1..=10).rev()`
+'''
+
+mission = '''
+Affiche un compte à rebours de 10 à 1, un nombre par ligne, puis `Décollage !`.
+
+```text
+10
+9
+…
+1
+Décollage !
+```
+'''
+
+sortie_attendue = '''
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+Décollage !
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il compte de 10 à 1 puis décolle",
+]
+
+indices = [
+  "Les parenthèses sont obligatoires : `(1..=10).rev()`.",
+]
+
+solution = '''
+fn main() {
+    for i in (1..=10).rev() {
+        println!("{i}");
+    }
+    println!("Décollage !");
+}
+'''

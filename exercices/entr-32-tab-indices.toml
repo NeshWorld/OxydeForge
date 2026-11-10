@@ -1,0 +1,44 @@
+id = "entr-32"
+module = "entrainement"
+titre = "Le premier et le dernier"
+notion = "indices et .len()"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le planning de la semaine : lundi à vendredi. J’ai besoin du premier jour et du dernier. Le reste, je fais la sieste. Je plaisante. Un peu."
+
+lecon = '''
+- la première case est `tableau[0]`
+- la dernière est `tableau[tableau.len() - 1]` (on compte à partir de 0)
+'''
+
+mission = '''
+Avec `["lun", "mar", "mer", "jeu", "ven"]`, affiche le premier jour, le dernier, puis le nombre de jours.
+
+Résultat attendu :
+
+```text
+Premier : lun
+Dernier : ven
+Nombre de jours : 5
+```
+'''
+
+sortie_attendue = '''
+Premier : lun
+Dernier : ven
+Nombre de jours : 5
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`jours[jours.len() - 1]` pour le dernier."]
+
+solution = '''
+fn main() {
+    let jours = ["lun", "mar", "mer", "jeu", "ven"];
+    println!("Premier : {}", jours[0]);
+    println!("Dernier : {}", jours[jours.len() - 1]);
+    println!("Nombre de jours : {}", jours.len());
+}
+'''

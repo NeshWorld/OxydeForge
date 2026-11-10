@@ -1,0 +1,61 @@
+id = "entr-04b"
+module = "entrainement"
+titre = "Les dettes de Kael"
+notion = "i32, / et % avec des négatifs"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Bon… j’ai emprunté 25 pièces aux apprentis. Ça fait -25 dans mon carnet. Je dois le partager entre les 4. Ne le dis à personne."
+humeur = "gene"
+
+lecon = '''
+- Rust **tronque vers zéro** : `-7 / 2` vaut -3
+- En Python, `-7 // 2` vaut -4 : Python arrondit **vers le bas**
+- le reste garde le **signe** de la gauche : `-7 % 2` vaut -1 (Python dirait 1)
+'''
+
+digression = '''
+**Qui a raison, mathématiquement ?** Les deux respectent `a = b × q + r` :
+
+| `-7` divisé par `2` | quotient `q` | reste `r` | vérification |
+|---|---|---|---|
+| **Rust** | -3 | **-1** | 2 × (-3) + (-1) = -7 |
+| **Python** | -4 | **1** | 2 × (-4) + 1 = -7 |
+
+- En maths (division **euclidienne**), le reste est toujours **positif** : Python est plus proche des maths.
+- Rust fait comme le **processeur** (et comme le C) : c’est plus rapide.
+- La version maths existe aussi en Rust : `(-7_i32).div_euclid(2)` vaut -4 et `(-7_i32).rem_euclid(2)` vaut 1.
+- Exemple concret, 3 h avant minuit : `-3 % 24` vaut -3 (absurde), `(-3_i32).rem_euclid(24)` vaut **21** h.
+'''
+
+mission = '''
+Avec une dette de `-25` partagée entre `4` apprentis (des `i32`), affiche la part de chacun, le reste, puis la dette sans signe.
+
+Résultat attendu :
+
+```text
+Part de chacun : -6
+Reste : -1
+Dette totale : 25 pièces
+```
+'''
+
+sortie_attendue = '''
+Part de chacun : -6
+Reste : -1
+Dette totale : 25 pièces
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`dette / apprentis` et `dette % apprentis`.", "Rust donne -6 et -1, pas -7 et 3 comme Python."]
+
+solution = '''
+fn main() {
+    let dette: i32 = -25;
+    let apprentis: i32 = 4;
+    println!("Part de chacun : {}", dette / apprentis);
+    println!("Reste : {}", dette % apprentis);
+    println!("Dette totale : {} pièces", dette.abs());
+}
+'''

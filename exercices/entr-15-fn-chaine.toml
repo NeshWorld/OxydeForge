@@ -1,0 +1,50 @@
+id = "entr-15"
+module = "entrainement"
+titre = "La chaîne de fonctions"
+notion = "fonctions qui travaillent ensemble"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "L’infirmerie, encore ! Ils veulent savoir qui a de la fièvre, au-dessus de 100,4 °F. Ils ont des degrés Celsius. Moi, j’ai mal à la tête."
+
+lecon = '''
+- découper un problème en **petites** fonctions qui s’appellent
+- une fonction de conversion, une fonction de décision : chacune fait **une** chose
+'''
+
+mission = '''
+Écris `vers_fahrenheit(c)` et `a_de_la_fievre(c)` (qui utilise la première). Pour 37.0 et 38.5, affiche la conversion et « normal » ou « fièvre ».
+
+Résultat attendu :
+
+```text
+37.0 °C → 98.6 °F : normal
+38.5 °C → 101.3 °F : fièvre
+```
+'''
+
+sortie_attendue = '''
+37.0 °C → 98.6 °F : normal
+38.5 °C → 101.3 °F : fièvre
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`fn a_de_la_fievre(c: f64) -> bool { vers_fahrenheit(c) > 100.4 }`", "Dans `main` : `let etat = if a_de_la_fievre(c) { \"fièvre\" } else { \"normal\" };`"]
+
+solution = '''
+fn vers_fahrenheit(c: f64) -> f64 {
+    c * 9.0 / 5.0 + 32.0
+}
+
+fn a_de_la_fievre(c: f64) -> bool {
+    vers_fahrenheit(c) > 100.4
+}
+
+fn main() {
+    for c in [37.0, 38.5] {
+        let etat = if a_de_la_fievre(c) { "fièvre" } else { "normal" };
+        println!("{c:.1} °C → {:.1} °F : {etat}", vers_fahrenheit(c));
+    }
+}
+'''

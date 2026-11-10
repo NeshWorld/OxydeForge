@@ -1,0 +1,73 @@
+id = "entr-40"
+module = "entrainement"
+titre = "FizzBuzz, version match"
+notion = "match sur un tuple"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Les ouvriers ont rejoué au FizzBuzz. Quelqu’un a dit que match pouvait le faire en plus joli. Je n’ai pas compris, mais j’ai applaudi."
+
+lecon = '''
+- on peut `match` sur un **tuple** : `match (n % 3, n % 5)`
+- `(0, 0) =>` : les deux restes valent 0
+- `(0, _) =>` : le premier vaut 0, le second peu importe
+'''
+
+mission = '''
+Refais le FizzBuzz de 1 à 15 avec un seul `match` sur `(n % 3, n % 5)`.
+
+Résultat attendu :
+
+```text
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+```
+'''
+
+sortie_attendue = '''
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`(0, 0) => println!(\"FizzBuzz\"), (0, _) => println!(\"Fizz\"), (_, 0) => println!(\"Buzz\"), _ => println!(\"{n}\"),`"]
+
+solution = '''
+fn main() {
+    for n in 1..=15 {
+        match (n % 3, n % 5) {
+            (0, 0) => println!("FizzBuzz"),
+            (0, _) => println!("Fizz"),
+            (_, 0) => println!("Buzz"),
+            _ => println!("{n}"),
+        }
+    }
+}
+'''

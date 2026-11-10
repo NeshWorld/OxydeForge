@@ -1,0 +1,42 @@
+id = "entr-04"
+module = "entrainement"
+titre = "Ranger en caisses"
+notion = "i32, / et %"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai 47 pièces à ranger dans des caisses de 6. J’ai rempli des caisses jusqu’à ce que… j’en perde le compte. Tu m’aides ?"
+
+lecon = '''
+- entre deux entiers, `/` donne une division **entière** : `47 / 6` vaut 7
+- `%` donne le **reste** : `47 % 6` vaut 5
+'''
+
+mission = '''
+Avec 47 pièces et des caisses de 6, affiche le nombre de caisses pleines et les pièces restantes.
+
+Résultat attendu :
+
+```text
+Caisses pleines : 7
+Pièces restantes : 5
+```
+'''
+
+sortie_attendue = '''
+Caisses pleines : 7
+Pièces restantes : 5
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`pieces / par_caisse` et `pieces % par_caisse`."]
+
+solution = '''
+fn main() {
+    let pieces = 47;
+    let par_caisse = 6;
+    println!("Caisses pleines : {}", pieces / par_caisse);
+    println!("Pièces restantes : {}", pieces % par_caisse);
+}
+'''

@@ -1,0 +1,60 @@
+id = "own-05"
+module = "ownership"
+titre = "Rendre la propriété"
+notion = "fonction qui renvoie une String"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Le plan de la presse doit passer chez le patron pour signature, puis me revenir. La dernière fois, il ne me l’a jamais rendu. Il l’a encadré."
+
+lecon = '''
+Une fonction peut **prendre** une `String`… et la **rendre** à la fin, en la renvoyant.
+
+```rust
+fn signer(mut plan: String) -> String {
+    plan.push_str(" (signé)");
+    plan    // la String repart vers l’appelant
+}
+
+let plan = String::from("Plan");
+let plan = signer(plan);   // elle part… et revient (masquage !)
+```
+
+| Écriture | Sens |
+|---|---|
+| `mut plan: String` | la fonction devient propriétaire, **et** peut modifier |
+| `-> String` | la propriété est **rendue** à l’appelant |
+
+> Ça marche, mais c’est lourd : prendre puis rendre à chaque fois… Garde ça en tête, l’étage 2 a une solution plus élégante.
+'''
+
+mission = '''
+Écris `signer(mut plan: String) -> String` qui ajoute « - signé par Kael ». Fais passer « Plan de la presse » dedans, puis affiche le résultat.
+
+Résultat attendu :
+
+```text
+Plan de la presse - signé par Kael
+```
+'''
+
+sortie_attendue = '''
+Plan de la presse - signé par Kael
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`plan.push_str(\" - signé par Kael\");` puis `plan` sans point-virgule.", "Dans `main` : `let plan = signer(plan);`"]
+
+solution = '''
+fn signer(mut plan: String) -> String {
+    plan.push_str(" - signé par Kael");
+    plan
+}
+
+fn main() {
+    let plan = String::from("Plan de la presse");
+    let plan = signer(plan);
+    println!("{plan}");
+}
+'''

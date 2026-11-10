@@ -1,0 +1,49 @@
+id = "own-18"
+module = "ownership"
+titre = "Doubler la production"
+notion = "&mut sur un tableau"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Le patron veut doubler la production de chaque machine. Il a dit « doubler », pas « doubloner ». J’avais compris doubloner. C’est un mot ?"
+
+lecon = '''
+- un tableau se prête aussi : `fn doubler(production: &mut [i32; 4])`
+- dans la fonction, on modifie les cases avec leurs indices
+- `{:?}` affiche le tableau entier
+'''
+
+mission = '''
+Écris `doubler(production: &mut [i32; 4])`. Applique-la à `[3, 5, 2, 8]` et affiche le tableau avant et après.
+
+Résultat attendu :
+
+```text
+Avant : [3, 5, 2, 8]
+Après : [6, 10, 4, 16]
+```
+'''
+
+sortie_attendue = '''
+Avant : [3, 5, 2, 8]
+Après : [6, 10, 4, 16]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for i in 0..production.len() { production[i] *= 2; }`", "L’appel : `doubler(&mut production);`"]
+
+solution = '''
+fn doubler(production: &mut [i32; 4]) {
+    for i in 0..production.len() {
+        production[i] *= 2;
+    }
+}
+
+fn main() {
+    let mut production = [3, 5, 2, 8];
+    println!("Avant : {:?}", production);
+    doubler(&mut production);
+    println!("Après : {:?}", production);
+}
+'''

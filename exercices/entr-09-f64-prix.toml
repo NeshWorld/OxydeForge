@@ -1,0 +1,40 @@
+id = "entr-09"
+module = "entrainement"
+titre = "Le prix au kilo"
+notion = "f64 et {:.2}"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le ferrailleur vend le cuivre 3,80 € le kilo. J’en prends 2,5 kilos. Il m’a rendu la monnaie… je crois qu’il m’a arnaqué. Vérifie ?"
+
+lecon = '''
+- les décimaux s’écrivent avec un **point** : `2.5`, `3.8`
+- `{:.2}` affiche **deux** décimales, parfait pour des euros
+'''
+
+mission = '''
+Avec `poids = 2.5` kg et `prix_kilo = 3.8` €, affiche le prix total avec deux décimales.
+
+Résultat attendu :
+
+```text
+Total : 9.50 €
+```
+'''
+
+sortie_attendue = '''
+Total : 9.50 €
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let total = poids * prix_kilo;` puis `{total:.2}`."]
+
+solution = '''
+fn main() {
+    let poids = 2.5;
+    let prix_kilo = 3.8;
+    let total = poids * prix_kilo;
+    println!("Total : {total:.2} €");
+}
+'''

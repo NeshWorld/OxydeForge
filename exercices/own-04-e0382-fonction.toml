@@ -1,0 +1,103 @@
+id = "own-04"
+module = "ownership"
+titre = "Donnée à une fonction"
+notion = "move dans une fonction et E0382"
+type = "lis-erreur"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Panne ! J’ai donné la plaque de Ferris à la graveuse… et je ne la retrouve plus. La graveuse l’a gardée ? Elle ne rend jamais rien, celle-là."
+humeur = "gene"
+
+lecon = '''
+Donner une `String` à une fonction, c’est comme `let b = a;` : la `String` **déménage** dans le paramètre.
+
+```rust
+fn graver(texte: String) { … }   // texte devient le propriétaire
+
+graver(nom);    // nom déménage dans texte…
+                // …et à la fin de graver, la String est libérée !
+```
+
+Après l’appel, `nom` est vide : l’utiliser donne l’erreur **E0382**.
+
+**Pour l’instant**, la solution est `.clone()` : on donne une **copie**, et on garde l’original. (À l’étage suivant, tu verras bien mieux : le **prêt**.)
+
+**Lire l’erreur** :
+- `value moved here` : **où** la `String` est partie (l’appel à `graver`)
+- `value borrowed here after move` : où tu essaies de t’en servir après
+- `note: consider changing this parameter type…` : rustc suggère déjà le prêt !
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l’erreur, puis réécris-le corrigé avec `.clone()`.
+
+Résultat attendu :
+
+```text
+Gravé : Ferris
+Nom gardé : Ferris
+```
+'''
+
+code_casse = '''
+fn graver(texte: String) {
+    println!("Gravé : {texte}");
+}
+
+fn main() {
+    let nom = String::from("Ferris");
+    graver(nom);
+    println!("Nom gardé : {nom}");
+}
+'''
+
+erreur = '''
+error[E0382]: borrow of moved value: `nom`
+ --> main.rs:8:28
+  |
+6 |     let nom = String::from("Ferris");
+  |         --- move occurs because `nom` has type `String`, which does not implement the `Copy` trait
+7 |     graver(nom);
+  |            --- value moved here
+8 |     println!("Nom gardé : {nom}");
+  |                            ^^^ value borrowed here after move
+  |
+note: consider changing this parameter type in function `graver` to borrow instead if owning the value isn't necessary
+ --> main.rs:1:18
+  |
+1 | fn graver(texte: String) {
+  |    ------        ^^^^^^ this parameter takes ownership of the value
+  |    |
+  |    in this function
+help: consider cloning the value if the performance cost is acceptable
+  |
+7 |     graver(nom.clone());
+  |               ++++++++
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0382`.
+'''
+
+erreur_corrigee = "E0382"
+
+sortie_attendue = '''
+Gravé : Ferris
+Nom gardé : Ferris
+'''
+
+criteres = ["L'erreur `E0382` a **disparu**", "Le programme affiche le **bon texte**"]
+
+indices = ["`graver(nom.clone());` : la graveuse reçoit une copie."]
+
+solution = '''
+fn graver(texte: String) {
+    println!("Gravé : {texte}");
+}
+
+fn main() {
+    let nom = String::from("Ferris");
+    graver(nom.clone());
+    println!("Nom gardé : {nom}");
+}
+'''

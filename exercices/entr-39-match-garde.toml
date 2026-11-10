@@ -1,0 +1,48 @@
+id = "entr-39"
+module = "entrainement"
+titre = "match avec une condition"
+notion = "les gardes : n if …"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le thermomètre extérieur affiche des températures négatives, et ça fait geler les tuyaux. Il faut un panneau : gel, normal ou chaud."
+
+lecon = '''
+- une **garde** ajoute une condition à une branche : `n if n < 0 =>`
+- `n` reçoit la valeur, puis la condition est testée
+'''
+
+mission = '''
+Pour -5, 18 et 31, affiche « gel » (moins de 0), « normal » (0 à 25) ou « chaud ».
+
+Résultat attendu :
+
+```text
+-5 degrés : gel
+18 degrés : normal
+31 degrés : chaud
+```
+'''
+
+sortie_attendue = '''
+-5 degrés : gel
+18 degrés : normal
+31 degrés : chaud
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`n if n < 0 => \"gel\", 0..=25 => \"normal\", _ => \"chaud\",`"]
+
+solution = '''
+fn main() {
+    for t in [-5, 18, 31] {
+        let etat = match t {
+            n if n < 0 => "gel",
+            0..=25 => "normal",
+            _ => "chaud",
+        };
+        println!("{t} degrés : {etat}");
+    }
+}
+'''

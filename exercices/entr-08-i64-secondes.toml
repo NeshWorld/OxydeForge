@@ -1,0 +1,39 @@
+id = "entr-08"
+module = "entrainement"
+titre = "Les secondes d’une vie"
+notion = "i64 et débordement évité"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Combien de secondes dure une vie de 80 ans ? J’ai lancé le calcul sur la vieille machine en i32… elle a fait de la fumée."
+
+lecon = '''
+- 80 ans en secondes dépasse 2,5 milliards : trop grand pour un `i32`
+- si `ans` est un `i64`, tout le calcul se fait en `i64`
+'''
+
+mission = '''
+Avec `ans = 80` (un `i64`), calcule le nombre de secondes : 365 jours, 24 heures, 3600 secondes par heure.
+
+Résultat attendu :
+
+```text
+80 ans = 2522880000 secondes
+```
+'''
+
+sortie_attendue = '''
+80 ans = 2522880000 secondes
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let ans: i64 = 80;` puis `ans * 365 * 24 * 3600`."]
+
+solution = '''
+fn main() {
+    let ans: i64 = 80;
+    let secondes = ans * 365 * 24 * 3600;
+    println!("{ans} ans = {secondes} secondes");
+}
+'''

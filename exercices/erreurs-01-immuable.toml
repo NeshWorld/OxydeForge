@@ -1,0 +1,91 @@
+id = "erreurs-01"
+module = "erreurs"
+titre = "Immuable par défaut"
+notion = "let, let mut et E0384"
+type = "lis-erreur"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Panne ! La chaîne d'assemblage s'est arrêtée net. Le compilateur a laissé un rapport sur l'établi. Moi, je l'ai lu à l'envers. À toi !"
+
+lecon = '''
+En Python, une variable se **modifie** librement.
+
+En Rust, `let` crée une valeur **figée** : on dit **immuable**.
+
+Pour pouvoir la changer, il faut le **dire** : `let mut`.
+
+| Écriture | Modifiable ? |
+|---|---|
+| `let x = 5;` | **non** |
+| `let mut x = 5;` | **oui** |
+
+> Pourquoi ? Si rien ne bouge, le compilateur peut **garantir** qu'aucune autre partie du code ne change ta valeur dans ton dos.
+
+**Lire l'erreur** :
+- `error[E0384]` : le **code** de l'erreur. `rustc --explain E0384` l'explique en détail
+- `--> main.rs:4:5` : **fichier, ligne 4, colonne 5**
+- les `^^^^^` : **ce qui pose problème**
+- `help:` : la **correction proposée**, avec des `+++` sous ce qu'il faut ajouter
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l'erreur ci-dessous.
+
+Puis **réécris** le programme en entier, corrigé, dans l'éditeur.
+'''
+
+code_casse = '''
+fn main() {
+    let x = 5;
+    println!("x vaut {x}");
+    x = 6;
+    println!("x vaut {x}");
+}
+'''
+
+# Le vrai message de rustc 1.99, copié tel quel.
+erreur = '''
+error[E0384]: cannot assign twice to immutable variable `x`
+ --> main.rs:4:5
+  |
+2 |     let x = 5;
+  |         - first assignment to `x`
+3 |     println!("x vaut {x}");
+4 |     x = 6;
+  |     ^^^^^ cannot assign twice to immutable variable
+  |
+help: consider making this binding mutable
+  |
+2 |     let mut x = 5;
+  |         +++
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0384`.
+'''
+
+erreur_corrigee = "E0384"
+
+sortie_attendue = '''
+x vaut 5
+x vaut 6
+'''
+
+criteres = [
+  "L'erreur `E0384` a **disparu**",
+  "Le programme affiche `x vaut 5` puis `x vaut 6`",
+]
+
+indices = [
+  "Regarde la ligne `help:` : le compilateur te donne la réponse.",
+  "Un seul mot à ajouter, à la ligne 2.",
+]
+
+solution = '''
+fn main() {
+    let mut x = 5;
+    println!("x vaut {x}");
+    x = 6;
+    println!("x vaut {x}");
+}
+'''

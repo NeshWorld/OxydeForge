@@ -1,0 +1,48 @@
+id = "entr-16"
+module = "entrainement"
+titre = "Remplir la cuve"
+notion = "while"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La cuve doit atteindre 100 litres. La pompe envoie 30 litres d’un coup. J’ai laissé tourner… ça a débordé un peu. Beaucoup."
+
+lecon = '''
+- `while condition { … }` répète **tant que** la condition est vraie
+- la condition est testée **avant** chaque tour
+- n’oublie pas `mut` sur ce qui change
+'''
+
+mission = '''
+Pars de `niveau = 0`. Tant que le niveau est sous 100, ajoute 30 et affiche le niveau.
+
+Résultat attendu :
+
+```text
+Niveau : 30 litres
+Niveau : 60 litres
+Niveau : 90 litres
+Niveau : 120 litres
+```
+'''
+
+sortie_attendue = '''
+Niveau : 30 litres
+Niveau : 60 litres
+Niveau : 90 litres
+Niveau : 120 litres
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`while niveau < 100 { niveau += 30; … }`", "Le dernier niveau affiché dépasse 100 : c’est normal, le test vient avant l’ajout."]
+
+solution = '''
+fn main() {
+    let mut niveau = 0;
+    while niveau < 100 {
+        niveau += 30;
+        println!("Niveau : {niveau} litres");
+    }
+}
+'''

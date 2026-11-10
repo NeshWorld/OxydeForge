@@ -1,0 +1,54 @@
+id = "own-24"
+module = "ownership"
+titre = "Le premier mot"
+notion = "renvoyer une tranche"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Commande spéciale ! Pour les étiquettes courtes, il ne faut garder que le premier mot de chaque phrase. « Kael est formidable » devient… « Kael ». Parfait, c’est le plus important."
+humeur = "sourire-en-coin"
+
+lecon = '''
+- une fonction peut **renvoyer une tranche** de ce qu’on lui prête : `fn premier_mot(phrase: &str) -> &str`
+- `.char_indices()` donne `(position, caractère)` : on cherche le premier espace
+- `return &phrase[..i];` dès qu’on le trouve ; s’il n’y en a pas, toute la phrase est le premier mot
+'''
+
+mission = '''
+Écris `premier_mot`. Affiche le premier mot de « Kael est formidable », « Rust » et « La forge chauffe ».
+
+Résultat attendu :
+
+```text
+Kael est formidable → Kael
+Rust → Rust
+La forge chauffe → La
+```
+'''
+
+sortie_attendue = '''
+Kael est formidable → Kael
+Rust → Rust
+La forge chauffe → La
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for (i, c) in phrase.char_indices() { if c == ' ' { return &phrase[..i]; } }`", "Après la boucle : `phrase` sans point-virgule."]
+
+solution = '''
+fn premier_mot(phrase: &str) -> &str {
+    for (i, c) in phrase.char_indices() {
+        if c == ' ' {
+            return &phrase[..i];
+        }
+    }
+    phrase
+}
+
+fn main() {
+    for phrase in ["Kael est formidable", "Rust", "La forge chauffe"] {
+        println!("{phrase} → {}", premier_mot(phrase));
+    }
+}
+'''

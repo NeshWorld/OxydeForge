@@ -1,0 +1,88 @@
+id = "bases-09"
+module = "bases"
+titre = "Les tuples"
+notion = "(a, b), .0 et déstructuration"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "On découpe 17 lingots en lots de 5. Combien de lots, et combien de lingots sur les bras ? J'ai compté sur mes doigts. J'en ai 10. Ça ne suffit pas."
+
+lecon = '''
+Un **tuple** regroupe plusieurs valeurs, **même de types différents**, entre parenthèses.
+
+```rust
+let ferris = ("Ferris", 7);
+```
+
+On lit chaque case avec un **point et un numéro** (on compte à partir de 0) :
+
+```rust
+println!("{}", ferris.0);   // Ferris
+println!("{}", ferris.1);   // 7
+```
+
+Ou on **déstructure** : on range chaque case dans sa variable.
+
+```rust
+let (nom, age) = ferris;
+```
+
+| Rust | Python |
+|---|---|
+| `let t = ("Ferris", 7);` | `t = ("Ferris", 7)` |
+| `t.0` | `t[0]` |
+| `let (nom, age) = t;` | `nom, age = t` |
+
+**Afficher un tuple entier** : `{}` refuse (erreur E0277), car Rust ne sait pas quel « joli » affichage choisir. Il faut `{:?}`, l'affichage **de débogage** :
+
+```rust
+println!("{:?}", ferris);   // ("Ferris", 7)
+```
+
+| Accolades | Pour qui | En Python |
+|---|---|---|
+| `{}` | l'utilisateur : affichage propre | `str()` |
+| `{:?}` | toi, le développeur : affichage de débogage | `repr()` |
+
+**Très pratique** pour qu'une fonction renvoie **plusieurs** valeurs :
+
+```rust
+fn min_max(a: i32, b: i32) -> (i32, i32) {
+    if a < b { (a, b) } else { (b, a) }
+}
+```
+'''
+
+mission = '''
+Écris une fonction `division(a: i32, b: i32) -> (i32, i32)` qui renvoie le **quotient** et le **reste**.
+
+Dans `main`, déstructure le résultat de `division(17, 5)` et affiche exactement :
+
+```text
+17 / 5 : quotient 3, reste 2
+```
+'''
+
+sortie_attendue = "17 / 5 : quotient 3, reste 2"
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche le quotient et le reste",
+]
+
+indices = [
+  "Le reste d'une division : `%`, comme en Python.",
+  "La fonction renvoie `(a / b, a % b)`, sans point-virgule.",
+  "Dans `main` : `let (quotient, reste) = division(17, 5);`",
+]
+
+solution = '''
+fn division(a: i32, b: i32) -> (i32, i32) {
+    (a / b, a % b)
+}
+
+fn main() {
+    let (quotient, reste) = division(17, 5);
+    println!("17 / 5 : quotient {quotient}, reste {reste}");
+}
+'''

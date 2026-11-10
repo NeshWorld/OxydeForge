@@ -1,0 +1,67 @@
+id = "cesar-3"
+module = "cesar"
+titre = "Le bout de l’alphabet"
+notion = "b'A', % et tour de cadran"
+type = "etape"
+
+# Généré par scripts/generer_cesar.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai codé « ZEBRE » et j’ai obtenu… « ]HEUH ». Un crochet ?! Depuis quand il y a des crochets dans l’alphabet ?"
+humeur = "surpris"
+
+lecon = '''
+L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, tu ne repars pas de zéro.
+
+Le problème : `Z` vaut 90, et 90 + 3 = 93, le code de `]`. Il faut **revenir à `A`** après `Z`, comme une horloge.
+
+L’astuce en 3 temps :
+
+- **1 ·** la **position** dans l’alphabet : `c as u8 - b'A'` (A = 0, B = 1… Z = 25)
+- **2 ·** on décale **et on fait le tour** : `(position + cle) % 26`
+- **3 ·** on revient à une lettre : `(b'A' + nouvelle) as char`
+
+`b'A'` est un raccourci pour `'A' as u8` : le nombre 65, directement en `u8`.
+'''
+
+mission = '''
+Corrige `decaler` pour qu’après `Z` on revienne à `A`. Dans `main`, chiffre `XYZ` et `ZEBRE` avec la clé 3, puis `KAEL` avec la clé 25.
+
+Résultat attendu :
+
+```text
+XYZ -> ABC
+ZEBRE -> CHEUH
+KAEL -> JZDK
+```
+'''
+
+sortie_attendue = '''
+XYZ -> ABC
+ZEBRE -> CHEUH
+KAEL -> JZDK
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let position = c as u8 - b'A';`", "`let nouvelle = (position + cle) % 26;`, puis `(b'A' + nouvelle) as char`"]
+
+solution = '''
+fn decaler(c: char, cle: u8) -> char {
+    let position = c as u8 - b'A';
+    let nouvelle = (position + cle) % 26;
+    (b'A' + nouvelle) as char
+}
+
+fn chiffrer(texte: &str, cle: u8) -> String {
+    let mut resultat = String::new();
+    for c in texte.chars() {
+        resultat.push(decaler(c, cle));
+    }
+    resultat
+}
+
+fn main() {
+    println!("XYZ -> {}", chiffrer("XYZ", 3));
+    println!("ZEBRE -> {}", chiffrer("ZEBRE", 3));
+    println!("KAEL -> {}", chiffrer("KAEL", 25));
+}
+'''

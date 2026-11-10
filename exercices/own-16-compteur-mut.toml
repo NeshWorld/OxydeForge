@@ -1,0 +1,46 @@
+id = "own-16"
+module = "ownership"
+titre = "Le compteur de pièces"
+notion = "&mut i32 et *"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Chaque fois qu’une pièce sort de la presse, une machine doit ajouter 1 au compteur. Pas le compteur de la machine : LE compteur. Celui du mur."
+
+lecon = '''
+- on peut prêter un nombre en mutable : `fn ajouter(compteur: &mut i32)`
+- pour modifier la valeur **derrière** la référence, il faut l’étoile : `*compteur += 1;`
+- `*` se lit « la valeur pointée par »
+'''
+
+mission = '''
+Écris `ajouter(compteur: &mut i32)`. Appelle-la 3 fois dans une boucle, puis affiche le compteur.
+
+Résultat attendu :
+
+```text
+Pièces sorties : 3
+```
+'''
+
+sortie_attendue = '''
+Pièces sorties : 3
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`*compteur += 1;` dans la fonction.", "Dans la boucle : `ajouter(&mut pieces);`"]
+
+solution = '''
+fn ajouter(compteur: &mut i32) {
+    *compteur += 1;
+}
+
+fn main() {
+    let mut pieces = 0;
+    for _ in 0..3 {
+        ajouter(&mut pieces);
+    }
+    println!("Pièces sorties : {pieces}");
+}
+'''

@@ -1,0 +1,97 @@
+id = "cesar-6"
+module = "cesar"
+titre = "Bonus : casser le code"
+notion = "force brute avec for"
+type = "etape"
+
+# Généré par scripts/generer_cesar.mjs : modifie le générateur, pas ce fichier.
+kael = "On a intercepté un message d’une fonderie rivale. Pas de clé. Mais il n’y a que 25 clés possibles… On les essaie TOUTES ?"
+humeur = "sourire-en-coin"
+
+lecon = '''
+L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, tu ne repars pas de zéro.
+
+Le César a un gros défaut : seulement **25 clés** utiles. On peut toutes les essayer : c’est l’attaque par **force brute**.
+
+- `for cle in 1..26` : de 1 à 25 (le 26 est **exclu**)
+- une seule des 25 lignes sera lisible : c’est la bonne clé
+'''
+
+mission = '''
+Garde tes fonctions. Dans `main`, essaie les clés de 1 à 25 sur le message intercepté `VLPW L ZFMWTP WL NWP OF NZQQCP`, une ligne par clé. Puis trouve la ligne lisible 😉
+
+Résultat attendu :
+
+```text
+1 : UKOV K YELVSO VK MVO NE MYPPBO
+2 : TJNU J XDKURN UJ LUN MD LXOOAN
+3 : SIMT I WCJTQM TI KTM LC KWNNZM
+4 : RHLS H VBISPL SH JSL KB JVMMYL
+5 : QGKR G UAHROK RG IRK JA IULLXK
+…
+24 : XNRY N BHOYVR YN PYR QH PBSSER
+25 : WMQX M AGNXUQ XM OXQ PG OARRDQ
+```
+'''
+
+sortie_attendue = '''
+1 : UKOV K YELVSO VK MVO NE MYPPBO
+2 : TJNU J XDKURN UJ LUN MD LXOOAN
+3 : SIMT I WCJTQM TI KTM LC KWNNZM
+4 : RHLS H VBISPL SH JSL KB JVMMYL
+5 : QGKR G UAHROK RG IRK JA IULLXK
+6 : PFJQ F TZGQNJ QF HQJ IZ HTKKWJ
+7 : OEIP E SYFPMI PE GPI HY GSJJVI
+8 : NDHO D RXEOLH OD FOH GX FRIIUH
+9 : MCGN C QWDNKG NC ENG FW EQHHTG
+10 : LBFM B PVCMJF MB DMF EV DPGGSF
+11 : KAEL A OUBLIE LA CLE DU COFFRE
+12 : JZDK Z NTAKHD KZ BKD CT BNEEQD
+13 : IYCJ Y MSZJGC JY AJC BS AMDDPC
+14 : HXBI X LRYIFB IX ZIB AR ZLCCOB
+15 : GWAH W KQXHEA HW YHA ZQ YKBBNA
+16 : FVZG V JPWGDZ GV XGZ YP XJAAMZ
+17 : EUYF U IOVFCY FU WFY XO WIZZLY
+18 : DTXE T HNUEBX ET VEX WN VHYYKX
+19 : CSWD S GMTDAW DS UDW VM UGXXJW
+20 : BRVC R FLSCZV CR TCV UL TFWWIV
+21 : AQUB Q EKRBYU BQ SBU TK SEVVHU
+22 : ZPTA P DJQAXT AP RAT SJ RDUUGT
+23 : YOSZ O CIPZWS ZO QZS RI QCTTFS
+24 : XNRY N BHOYVR YN PYR QH PBSSER
+25 : WMQX M AGNXUQ XM OXQ PG OARRDQ
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let intercepte = \"VLPW L ZFMWTP WL NWP OF NZQQCP\";`", "`for cle in 1..26 { println!(\"{cle} : {}\", dechiffrer(intercepte, cle)); }`"]
+
+solution = '''
+fn decaler(c: char, cle: i32) -> char {
+    if !c.is_ascii_uppercase() {
+        return c;
+    }
+    let position = (c as u8 - b'A') as i32;
+    let nouvelle = (position + cle).rem_euclid(26);
+    (b'A' + nouvelle as u8) as char
+}
+
+fn chiffrer(texte: &str, cle: i32) -> String {
+    let mut resultat = String::new();
+    for c in texte.chars() {
+        resultat.push(decaler(c, cle));
+    }
+    resultat
+}
+
+fn dechiffrer(texte: &str, cle: i32) -> String {
+    chiffrer(texte, -cle)
+}
+
+fn main() {
+    let intercepte = "VLPW L ZFMWTP WL NWP OF NZQQCP";
+    for cle in 1..26 {
+        println!("{cle} : {}", dechiffrer(intercepte, cle));
+    }
+}
+'''

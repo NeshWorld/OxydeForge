@@ -1,0 +1,63 @@
+id = "own-11"
+module = "ownership"
+titre = "Prêter pour modifier : &mut"
+notion = "les références mutables"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai prêté mon carnet à l’apprenti pour qu’il ajoute une note. Il a ajouté un dessin de moi. Pas très ressemblant. Enfin… un peu."
+
+lecon = '''
+Un prêt `&` permet seulement de **lire**. Pour **modifier**, il faut un prêt **mutable** : `&mut`.
+
+```rust
+fn crier(s: &mut String) {
+    s.push('!');
+}
+
+let mut cri = String::from("Ca tourne");   // ① la variable doit être mut
+crier(&mut cri);                             // ② on prête avec &mut
+println!("{cri}");                           // Ca tourne!
+```
+
+**Trois** `mut` à ne pas oublier :
+
+| Où | Pourquoi |
+|---|---|
+| `let mut cri` | la variable elle-même doit être modifiable |
+| `s: &mut String` | la fonction annonce qu’elle va modifier |
+| `crier(&mut cri)` | l’appel le dit aussi : on **voit** qui modifie quoi |
+
+> Le `&mut` à l’appel est précieux : en lisant `crier(&mut cri)`, tu sais tout de suite que `cri` peut changer.
+'''
+
+mission = '''
+Écris `crier(s: &mut String)` qui ajoute « ! ». Appelle-la deux fois sur « Ca tourne », puis affiche le résultat.
+
+Résultat attendu :
+
+```text
+Ca tourne!!
+```
+'''
+
+sortie_attendue = '''
+Ca tourne!!
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let mut cri = …;` puis deux fois `crier(&mut cri);`"]
+
+solution = '''
+fn crier(s: &mut String) {
+    s.push('!');
+}
+
+fn main() {
+    let mut cri = String::from("Ca tourne");
+    crier(&mut cri);
+    crier(&mut cri);
+    println!("{cri}");
+}
+'''

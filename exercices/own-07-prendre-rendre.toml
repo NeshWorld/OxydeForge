@@ -1,0 +1,45 @@
+id = "own-07"
+module = "ownership"
+titre = "Mesurer sans perdre"
+notion = "prendre et rendre avec un tuple"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Je veux mesurer la longueur d’une étiquette. Mais si je la donne à la machine à mesurer, elle la garde ! Il faut qu’elle me la rende, avec la mesure."
+
+lecon = '''
+- une fonction peut renvoyer **plusieurs** valeurs dans un tuple : `-> (String, usize)`
+- `usize` : le type des tailles et des positions (ce que renvoie `.len()`)
+- on récupère tout avec une déstructuration : `let (etiquette, taille) = mesurer(etiquette);`
+'''
+
+mission = '''
+Écris `mesurer(s: String) -> (String, usize)` qui rend la `String` **et** sa longueur. Mesure « OxydeForge », puis affiche l’étiquette et sa taille.
+
+Résultat attendu :
+
+```text
+OxydeForge : 10 octets
+```
+'''
+
+sortie_attendue = '''
+OxydeForge : 10 octets
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let n = s.len(); (s, n)`", "Remarque comme c’est lourd : c’est exactement ce que le prêt `&` va simplifier."]
+
+solution = '''
+fn mesurer(s: String) -> (String, usize) {
+    let n = s.len();
+    (s, n)
+}
+
+fn main() {
+    let etiquette = String::from("OxydeForge");
+    let (etiquette, taille) = mesurer(etiquette);
+    println!("{etiquette} : {taille} octets");
+}
+'''

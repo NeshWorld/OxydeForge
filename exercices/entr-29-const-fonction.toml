@@ -1,0 +1,47 @@
+id = "entr-29"
+module = "entrainement"
+titre = "Des constantes partout"
+notion = "const utilisées dans une fonction"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La plaque standard fait toujours 8 sur 5. Toujours. Sauf la fois où je l’ai coupée de travers. On n’en parle pas."
+
+lecon = '''
+- une constante est visible dans **tout le fichier**, même dans les autres fonctions
+- une fonction sans paramètre peut s’en servir : `fn aire() -> u32`
+'''
+
+mission = '''
+Déclare `LARGEUR` (8) et `HAUTEUR` (5) en `u32`. Écris `aire()` qui les utilise, et affiche les dimensions puis l’aire.
+
+Résultat attendu :
+
+```text
+Plaque de 8 × 5
+Aire : 40
+```
+'''
+
+sortie_attendue = '''
+Plaque de 8 × 5
+Aire : 40
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`fn aire() -> u32 { LARGEUR * HAUTEUR }`"]
+
+solution = '''
+const LARGEUR: u32 = 8;
+const HAUTEUR: u32 = 5;
+
+fn aire() -> u32 {
+    LARGEUR * HAUTEUR
+}
+
+fn main() {
+    println!("Plaque de {LARGEUR} × {HAUTEUR}");
+    println!("Aire : {}", aire());
+}
+'''

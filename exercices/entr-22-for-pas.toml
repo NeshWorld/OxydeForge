@@ -1,0 +1,47 @@
+id = "entr-22"
+module = "entrainement"
+titre = "La règle graduée"
+notion = "for et step_by"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Il faut graver des repères sur la règle de l’atelier, tous les 5 millimètres, jusqu’à 20. Ma règle actuelle a des repères… un peu partout."
+
+lecon = '''
+- `(0..=20).step_by(5)` donne 0, 5, 10, 15, 20
+- les parenthèses autour de l’intervalle sont obligatoires
+'''
+
+mission = '''
+Affiche les repères de 0 à 20 mm, de 5 en 5.
+
+Résultat attendu :
+
+```text
+Repère : 0 mm
+Repère : 5 mm
+Repère : 10 mm
+Repère : 15 mm
+Repère : 20 mm
+```
+'''
+
+sortie_attendue = '''
+Repère : 0 mm
+Repère : 5 mm
+Repère : 10 mm
+Repère : 15 mm
+Repère : 20 mm
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for mm in (0..=20).step_by(5) { … }`"]
+
+solution = '''
+fn main() {
+    for mm in (0..=20).step_by(5) {
+        println!("Repère : {mm} mm");
+    }
+}
+'''

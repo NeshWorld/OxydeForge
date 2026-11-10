@@ -1,0 +1,68 @@
+id = "own-03"
+module = "ownership"
+titre = "Copie ou déménagement ?"
+notion = "Copy contre move"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Quand je prête ma clé de 12, je n’en ai plus. Quand je donne le numéro de la clé, j’ai encore la clé. C’est pareil en Rust, paraît-il."
+
+lecon = '''
+Que se passe-t-il avec `let b = a;` ? **Ça dépend du type.**
+
+**Les petits types sont copiés** : nombres, `bool`, `char`.
+
+```rust
+let a = 5;
+let b = a;      // b reçoit une COPIE de 5
+println!("{a} {b}");   // ✅ les deux existent
+```
+
+**Les `String` déménagent** : la valeur change de propriétaire.
+
+```rust
+let s1 = String::from("Ferris");
+let s2 = s1;    // la String DÉMÉNAGE dans s2
+println!("{s2}");      // ✅
+// println!("{s1}");   // ❌ E0382 : s1 est vide
+```
+
+| Type | `let b = a;` | Pourquoi |
+|---|---|---|
+| `i32`, `f64`, `bool`, `char` | **copie** | minuscule, copier ne coûte rien |
+| `String` | **déménagement** (*move*) | le texte peut être énorme : on ne le recopie pas en douce |
+
+> Les types copiables ont un nom en Rust : ils implémentent `Copy`. C’est le `does not implement the Copy trait` des messages d’erreur.
+'''
+
+mission = '''
+Copie un `i32` et affiche les deux variables. Puis fais déménager une `String` « Ferris » vers `nouveau` et affiche le nouveau propriétaire.
+
+Résultat attendu :
+
+```text
+Copie : a = 7, b = 7
+Déménagement : Ferris a un nouveau propriétaire
+```
+'''
+
+sortie_attendue = '''
+Copie : a = 7, b = 7
+Déménagement : Ferris a un nouveau propriétaire
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let a = 7; let b = a;` puis les deux dans un `println!`.", "Après `let nouveau = ancien;`, n’utilise **que** `nouveau`."]
+
+solution = '''
+fn main() {
+    let a = 7;
+    let b = a;
+    println!("Copie : a = {a}, b = {b}");
+
+    let ancien = String::from("Ferris");
+    let nouveau = ancien;
+    println!("Déménagement : {nouveau} a un nouveau propriétaire");
+}
+'''

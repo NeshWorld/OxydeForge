@@ -1,0 +1,50 @@
+id = "entr-03"
+module = "entrainement"
+titre = "Les nuits glaciales"
+notion = "i32, négatifs et .abs()"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai relevé le thermomètre trois fois : la nuit, le matin et à midi. Mes moustaches ont gelé puis dégelé. Tu me fais le bilan ?"
+
+lecon = '''
+- `i32` accepte les **négatifs** : `let froid: i32 = -5;`
+- soustraire un négatif revient à **ajouter** : `3 - (-5)` = 8
+- `.abs()` donne la **valeur absolue** (sans le signe) : `(-5).abs()` vaut 5
+- une moyenne entière : `(a + b + c) / 3` (les **parenthèses** d’abord, sinon seul `c` est divisé)
+'''
+
+mission = '''
+Avec `nuit = -17`, `matin = 6` et `midi = 14` (des `i32`), affiche l’écart entre la nuit et midi, le froid de la nuit sans signe, puis la moyenne des trois relevés.
+
+Résultat attendu :
+
+```text
+Ecart nuit-midi : 31 degrés
+Froid de la nuit : 17 degrés sous zéro
+Moyenne du jour : 1 degré
+```
+'''
+
+sortie_attendue = '''
+Ecart nuit-midi : 31 degrés
+Froid de la nuit : 17 degrés sous zéro
+Moyenne du jour : 1 degré
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let ecart = midi - nuit;`", "`nuit.abs()` enlève le signe.", "`(nuit + matin + midi) / 3`"]
+
+solution = '''
+fn main() {
+    let nuit: i32 = -17;
+    let matin: i32 = 6;
+    let midi: i32 = 14;
+    let ecart = midi - nuit;
+    let moyenne = (nuit + matin + midi) / 3;
+    println!("Ecart nuit-midi : {ecart} degrés");
+    println!("Froid de la nuit : {} degrés sous zéro", nuit.abs());
+    println!("Moyenne du jour : {moyenne} degré");
+}
+'''

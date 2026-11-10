@@ -1,0 +1,79 @@
+id = "own-13"
+module = "ownership"
+titre = "Deux écrivains à la fois"
+notion = "deux &mut en même temps, E0499"
+type = "lis-erreur"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Panne ! Deux apprentis ont voulu écrire sur la même plaque EN MÊME TEMPS. Résultat : illisible. Le compilateur a crié avant moi, pour une fois."
+
+lecon = '''
+Rust interdit **deux** prêts mutables de la même valeur **en même temps**.
+
+**Pourquoi ?** Si deux parties du code modifient la même chose en même temps, le résultat dépend de qui passe en premier : c’est un des pires bugs qui existent (une *data race*). Rust le rend **impossible**.
+
+**Un prêt dure** jusqu’à sa **dernière utilisation**. Il suffit donc de finir avec le premier écrivain avant de commencer avec le second.
+
+**Lire l’erreur** :
+- `first mutable borrow occurs here` : le premier prêt
+- `second mutable borrow occurs here` : le second, pendant que le premier sert encore
+- `first borrow later used here` : la preuve que le premier n’était pas fini
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l’erreur, puis réécris-le pour que les deux prêts se suivent au lieu de se chevaucher.
+
+Résultat attendu :
+
+```text
+forge!?
+```
+'''
+
+code_casse = '''
+fn main() {
+    let mut plaque = String::from("forge");
+    let a = &mut plaque;
+    let b = &mut plaque;
+    a.push('!');
+    b.push('?');
+    println!("{plaque}");
+}
+'''
+
+erreur = '''
+error[E0499]: cannot borrow `plaque` as mutable more than once at a time
+ --> main.rs:4:13
+  |
+3 |     let a = &mut plaque;
+  |             ----------- first mutable borrow occurs here
+4 |     let b = &mut plaque;
+  |             ^^^^^^^^^^^ second mutable borrow occurs here
+5 |     a.push('!');
+  |     - first borrow later used here
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0499`.
+'''
+
+erreur_corrigee = "E0499"
+
+sortie_attendue = '''
+forge!?
+'''
+
+criteres = ["L'erreur `E0499` a **disparu**", "Le programme affiche le **bon texte**"]
+
+indices = ["Utilise `a` **avant** de créer `b` : `let a = &mut plaque; a.push('!');` puis `let b = …`"]
+
+solution = '''
+fn main() {
+    let mut plaque = String::from("forge");
+    let a = &mut plaque;
+    a.push('!');
+    let b = &mut plaque;
+    b.push('?');
+    println!("{plaque}");
+}
+'''

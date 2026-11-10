@@ -1,0 +1,44 @@
+id = "entr-20"
+module = "entrainement"
+titre = "loop qui renvoie une valeur"
+notion = "break valeur"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Je cherche le premier nombre dont le carré dépasse 50. J’ai essayé 7 : 49, raté de peu ! Le suivant, je crois, mais je n’ose plus parier."
+
+lecon = '''
+- un `loop` peut **renvoyer une valeur** : `break valeur;`
+- on la récupère avec `let resultat = loop { … };` (avec un `;` à la fin)
+'''
+
+mission = '''
+Avec `let premier = loop { … };`, trouve le premier entier dont le carré dépasse 50, puis affiche-le avec son carré.
+
+Résultat attendu :
+
+```text
+Premier carré > 50 : 8 × 8 = 64
+```
+'''
+
+sortie_attendue = '''
+Premier carré > 50 : 8 × 8 = 64
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`n += 1; if n * n > 50 { break n; }`"]
+
+solution = '''
+fn main() {
+    let mut n = 0;
+    let premier = loop {
+        n += 1;
+        if n * n > 50 {
+            break n;
+        }
+    };
+    println!("Premier carré > 50 : {premier} × {premier} = {}", premier * premier);
+}
+'''

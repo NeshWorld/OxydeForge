@@ -1,0 +1,76 @@
+id = "defis-05"
+module = "defis"
+titre = "Nombres premiers"
+notion = "boucle dans une boucle"
+type = "defi"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Commande spéciale ! Le coffre-fort de l'atelier n'accepte que des nombres premiers. Il me faut la liste jusqu'à 50. J'avais essayé 9. Le coffre a sonné."
+
+lecon = '''
+- un nombre **premier** n'est divisible que par 1 et par lui-même : 2, 3, 5, 7, 11…
+- 1 **n'est pas** premier
+- une boucle peut contenir une autre boucle
+- `break` sort de la boucle **la plus proche**
+'''
+
+mission = '''
+Affiche tous les nombres premiers de 2 à 50, un par ligne.
+
+```text
+2
+3
+5
+7
+…
+47
+```
+'''
+
+sortie_attendue = '''
+2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche les **15 nombres premiers** jusqu'à 50",
+]
+
+indices = [
+  "Pour chaque `n`, suppose qu'il est premier : `let mut premier = true;`",
+  "Puis teste chaque diviseur `d` de 2 à `n - 1` : si `n % d == 0`, il n'est pas premier.",
+  "Bonus : tester jusqu'à la racine carrée suffit (`d * d <= n`).",
+]
+
+solution = '''
+fn main() {
+    for n in 2..=50 {
+        let mut premier = true;
+        let mut d = 2;
+        while d * d <= n {
+            if n % d == 0 {
+                premier = false;
+                break;
+            }
+            d += 1;
+        }
+        if premier {
+            println!("{n}");
+        }
+    }
+}
+'''

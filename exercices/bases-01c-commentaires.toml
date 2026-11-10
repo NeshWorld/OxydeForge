@@ -1,0 +1,105 @@
+id = "bases-01c"
+module = "bases"
+titre = "Les commentaires"
+notion = "//, /* */ et /// (documentation)"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "J'ai laissé plein de notes dans le code de l'alarme… mais je ne me souviens plus de ce qu'elles veulent dire. Et l'alarme sonne trois fois au lieu de deux. Ça me rend chèvre."
+
+lecon = '''
+Un **commentaire** est un texte pour **les humains** : le compilateur l'ignore complètement.
+
+**1. Le commentaire de ligne : `//`**
+
+Tout ce qui suit `//`, jusqu'à la fin de la ligne, est ignoré.
+
+```rust
+// Affiche le message d'accueil
+println!("Bonjour");   // on peut aussi en mettre en bout de ligne
+```
+
+**2. Le commentaire de bloc : `/* … */`**
+
+Il peut couvrir **plusieurs lignes**. On s'en sert rarement.
+
+```rust
+/* Ce code date de la première version.
+   À réécrire un jour. */
+```
+
+**3. Le commentaire de documentation : `///`**
+
+Il se place **au-dessus** d'une fonction et la **décrit**. On peut y écrire du Markdown.
+
+```rust
+/// Renvoie le carré de `n`.
+fn carre(n: i32) -> i32 {
+    n * n
+}
+```
+
+`cargo doc` transforme ces `///` en un vrai **site web de documentation**. C'est comme ça qu'est faite toute la documentation officielle de Rust.
+
+| Rust | Python | Rôle |
+|---|---|---|
+| `// …` | `# …` | une note |
+| `/* … */` | — | une note sur plusieurs lignes |
+| `/// …` au-dessus | `"""…"""` en dessous du `def` | la documentation |
+
+**Désactiver une ligne** : mets `//` devant, sans l'effacer. Pratique pour tester.
+
+> Dans l'éditeur, **Ctrl + /** commente ou décommente la ligne du curseur (ou toute la sélection).
+
+**Un bon commentaire dit POURQUOI, pas QUOI** :
+
+| Inutile | Utile |
+|---|---|
+| `// ajoute 1 à age` | `// l'âge est compté à partir de l'an prochain` |
+
+Le code dit déjà **ce qu'il fait**. Le commentaire explique ce que le code ne peut pas dire.
+'''
+
+mission = '''
+Écris un programme avec :
+
+- une fonction `alarme`, documentée avec `///`, qui affiche `Alerte : pression trop haute !`
+- un commentaire `//` en haut de `main`, qui explique **pourquoi** on appelle l'alarme
+- **trois** appels à `alarme()` dans `main`, dont le troisième **désactivé** avec `//`
+
+Résultat attendu :
+
+```text
+Alerte : pression trop haute !
+Alerte : pression trop haute !
+```
+'''
+
+sortie_attendue = '''
+Alerte : pression trop haute !
+Alerte : pression trop haute !
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "L'alarme sonne **deux** fois, pas trois",
+]
+
+indices = [
+  "La documentation se place juste au-dessus de `fn alarme() {`, avec trois barres : `///`.",
+  "Pour désactiver le troisième appel : `// alarme();`. Essaie **Ctrl + /** sur la ligne !",
+]
+
+solution = '''
+/// Affiche l'alerte de surpression de la chaudière.
+fn alarme() {
+    println!("Alerte : pression trop haute !");
+}
+
+fn main() {
+    // La chaudière a dépassé sa limite : on prévient l'atelier deux fois.
+    alarme();
+    alarme();
+    // alarme(); désactivée : trois alertes, ça affolait tout le monde
+}
+'''

@@ -1,0 +1,61 @@
+id = "own-10"
+module = "ownership"
+titre = "&str : le meilleur paramètre texte"
+notion = "&str accepte tout"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "La machine à saluer n’accepte que les noms sur plaque en métal. Pas les noms écrits à la craie. C’est trop compliqué ! Il faut qu’elle accepte tout."
+
+lecon = '''
+Pour une fonction qui **lit** du texte, l’habitude est `&str`, pas `&String`.
+
+```rust
+fn saluer(nom: &str) {
+    println!("Bonjour, {nom} !");
+}
+
+let ferris = String::from("Ferris");
+saluer(&ferris);   // ✅ une String prêtée
+saluer("Kael");    // ✅ un texte fixe
+```
+
+| Paramètre | Accepte une `String` prêtée | Accepte un texte fixe `"…"` |
+|---|---|---|
+| `&String` | ✅ | ❌ |
+| `&str` | ✅ (Rust convertit tout seul) | ✅ |
+
+> `&str` est une **vue** sur du texte, où qu’il soit : dans une `String` ou écrit en dur dans le programme. C’est pour ça qu’il accepte tout.
+'''
+
+mission = '''
+Écris `saluer(nom: &str)`. Appelle-la avec une `String` prêtée (« Ferris »), puis avec le texte fixe « Kael ».
+
+Résultat attendu :
+
+```text
+Bonjour, Ferris !
+Bonjour, Kael !
+```
+'''
+
+sortie_attendue = '''
+Bonjour, Ferris !
+Bonjour, Kael !
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`saluer(&ferris);` puis `saluer(\"Kael\");`"]
+
+solution = '''
+fn saluer(nom: &str) {
+    println!("Bonjour, {nom} !");
+}
+
+fn main() {
+    let ferris = String::from("Ferris");
+    saluer(&ferris);
+    saluer("Kael");
+}
+'''

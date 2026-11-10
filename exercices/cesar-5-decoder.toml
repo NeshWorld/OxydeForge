@@ -1,0 +1,71 @@
+id = "cesar-5"
+module = "cesar"
+titre = "Décoder"
+notion = "i32, rem_euclid et &String"
+type = "etape"
+
+# Généré par scripts/generer_cesar.mjs : modifie le générateur, pas ce fichier.
+kael = "Coder, on sait. Mais les autres fonderies attendent nos réponses, et moi je dois LIRE leurs messages. Il faut faire le chemin inverse !"
+humeur = "determine"
+
+lecon = '''
+L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, tu ne repars pas de zéro.
+
+Décoder, c’est décaler **en arrière** : une clé **négative**. Mais un `u8` ne peut pas être négatif : la clé passe en `i32`.
+
+- la position doit suivre : `(c as u8 - b'A') as i32`
+- `%` garde le signe : `-2 % 26` vaut -2. Il faut **`rem_euclid(26)`**, qui donne 24 (souviens-toi des dettes de Kael !)
+- retour en lettre : `(b'A' + nouvelle as u8) as char`
+- `dechiffrer` peut simplement appeler `chiffrer(texte, -cle)`
+
+Pour passer une `String` à une fonction qui attend un `&str` : `&secret` (on la **prête**).
+'''
+
+mission = '''
+Passe la clé en `i32` partout, puis ajoute `dechiffrer(texte: &str, cle: i32) -> String`. Dans `main`, chiffre `LE CREUSET EST FISSURE` avec la clé 7, affiche le code, puis déchiffre-le.
+
+Résultat attendu :
+
+```text
+Code : SL JYLBZLA LZA MPZZBYL
+Clair : LE CREUSET EST FISSURE
+```
+'''
+
+sortie_attendue = '''
+Code : SL JYLBZLA LZA MPZZBYL
+Clair : LE CREUSET EST FISSURE
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let nouvelle = (position + cle).rem_euclid(26);`", "`fn dechiffrer(texte: &str, cle: i32) -> String { chiffrer(texte, -cle) }`", "`let secret = chiffrer(\"LE CREUSET EST FISSURE\", 7);`, puis `dechiffrer(&secret, 7)`"]
+
+solution = '''
+fn decaler(c: char, cle: i32) -> char {
+    if !c.is_ascii_uppercase() {
+        return c;
+    }
+    let position = (c as u8 - b'A') as i32;
+    let nouvelle = (position + cle).rem_euclid(26);
+    (b'A' + nouvelle as u8) as char
+}
+
+fn chiffrer(texte: &str, cle: i32) -> String {
+    let mut resultat = String::new();
+    for c in texte.chars() {
+        resultat.push(decaler(c, cle));
+    }
+    resultat
+}
+
+fn dechiffrer(texte: &str, cle: i32) -> String {
+    chiffrer(texte, -cle)
+}
+
+fn main() {
+    let secret = chiffrer("LE CREUSET EST FISSURE", 7);
+    println!("Code : {secret}");
+    println!("Clair : {}", dechiffrer(&secret, 7));
+}
+'''

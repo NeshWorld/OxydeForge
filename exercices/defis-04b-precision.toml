@@ -1,0 +1,57 @@
+id = "defis-04b"
+module = "defis"
+titre = "Le thermomètre de précision"
+notion = "f64, décimales et {:.1}"
+type = "defi"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Commande spéciale ! L'infirmerie de l'atelier veut convertir les températures des ouvriers, avec les décimales cette fois. 38,5 °C, c'est de la fièvre ? Je demande pour un ami. L'ami, c'est moi."
+humeur = "inquiet"
+
+lecon = '''
+- un nombre **décimal** s'écrit avec un **point** : `36.6`, et `37.0` (pas `37`, sinon c'est un entier)
+- un tableau de décimaux : `[36.6, 37.0]` est de type `[f64; 2]`
+- l'ordinateur calcule les décimaux en **binaire** : `36.6 * 9.0 / 5.0 + 32.0` donne `97.88000000000001` 😱 (même `0.1 + 0.2` donne `0.30000000000000004`)
+- `{:.1}` **arrondit l'affichage** à 1 décimale : `97.88000000000001` s'affiche `97.9`
+- ça marche aussi en direct : `{f:.1}`, et `{:.2}` pour 2 décimales
+'''
+
+mission = '''
+Les températures relevées à l'infirmerie : `[36.6, 37.0, 38.5, 39.2]`.
+
+Convertis-les en Fahrenheit, avec **une décimale** pour les deux valeurs :
+
+```text
+36.6 °C = 97.9 °F
+37.0 °C = 98.6 °F
+38.5 °C = 101.3 °F
+39.2 °C = 102.6 °F
+```
+'''
+
+sortie_attendue = '''
+36.6 °C = 97.9 °F
+37.0 °C = 98.6 °F
+38.5 °C = 101.3 °F
+39.2 °C = 102.6 °F
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche les **4 conversions**, arrondies à une décimale",
+]
+
+indices = [
+  "Sans arrondi, la première ligne affiche `97.88000000000001` : essaie pour voir !",
+  "`{:.1}` pour la température en °C aussi : sinon `37.0` s'affiche `37`.",
+]
+
+solution = '''
+fn main() {
+    let temperatures = [36.6, 37.0, 38.5, 39.2];
+    for c in temperatures {
+        let f = c * 9.0 / 5.0 + 32.0;
+        println!("{c:.1} °C = {f:.1} °F");
+    }
+}
+'''

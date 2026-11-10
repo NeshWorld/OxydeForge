@@ -1,0 +1,55 @@
+id = "own-17"
+module = "ownership"
+titre = "Compter sans garder"
+notion = "&str, .chars() et match"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Le graveur veut compter les voyelles de chaque mot avant de graver. Mais il ne doit RIEN garder. La dernière fois, il a gardé « fonderie ». On ne l’a jamais revue."
+
+lecon = '''
+- la fonction **emprunte** le mot : `fn voyelles(mot: &str) -> u32`
+- `.chars()` et `match` comme dans l’Entraînement
+- les textes fixes `"…"` sont déjà des `&str`
+'''
+
+mission = '''
+Écris `voyelles(mot: &str) -> u32`. Pour « fonderie », « rouage » et « Rust », affiche le nombre de voyelles (a, e, i, o, u, y, en minuscules).
+
+Résultat attendu :
+
+```text
+fonderie : 4 voyelles
+rouage : 4 voyelles
+Rust : 1 voyelles
+```
+'''
+
+sortie_attendue = '''
+fonderie : 4 voyelles
+rouage : 4 voyelles
+Rust : 1 voyelles
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Le corps : un compteur, une boucle `for c in mot.chars()`, un `match`."]
+
+solution = '''
+fn voyelles(mot: &str) -> u32 {
+    let mut total = 0;
+    for c in mot.chars() {
+        match c {
+            'a' | 'e' | 'i' | 'o' | 'u' | 'y' => total += 1,
+            _ => {}
+        }
+    }
+    total
+}
+
+fn main() {
+    for mot in ["fonderie", "rouage", "Rust"] {
+        println!("{mot} : {} voyelles", voyelles(mot));
+    }
+}
+'''

@@ -1,0 +1,43 @@
+id = "entr-18"
+module = "entrainement"
+titre = "Doubler jusqu’à dépasser"
+notion = "while et compteur d’étapes"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La pression double à chaque coup de piston. Combien de coups pour dépasser 1000 ? J’ai parié 5. J’ai perdu mon goûter."
+
+lecon = '''
+- deux variables qui changent : la valeur **et** un compteur d’étapes
+- quand on ne sait pas d’avance combien de tours il faut, c’est le travail de `while`
+'''
+
+mission = '''
+Pars de `pression = 1`. Double-la tant qu’elle ne dépasse pas 1000, en comptant les étapes. Affiche le résultat final.
+
+Résultat attendu :
+
+```text
+1024 atteint en 10 étapes
+```
+'''
+
+sortie_attendue = '''
+1024 atteint en 10 étapes
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`while pression <= 1000 { pression *= 2; etapes += 1; }`"]
+
+solution = '''
+fn main() {
+    let mut pression = 1;
+    let mut etapes = 0;
+    while pression <= 1000 {
+        pression *= 2;
+        etapes += 1;
+    }
+    println!("{pression} atteint en {etapes} étapes");
+}
+'''

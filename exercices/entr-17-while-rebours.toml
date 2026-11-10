@@ -1,0 +1,52 @@
+id = "entr-17"
+module = "entrainement"
+titre = "Le compte à rebours en while"
+notion = "while et décrément"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le four doit refroidir 5 minutes avant ouverture. J’ai ouvert à 3. Mes sourcils s’en souviennent. Fais-moi un vrai compte à rebours."
+
+lecon = '''
+- un `while` peut compter à l’envers : `n -= 1` à chaque tour
+- après la boucle, le code continue normalement
+'''
+
+mission = '''
+Avec un `while`, compte de 5 à 1 (un nombre par ligne), puis affiche « Ouverture ! ».
+
+Résultat attendu :
+
+```text
+5
+4
+3
+2
+1
+Ouverture !
+```
+'''
+
+sortie_attendue = '''
+5
+4
+3
+2
+1
+Ouverture !
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let mut n = 5; while n > 0 { …; n -= 1; }`"]
+
+solution = '''
+fn main() {
+    let mut n = 5;
+    while n > 0 {
+        println!("{n}");
+        n -= 1;
+    }
+    println!("Ouverture !");
+}
+'''

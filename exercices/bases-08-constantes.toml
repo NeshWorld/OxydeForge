@@ -1,0 +1,82 @@
+id = "bases-08"
+module = "bases"
+titre = "Les constantes"
+notion = "const"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Le télescope du toit mesure la vitesse de la lumière. Elle ne change jamais : celle de la lumière, hein, pas celle du télescope. Il faut la graver une bonne fois pour toutes."
+
+lecon = '''
+Une **constante** est une valeur fixée **une fois pour toutes**, connue dès la compilation.
+
+```rust
+const VITESSE_MAX: u32 = 130;
+```
+
+**C'est quoi, `u32` ?** Le nom d'un type de nombre se lit en deux morceaux :
+
+| Morceau | Sens | Exemple |
+|---|---|---|
+| `u` | **u**nsigned : **sans signe**, jamais négatif | `u32` : de 0 à environ 4,3 milliards |
+| `i` | **i**nteger : entier **avec signe**, positif ou négatif | `i32` : d'environ -2,1 à +2,1 milliards |
+| le nombre | combien de **bits** en mémoire : 8, 16, 32, 64 | `u8` tient sur 8 bits : de 0 à 255 |
+
+Une vitesse ou une distance ne sont **jamais négatives** : `u32` le dit clairement, et Rust refusera toute valeur négative.
+
+| | `let` | `const` |
+|---|---|---|
+| Type | deviné | **obligatoire** |
+| Nom | `snake_case` | `SCREAMING_SNAKE_CASE` |
+| Où ? | dans une fonction | **partout**, même en dehors de `main` |
+| Modifiable ? | avec `mut` | **jamais** |
+
+Les `_` dans un nombre sont **ignorés** : ils servent juste à le lire.
+
+```rust
+const UN_MILLION: u32 = 1_000_000;
+```
+
+> En Python, une constante est une **convention** (`MAX = 100`) : rien n'empêche de la modifier. En Rust, le compilateur **l'interdit**.
+
+**Le nom en MAJUSCULES** (`SCREAMING_SNAKE_CASE`) n'est pas obligatoire… mais rustc te le **rappelle** si tu l'oublies :
+
+```text
+warning: constant `vitesse_max` should have an upper case name
+help: convert the identifier to upper case
+```
+
+Ce n'est qu'un avertissement : le programme compile quand même.
+'''
+
+mission = '''
+En dehors de `main`, déclare la constante `VITESSE_LUMIERE` : `299_792` (en km par seconde, type `u32`).
+
+Dans `main`, calcule la distance parcourue en `3` secondes et affiche exactement :
+
+```text
+En 3 secondes, la lumière parcourt 899376 km
+```
+'''
+
+sortie_attendue = "En 3 secondes, la lumière parcourt 899376 km"
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche la bonne distance",
+]
+
+indices = [
+  "Tout en haut du fichier : `const VITESSE_LUMIERE: u32 = 299_792;`",
+  "Dans `main` : `let secondes = 3;` puis `VITESSE_LUMIERE * secondes`.",
+]
+
+solution = '''
+const VITESSE_LUMIERE: u32 = 299_792;
+
+fn main() {
+    let secondes = 3;
+    let distance = VITESSE_LUMIERE * secondes;
+    println!("En {secondes} secondes, la lumière parcourt {distance} km");
+}
+'''

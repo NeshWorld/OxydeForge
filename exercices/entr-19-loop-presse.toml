@@ -1,0 +1,52 @@
+id = "entr-19"
+module = "entrainement"
+titre = "La presse qui tape"
+notion = "loop et break"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La presse doit frapper 3 fois exactement. La dernière fois, elle a frappé 47 fois. Il faut lui apprendre à s’ARRÊTER."
+
+lecon = '''
+- `loop { … }` tourne **pour toujours**…
+- … jusqu’à un `break`
+- pratique quand la condition d’arrêt est au milieu de la boucle
+'''
+
+mission = '''
+Avec `loop`, affiche « Coup 1 » à « Coup 3 », puis sors de la boucle et affiche « Pièce forgée ! ».
+
+Résultat attendu :
+
+```text
+Coup 1
+Coup 2
+Coup 3
+Pièce forgée !
+```
+'''
+
+sortie_attendue = '''
+Coup 1
+Coup 2
+Coup 3
+Pièce forgée !
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`coups += 1;` puis `println!`, puis `if coups == 3 { break; }`"]
+
+solution = '''
+fn main() {
+    let mut coups = 0;
+    loop {
+        coups += 1;
+        println!("Coup {coups}");
+        if coups == 3 {
+            break;
+        }
+    }
+    println!("Pièce forgée !");
+}
+'''

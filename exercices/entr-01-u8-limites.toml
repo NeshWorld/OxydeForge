@@ -1,0 +1,41 @@
+id = "entr-01"
+module = "entrainement"
+titre = "Les limites d’un u8"
+notion = "u8, i8, ::MIN et ::MAX"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le cadran de la vieille presse ne monte que jusqu’à 255. Pourquoi 255 ? Aucune idée, j’ai toujours cru que c’était l’âge de la presse."
+
+lecon = '''
+- `u8` : entier **sans signe** sur 8 bits, de 0 à 255
+- `i8` : entier **avec signe** sur 8 bits, de -128 à 127
+- `u8::MIN` et `u8::MAX` donnent les limites d’un type, sans les apprendre par cœur
+'''
+
+mission = '''
+Affiche les limites d’un `u8`, puis celles d’un `i8`, en utilisant `::MIN` et `::MAX`.
+
+Résultat attendu :
+
+```text
+Un u8 va de 0 à 255
+Un i8 va de -128 à 127
+```
+'''
+
+sortie_attendue = '''
+Un u8 va de 0 à 255
+Un i8 va de -128 à 127
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`println!(\"Un u8 va de {} à {}\", u8::MIN, u8::MAX);`"]
+
+solution = '''
+fn main() {
+    println!("Un u8 va de {} à {}", u8::MIN, u8::MAX);
+    println!("Un i8 va de {} à {}", i8::MIN, i8::MAX);
+}
+'''

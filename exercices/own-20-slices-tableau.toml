@@ -1,0 +1,69 @@
+id = "own-20"
+module = "ownership"
+titre = "Une tranche de tableau"
+notion = "&[i32] accepte tout"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Je veux additionner la production de toute la semaine, mais aussi juste celle du milieu de semaine. Avec UNE seule machine à additionner. C’est possible ?"
+
+lecon = '''
+Une fonction qui prend `&[i32; 5]` n’accepte **que** les tableaux de 5. Avec `&[i32]` (sans taille), elle accepte **n’importe quel** tableau, ou un morceau.
+
+```rust
+fn somme(valeurs: &[i32]) -> i32 {
+    let mut total = 0;
+    for v in valeurs {
+        total += v;
+    }
+    total
+}
+
+let semaine = [4, 7, 5, 9, 3];
+somme(&semaine);        // tout le tableau
+somme(&semaine[1..4]);  // une tranche : 7, 5, 9
+```
+
+| Paramètre | Accepte |
+|---|---|
+| `&[i32; 5]` | seulement les tableaux de 5 |
+| `&[i32]` | tout tableau, de toute taille, et toute tranche |
+
+> C’est le même principe qu’avec le texte : `&str` est la tranche de `String`, et `&[i32]` est la tranche de tableau.
+'''
+
+mission = '''
+Écris `somme(valeurs: &[i32]) -> i32`. Avec `[4, 7, 5, 9, 3]`, affiche la somme de la semaine, puis celle des jours 1 à 3 (`&semaine[1..4]`).
+
+Résultat attendu :
+
+```text
+Toute la semaine : 28
+Milieu de semaine : 21
+```
+'''
+
+sortie_attendue = '''
+Toute la semaine : 28
+Milieu de semaine : 21
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`somme(&semaine)` puis `somme(&semaine[1..4])`"]
+
+solution = '''
+fn somme(valeurs: &[i32]) -> i32 {
+    let mut total = 0;
+    for v in valeurs {
+        total += v;
+    }
+    total
+}
+
+fn main() {
+    let semaine = [4, 7, 5, 9, 3];
+    println!("Toute la semaine : {}", somme(&semaine));
+    println!("Milieu de semaine : {}", somme(&semaine[1..4]));
+}
+'''

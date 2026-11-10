@@ -1,0 +1,25 @@
+id = "bases-01b"
+module = "bases"
+titre = "Dans la machine"
+notion = "de main.rs à main.exe"
+type = "demo"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Avant de toucher aux machines, viens voir comment ça marche dedans. J'ai ouvert le capot de la grande presse. Enfin, j'ai surtout fait tomber trois boulons dedans."
+
+# Une démo : l'écran est animé par src/ui/Demo.tsx, étape par étape.
+lecon = '''
+Que se passe-t-il **entre** ton clic sur Exécuter et l'affichage de `Hello, world!` ?
+'''
+
+mission = '''
+Avance avec **Suivant** (ou la flèche →) et regarde le compilateur travailler.
+'''
+
+sortie_attendue = "Hello, world!"
+
+solution = '''
+fn main() {
+    println!("Hello, world!");
+}
+'''

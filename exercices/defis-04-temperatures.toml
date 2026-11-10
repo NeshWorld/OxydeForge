@@ -1,0 +1,58 @@
+id = "defis-04"
+module = "defis"
+titre = "Table °C → °F"
+notion = "f64, as et step_by"
+type = "defi"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Commande spéciale ! Un client étranger lit les températures en Fahrenheit. Il lui faut une table de conversion. J'ai essayé de convertir de tête : il a ri."
+
+lecon = '''
+- la formule : **°F = °C × 9 / 5 + 32**
+- `(0..=100).step_by(10)` : 0, 10, 20… 100
+- `c as f64` : convertit un entier en décimal
+- un `f64` sans virgule s'affiche sans décimales : `32.0` donne `32`
+'''
+
+mission = '''
+Affiche la conversion de 0 °C à 100 °C, de 10 en 10 :
+
+```text
+0 °C = 32 °F
+10 °C = 50 °F
+…
+100 °C = 212 °F
+```
+'''
+
+sortie_attendue = '''
+0 °C = 32 °F
+10 °C = 50 °F
+20 °C = 68 °F
+30 °C = 86 °F
+40 °C = 104 °F
+50 °C = 122 °F
+60 °C = 140 °F
+70 °C = 158 °F
+80 °C = 176 °F
+90 °C = 194 °F
+100 °C = 212 °F
+'''
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche les **11 conversions**",
+]
+
+indices = [
+  "Calcule en décimal pour ne rien perdre : `c as f64 * 9.0 / 5.0 + 32.0`.",
+]
+
+solution = '''
+fn main() {
+    for c in (0..=100).step_by(10) {
+        let f = c as f64 * 9.0 / 5.0 + 32.0;
+        println!("{c} °C = {f} °F");
+    }
+}
+'''

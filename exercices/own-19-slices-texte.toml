@@ -1,0 +1,61 @@
+id = "own-19"
+module = "ownership"
+titre = "Une tranche de texte"
+notion = "les slices &s[a..b]"
+type = "lecon"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Il faut découper l’enseigne « OxydeForge » en deux pour la mettre sur deux portes. Sans scier le texte, s’il te plaît. J’ai déjà scié une enseigne. Le patron s’en souvient."
+
+lecon = '''
+Une **slice** (tranche) est un **prêt d’un morceau** : elle regarde une partie d’un texte, sans rien copier.
+
+```rust
+let s = String::from("OxydeForge");
+let debut = &s[0..5];   // "Oxyde" : de la position 0 à 5 (exclu)
+let fin = &s[5..];      // "Forge" : de 5 jusqu’au bout
+```
+
+| Écriture | Morceau |
+|---|---|
+| `&s[0..5]` | positions 0 à 4 |
+| `&s[..5]` | pareil : depuis le début |
+| `&s[5..]` | de 5 jusqu’à la fin |
+| `&s[..]` | tout |
+
+Le type d’une tranche de texte ? **`&str`** ! C’est exactement ce qu’est `&str` : une vue sur un morceau de texte.
+
+> ⚠️ Les positions comptent des **octets**. Couper au milieu d’un `é` (2 octets) fait planter le programme. Avec des lettres sans accent, aucun souci.
+
+> En Python, c’est `s[0:5]`… mais Python **copie** le morceau. Rust, lui, se contente de le **regarder**.
+'''
+
+mission = '''
+Découpe « OxydeForge » en deux tranches (« Oxyde » et « Forge ») et affiche-les sur deux lignes.
+
+Résultat attendu :
+
+```text
+Porte gauche : Oxyde
+Porte droite : Forge
+```
+'''
+
+sortie_attendue = '''
+Porte gauche : Oxyde
+Porte droite : Forge
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`&s[0..5]` et `&s[5..]`"]
+
+solution = '''
+fn main() {
+    let enseigne = String::from("OxydeForge");
+    let porte_gauche = &enseigne[0..5];
+    let porte_droite = &enseigne[5..];
+    println!("Porte gauche : {porte_gauche}");
+    println!("Porte droite : {porte_droite}");
+}
+'''

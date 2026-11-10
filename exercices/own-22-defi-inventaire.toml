@@ -1,0 +1,55 @@
+id = "own-22"
+module = "ownership"
+titre = "L’inventaire partagé"
+notion = "&mut et & dans le même programme"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Commande spéciale ! Une livraison arrive sur l’étagère 2. Il faut l’ajouter, puis faire le total de tout l’entrepôt. Sans tout recompter à la main, cette fois."
+
+lecon = '''
+- une fonction qui **modifie** : `fn livrer(stocks: &mut [u32], etagere: usize, quantite: u32)`
+- une fonction qui **lit** : `fn total(stocks: &[u32]) -> u32`
+- `usize` est le type des positions dans un tableau
+'''
+
+mission = '''
+Avec `[12, 4, 7]` : livre 10 pièces sur l’étagère 2 (position 1), puis affiche les stocks avec `{:?}` et le total.
+
+Résultat attendu :
+
+```text
+Stocks : [12, 14, 7]
+Total : 33
+```
+'''
+
+sortie_attendue = '''
+Stocks : [12, 14, 7]
+Total : 33
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`livrer(&mut stocks, 1, 10);`", "`total(&stocks)` : un simple prêt suffit pour lire."]
+
+solution = '''
+fn livrer(stocks: &mut [u32], etagere: usize, quantite: u32) {
+    stocks[etagere] += quantite;
+}
+
+fn total(stocks: &[u32]) -> u32 {
+    let mut somme = 0;
+    for s in stocks {
+        somme += s;
+    }
+    somme
+}
+
+fn main() {
+    let mut stocks = [12, 4, 7];
+    livrer(&mut stocks, 1, 10);
+    println!("Stocks : {:?}", stocks);
+    println!("Total : {}", total(&stocks));
+}
+'''

@@ -1,0 +1,48 @@
+id = "entr-38"
+module = "entrainement"
+titre = "Les commandes de la presse"
+notion = "match sur du texte"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La presse obéit à la voix : « start », « stop »… J’ai dit « pause ». Elle m’a regardé bizarrement. Enfin, si une presse peut regarder."
+
+lecon = '''
+- `match` marche aussi sur du texte : `"start" => …`
+- le texte doit correspondre **exactement**, majuscules comprises
+'''
+
+mission = '''
+Pour les commandes `"start"`, `"pause"` et `"stop"`, affiche ce que fait la presse, ou « Commande inconnue ».
+
+Résultat attendu :
+
+```text
+start : La presse démarre
+pause : Commande inconnue
+stop : La presse s'arrête
+```
+'''
+
+sortie_attendue = '''
+start : La presse démarre
+pause : Commande inconnue
+stop : La presse s'arrête
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`\"start\" => \"La presse démarre\", \"stop\" => \"La presse s'arrête\", _ => \"Commande inconnue\",`"]
+
+solution = '''
+fn main() {
+    for commande in ["start", "pause", "stop"] {
+        let action = match commande {
+            "start" => "La presse démarre",
+            "stop" => "La presse s'arrête",
+            _ => "Commande inconnue",
+        };
+        println!("{commande} : {action}");
+    }
+}
+'''

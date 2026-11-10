@@ -1,0 +1,61 @@
+id = "bases-01"
+module = "bases"
+titre = "Hello, world"
+notion = "fn main et println!"
+type = "lecon"
+
+# Kael, technicien de la fonderie : un peu gauche, distrait, jovial et chaleureux.
+kael = "Bienvenue à la fonderie ! Première mission : le panneau de l'entrée est tout noir, il faut qu'il dise bonjour aux visiteurs. Moi, j'ai essayé… j'ai surtout réussi à coincer ma manche dans la presse."
+
+# ''' ... ''' : texte sur plusieurs lignes, pris tel quel (aucun échappement).
+lecon = '''
+Tout programme Rust démarre au **même endroit** : la fonction `main`.
+
+```rust
+fn main() {
+    println!("Hello, world!");
+}
+```
+
+| Morceau | Rôle | En Python |
+|---|---|---|
+| `fn` | déclare une **fonction** | `def` |
+| `main` | le **point d'entrée** : Rust commence toujours ici | le haut du fichier |
+| `{ }` | le **bloc** de la fonction | l'indentation |
+| `println!` | affiche une ligne | `print` |
+| `!` | signale une **macro**, pas une fonction | — |
+| `" "` | une chaîne de texte | `" "` |
+| `;` | termine l'instruction | — (comme en C) |
+
+> L'indentation ne compte **pas** pour Rust : ce sont les `{ }` qui délimitent. On indente quand même, pour toi.
+
+**Lancer** : `cargo run` dans un terminal. Ici, le bouton **Exécuter** le fera pour toi.
+'''
+
+mission = '''
+Écris un programme complet qui affiche exactement :
+
+```text
+Bonjour, OxydeForge !
+```
+'''
+
+# Ce que le programme doit afficher, exactement (vérifié par le bouton Vérifier).
+sortie_attendue = "Bonjour, OxydeForge !"
+
+criteres = [
+  "Le programme **compile**",
+  "Il affiche `Bonjour, OxydeForge !`",
+]
+
+indices = [
+  "Commence par `fn main() {` : l'éditeur ferme l'accolade tout seul.",
+  "Le texte va entre `\" \"`, à l'intérieur des `( )` de `println!`.",
+  "N'oublie pas le `;` à la fin de la ligne.",
+]
+
+solution = '''
+fn main() {
+    println!("Bonjour, OxydeForge !");
+}
+'''

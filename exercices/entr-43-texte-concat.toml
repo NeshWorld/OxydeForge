@@ -1,0 +1,42 @@
+id = "entr-43"
+module = "entrainement"
+titre = "Coller deux morceaux"
+notion = "String + &str"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai deux moitiés de plaque : « Oxyde » et « Forge ». Il faut les souder. Et ajouter la version, parce que le patron aime les versions."
+
+lecon = '''
+- `String + &str` donne une nouvelle `String`
+- la `String` de gauche **déménage** dans le résultat (on ne peut plus l’utiliser après)
+- le masquage permet de continuer : `let nom = nom + " v1";`
+'''
+
+mission = '''
+Pars de `String::from("Oxyde")` et `"Forge"`. Colle-les avec `+`, ajoute « v1 » de la même façon, et affiche le résultat.
+
+Résultat attendu :
+
+```text
+OxydeForge v1
+```
+'''
+
+sortie_attendue = '''
+OxydeForge v1
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let nom = debut + fin;` puis `let nom = nom + \" v1\";`"]
+
+solution = '''
+fn main() {
+    let debut = String::from("Oxyde");
+    let fin = "Forge";
+    let nom = debut + fin;
+    let nom = nom + " v1";
+    println!("{nom}");
+}
+'''

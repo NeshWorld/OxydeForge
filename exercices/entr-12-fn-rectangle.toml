@@ -1,0 +1,48 @@
+id = "entr-12"
+module = "entrainement"
+titre = "Plusieurs paramètres"
+notion = "paramètres f64 et retour"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Je dois commander de la tôle pour une plaque de 4 mètres sur 3. Il me faut la surface et le tour. J’ai mesuré deux fois, j’ai trouvé trois résultats."
+
+lecon = '''
+- plusieurs paramètres se séparent par des virgules : `fn aire(l: f64, h: f64) -> f64`
+- chaque paramètre a **son** type
+'''
+
+mission = '''
+Écris `aire(l, h)` et `perimetre(l, h)` (des `f64`). Affiche-les pour une plaque de 4.0 sur 3.0, avec une décimale.
+
+Résultat attendu :
+
+```text
+Aire : 12.0
+Périmètre : 14.0
+```
+'''
+
+sortie_attendue = '''
+Aire : 12.0
+Périmètre : 14.0
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`fn perimetre(l: f64, h: f64) -> f64 { 2.0 * (l + h) }`"]
+
+solution = '''
+fn aire(l: f64, h: f64) -> f64 {
+    l * h
+}
+
+fn perimetre(l: f64, h: f64) -> f64 {
+    2.0 * (l + h)
+}
+
+fn main() {
+    println!("Aire : {:.1}", aire(4.0, 3.0));
+    println!("Périmètre : {:.1}", perimetre(4.0, 3.0));
+}
+'''

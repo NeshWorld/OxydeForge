@@ -1,0 +1,34 @@
+# L'ordre des modules ici = l'ordre dans la barre latérale.
+
+[[modules]]
+id = "bases"
+titre = "Les bases"
+accroche = "Premiers pas"
+
+[[modules]]
+id = "entrainement"
+titre = "Entraînement"
+accroche = "Remets-y la main"
+
+[[modules]]
+id = "ownership"
+titre = "Possession et emprunt"
+accroche = "Le cœur de Rust"
+
+[[modules]]
+id = "erreurs"
+titre = "Lis l'erreur"
+accroche = "Le compilateur te parle"
+
+[[modules]]
+id = "defis"
+titre = "Défis"
+accroche = "Sans filet"
+
+# Un projet : les étapes se débloquent l'une après l'autre,
+# et chaque étape reprend le code de la précédente.
+[[modules]]
+id = "cesar"
+titre = "Le chiffre de César"
+accroche = "Projet"
+projet = true

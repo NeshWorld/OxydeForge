@@ -1,0 +1,44 @@
+id = "entr-30"
+module = "entrainement"
+titre = "Une constante calculée"
+notion = "const à partir d’autres const"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Combien de secondes dans une journée de travail entière ? Je compte toujours mes pauses en double, alors fais-le toi."
+
+lecon = '''
+- une constante peut être un **calcul** : `const SECONDES_PAR_HEURE: u32 = 60 * 60;`
+- et utiliser une autre constante
+- le calcul est fait **à la compilation**, pas à l’exécution
+'''
+
+mission = '''
+Déclare `SECONDES_PAR_HEURE` (60 × 60), puis `SECONDES_PAR_JOUR` à partir de la première. Affiche les deux.
+
+Résultat attendu :
+
+```text
+Une heure : 3600 secondes
+Un jour : 86400 secondes
+```
+'''
+
+sortie_attendue = '''
+Une heure : 3600 secondes
+Un jour : 86400 secondes
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`const SECONDES_PAR_JOUR: u32 = SECONDES_PAR_HEURE * 24;`"]
+
+solution = '''
+const SECONDES_PAR_HEURE: u32 = 60 * 60;
+const SECONDES_PAR_JOUR: u32 = SECONDES_PAR_HEURE * 24;
+
+fn main() {
+    println!("Une heure : {SECONDES_PAR_HEURE} secondes");
+    println!("Un jour : {SECONDES_PAR_JOUR} secondes");
+}
+'''

@@ -1,0 +1,49 @@
+id = "own-08"
+module = "ownership"
+titre = "L’atelier des badges"
+notion = "String dans une boucle et format!"
+type = "defi"
+
+# Généré par scripts/generer_ownership.mjs : modifie le générateur, pas ce fichier.
+kael = "Il faut des badges pour tout le monde : nom en majuscules, entre crochets. Le mien est écrit « KEAL ». Ça fait trois semaines que je le porte."
+
+lecon = '''
+- `String::from(nom)` crée une `String` à partir d’un texte fixe
+- la fonction **prend** la `String` et en **renvoie** une nouvelle
+- `format!("[{}]", nom.to_uppercase())` construit le badge
+'''
+
+mission = '''
+Écris `fabriquer_badge(nom: String) -> String`. Pour « Ferris », « Kael » et « Rusty », fabrique et affiche le badge.
+
+Résultat attendu :
+
+```text
+[FERRIS]
+[KAEL]
+[RUSTY]
+```
+'''
+
+sortie_attendue = '''
+[FERRIS]
+[KAEL]
+[RUSTY]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`for nom in [\"Ferris\", \"Kael\", \"Rusty\"] { let badge = fabriquer_badge(String::from(nom)); … }`"]
+
+solution = '''
+fn fabriquer_badge(nom: String) -> String {
+    format!("[{}]", nom.to_uppercase())
+}
+
+fn main() {
+    for nom in ["Ferris", "Kael", "Rusty"] {
+        let badge = fabriquer_badge(String::from(nom));
+        println!("{badge}");
+    }
+}
+'''

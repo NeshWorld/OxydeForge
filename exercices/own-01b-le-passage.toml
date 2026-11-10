@@ -1,0 +1,57 @@
+id = "own-01b"
+module = "ownership"
+titre = "Le passage de main"
+notion = "le déménagement (move)"
+type = "etape"
+chaine = "lingot"
+intro = true
+
+# Généré par scripts/generer_lingot.mjs : modifie le générateur, pas ce fichier.
+kael = "Le patron veut que je file le lingot à l’apprenti B. Bon, d’accord. Je le lui passe… mais je le garde un peu aussi, hein ? Un demi chacun ?"
+humeur = "neutre"
+
+lecon = '''
+L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, tu ne repars pas de zéro.
+
+A tend le lingot à B : `let forgeron_b = forgeron_a;`
+
+Mais un lingot, **ça ne se copie pas**. Il **change de mains**.
+
+On appelle ça un **déménagement** (*move*) : le lingot **quitte** A pour aller chez B.
+
+```rust
+let forgeron_b = forgeron_a;   // le lingot DÉMÉNAGE : il part de A, il arrive chez B
+println!("B tient : {forgeron_b}");
+```
+
+> Le lingot est **unique**. Après cette ligne, c’est **B** qui l’a. Et A ? On vérifie juste après… 👀
+'''
+
+mission = '''
+Garde ton code. **Ajoute** le passage de main : A tend le lingot à B (`let forgeron_b = forgeron_a;`), puis affiche `B tient : …`.
+
+Résultat attendu :
+
+```text
+A tient : lingot d'acier
+B tient : lingot d'acier
+```
+'''
+
+sortie_attendue = '''
+A tient : lingot d'acier
+B tient : lingot d'acier
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`let forgeron_b = forgeron_a;`", "`println!(\"B tient : {forgeron_b}\");`"]
+
+solution = '''
+fn main() {
+    let forgeron_a = String::from("lingot d'acier");
+    println!("A tient : {forgeron_a}");
+    let forgeron_b = forgeron_a;
+    println!("B tient : {forgeron_b}");
+}
+'''

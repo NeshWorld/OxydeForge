@@ -1,0 +1,45 @@
+id = "entr-42"
+module = "entrainement"
+titre = "Fabriquer un message"
+notion = "&str en paramètre et format!"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Il faut une machine à saluer les visiteurs. Je les salue moi-même d’habitude, mais j’oublie leur nom. Et le mien, parfois."
+
+lecon = '''
+- un paramètre texte s’écrit `nom: &str`
+- `format!` marche comme `println!`, mais **renvoie** une `String` au lieu de l’afficher
+'''
+
+mission = '''
+Écris `saluer(nom: &str) -> String` qui renvoie « Bonjour, … ! ». Affiche le salut pour Kael, puis pour Ferris.
+
+Résultat attendu :
+
+```text
+Bonjour, Kael !
+Bonjour, Ferris !
+```
+'''
+
+sortie_attendue = '''
+Bonjour, Kael !
+Bonjour, Ferris !
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["`format!(\"Bonjour, {nom} !\")` sans point-virgule."]
+
+solution = '''
+fn saluer(nom: &str) -> String {
+    format!("Bonjour, {nom} !")
+}
+
+fn main() {
+    let message = saluer("Kael");
+    println!("{message}");
+    println!("{}", saluer("Ferris"));
+}
+'''
