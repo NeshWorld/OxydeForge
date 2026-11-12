@@ -214,6 +214,21 @@ export function App() {
     setInSettings(false);
   }, [catalogue, updateProgress]);
 
+  // Un seul module : ses ✓ et ses brouillons disparaissent, le reste ne bouge pas.
+  const reinitialiserModule = useCallback(
+    (moduleId: string) => {
+      const ids = new Set(catalogue?.exercices.filter((e) => e.module === moduleId).map((e) => e.id));
+      const garder = (table: Record<string, unknown>) => Object.fromEntries(Object.entries(table).filter(([id]) => !ids.has(id)));
+      updateProgress((p) => ({ done: garder(p.done) as Progress['done'], drafts: garder(p.drafts) as Progress['drafts'] }));
+      // Ownership repart de zéro : son intro redevient la porte d'entrée du chapitre.
+      if (moduleId === 'ownership') {
+        setOwnershipComplet(false);
+        updateSettings({ ownershipComplet: false });
+      }
+    },
+    [catalogue, updateProgress],
+  );
+
   // Dernière étape de l'intro réussie, chapitre encore masqué : Kael surgit.
   const verifierRevelation = useCallback(
     (id: string) => {
@@ -241,6 +256,31 @@ export function App() {
     setWebReussi(false);
     editor.current?.focus();
   }, [exercice, inSettings]);
+
+  // ── Réinitialiser l'exercice : efface le brouillon, garde le ✓ ──
+  // Deux clics : le premier arme le bouton, le second efface.
+  const [confirmeReset, setConfirmeReset] = useState(false);
+  useEffect(() => setConfirmeReset(false), [exercice]);
+
+  const reinitialiserExercice = useCallback(() => {
+    if (!exercice) return;
+    updateProgress((p) => {
+      const { [exercice.id]: _old, ...others } = p.drafts;
+      return { ...p, drafts: others };
+    });
+    // Comme à l'ouverture : éditeur vide, ou le code de l'étape d'avant pour un exercice enchaîné.
+    const precedente = catalogue && etapePrecedente(catalogue, exercice);
+    opening.current = true;
+    editor.current?.setDoc((precedente ? loadProgress().drafts[precedente.id] : undefined) ?? '');
+    opening.current = false;
+    setExecution(null);
+    setVerdict(null);
+    setProbleme(null);
+    setComparaison(false);
+    setWebReussi(false);
+    setConfirmeReset(false);
+    editor.current?.focus();
+  }, [catalogue, exercice, updateProgress]);
 
   // ── Mode web : comparer, puis valider soi-même ──
   const comparer = useCallback(() => {
@@ -379,6 +419,12 @@ export function App() {
           ownershipComplet={ownershipComplet}
           onToggleOwnership={basculerOwnership}
           onReset={reinitialiser}
+          modules={(catalogue?.modules ?? []).map((m) => ({
+            id: m.id,
+            titre: m.titre,
+            faits: catalogue?.exercices.filter((e) => e.module === m.id && progress.done[e.id]).length ?? 0,
+          }))}
+          onResetModule={reinitialiserModule}
           onClose={() => setInSettings(false)}
         />
       ) : exercice.type === 'demo' ? (
@@ -436,6 +482,26 @@ export function App() {
             onVerify={DANS_TAURI ? verify : valider}
           />
         </div>
+
+        {progress.done[exercice.id] && (
+          <div className="editor-footer">
+            {confirmeReset ? (
+              <>
+                <span className="reset-question">Effacer ton code ? Le ✓ reste.</span>
+                <button className="reset-go" onClick={reinitialiserExercice}>
+                  Oui, effacer
+                </button>
+                <button className="reset-cancel" onClick={() => setConfirmeReset(false)}>
+                  Annuler
+                </button>
+              </>
+            ) : (
+              <button className="reset-button" onClick={() => setConfirmeReset(true)}>
+                ↺ Réinitialiser l’exercice
+              </button>
+            )}
+          </div>
+        )}
 
         {(verdict?.reussi || webReussi) && (
           <div className="victory" role="status">

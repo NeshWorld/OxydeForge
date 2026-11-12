@@ -780,6 +780,40 @@ kbd {
   box-shadow: inset 0 0 0 1px var(--line);
 }
 
+/* Réinitialiser un seul module : une ligne par module. */
+.danger-modules {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.danger-modules li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.danger-count {
+  color: var(--text-faint);
+}
+
+.danger-modules .danger-button,
+.danger-modules .danger-go,
+.danger-modules .danger-cancel {
+  padding: 6px 12px;
+}
+
+.danger-button:disabled {
+  color: var(--text-faint);
+  box-shadow: inset 0 0 0 1px var(--line);
+  background: none;
+  cursor: default;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .zone-switch,
   .zone-switch::after {
@@ -2112,6 +2146,45 @@ kbd {
 
 .editor-host {
   height: 100%;
+}
+
+/* Sous l'éditeur, seulement pour un exercice déjà réussi. */
+.editor-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 6px 12px;
+  border-top: 1px solid var(--line);
+}
+
+.reset-button,
+.reset-cancel {
+  padding: 6px 12px;
+  color: var(--text-dim);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.reset-button:hover,
+.reset-cancel:hover {
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+.reset-question {
+  color: var(--text-dim);
+}
+
+.reset-go {
+  padding: 6px 12px;
+  color: var(--danger);
+  box-shadow: inset 0 0 0 1px var(--danger);
+}
+
+.reset-go:hover {
+  color: var(--bg);
+  background: var(--danger);
 }
 
 .output {

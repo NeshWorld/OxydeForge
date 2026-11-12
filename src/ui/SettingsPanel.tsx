@@ -6,14 +6,19 @@ interface Props {
   ownershipComplet: boolean;
   onToggleOwnership(complet: boolean): void;
   onReset(): void;
+  /** Chaque module, avec son nombre d'exercices réussis. */
+  modules: { id: string; titre: string; faits: number }[];
+  onResetModule(id: string): void;
   onClose(): void;
 }
 
-export function SettingsPanel({ ownershipComplet, onToggleOwnership, onReset, onClose }: Props) {
+export function SettingsPanel({ ownershipComplet, onToggleOwnership, onReset, modules, onResetModule, onClose }: Props) {
   const [settings, setSettings] = useState(getSettings);
   const change = (patch: Partial<Settings>) => setSettings(updateSettings(patch));
   // Effacer la progression demande deux clics : on ne perd pas tout sur une fausse manip.
   const [confirmer, setConfirmer] = useState(false);
+  // Pareil pour un module : l'id du module « armé », en attente du second clic.
+  const [moduleArme, setModuleArme] = useState<string | null>(null);
 
   return (
     <section className="settings-panel">
@@ -71,6 +76,38 @@ export function SettingsPanel({ ownershipComplet, onToggleOwnership, onReset, on
               Réinitialiser ma progression
             </button>
           )}
+
+          <h3>Un seul module</h3>
+          <p className="settings-help">Efface les exercices réussis et les brouillons d’un module. Les autres ne bougent pas.</p>
+          <ul className="danger-modules">
+            {modules.map((m) => (
+              <li key={m.id}>
+                <span>
+                  {m.titre} <span className="danger-count">· {m.faits} réussi{m.faits > 1 ? 's' : ''}</span>
+                </span>
+                {moduleArme === m.id ? (
+                  <span className="danger-confirm" role="alert">
+                    <button
+                      className="danger-go"
+                      onClick={() => {
+                        onResetModule(m.id);
+                        setModuleArme(null);
+                      }}
+                    >
+                      Oui, effacer
+                    </button>
+                    <button className="danger-cancel" autoFocus onClick={() => setModuleArme(null)}>
+                      Annuler
+                    </button>
+                  </span>
+                ) : (
+                  <button className="danger-button" disabled={m.faits === 0} onClick={() => setModuleArme(m.id)}>
+                    Réinitialiser
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <button className="primary settings-done" onClick={onClose}>
