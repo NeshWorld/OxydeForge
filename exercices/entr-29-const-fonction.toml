@@ -18,13 +18,13 @@ Déclare `LARGEUR` (8) et `HAUTEUR` (5) en `u32`. Écris `aire()` qui les utilis
 Résultat attendu :
 
 ```text
-Plaque de 8 × 5
+Plaque de 8 x 5
 Aire : 40
 ```
 '''
 
 sortie_attendue = '''
-Plaque de 8 × 5
+Plaque de 8 x 5
 Aire : 40
 '''
 
@@ -41,7 +41,7 @@ fn aire() -> u32 {
 }
 
 fn main() {
-    println!("Plaque de {LARGEUR} × {HAUTEUR}");
+    println!("Plaque de {LARGEUR} x {HAUTEUR}");
     println!("Aire : {}", aire());
 }
 '''

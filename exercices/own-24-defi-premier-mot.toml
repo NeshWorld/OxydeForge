@@ -20,16 +20,16 @@ mission = '''
 Résultat attendu :
 
 ```text
-Kael est formidable → Kael
-Rust → Rust
-La forge chauffe → La
+Kael est formidable -> Kael
+Rust -> Rust
+La forge chauffe -> La
 ```
 '''
 
 sortie_attendue = '''
-Kael est formidable → Kael
-Rust → Rust
-La forge chauffe → La
+Kael est formidable -> Kael
+Rust -> Rust
+La forge chauffe -> La
 '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
@@ -48,7 +48,7 @@ fn premier_mot(phrase: &str) -> &str {
 
 fn main() {
     for phrase in ["Kael est formidable", "Rust", "La forge chauffe"] {
-        println!("{phrase} → {}", premier_mot(phrase));
+        println!("{phrase} -> {}", premier_mot(phrase));
     }
 }
 '''

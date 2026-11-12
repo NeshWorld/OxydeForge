@@ -365,25 +365,31 @@ fn main() {
     slug: 'fn-chaine',
     titre: 'La chaîne de fonctions',
     notion: 'fonctions qui travaillent ensemble',
-    kael: 'L’infirmerie, encore ! Ils veulent savoir qui a de la fièvre, au-dessus de 100,4 °F. Ils ont des degrés Celsius. Moi, j’ai mal à la tête.',
+    kael: 'Jour de coulée ! Le minerai passe au four : il n’en reste que 60 % en métal. Puis le métal part dans les moules à lingots de 5 kg. Le chef veut le compte, étape par étape.',
     rappels: [
-      'découper un problème en **petites** fonctions qui s’appellent',
-      'une fonction de conversion, une fonction de décision : chacune fait **une** chose',
+      'découper un problème en **petites** fonctions : chacune fait **une** étape',
+      'la sortie d’une étape devient l’**entrée** de la suivante, comme sur une chaîne de montage',
+      'exemple : `let double = doubler(3);` puis `let total = ajouter_un(double);` donne 7',
     ],
-    mission: 'Écris `vers_fahrenheit(c)` et `a_de_la_fievre(c)` (qui utilise la première). Pour 37.0 et 38.5, affiche la conversion et « normal » ou « fièvre ».',
-    indices: ['`fn a_de_la_fievre(c: f64) -> bool { vers_fahrenheit(c) > 100.4 }`', 'Dans `main` : `let etat = if a_de_la_fievre(c) { "fièvre" } else { "normal" };`'],
-    solution: `fn vers_fahrenheit(c: f64) -> f64 {
-    c * 9.0 / 5.0 + 32.0
+    mission:
+      'Écris `fondre(minerai)` qui garde 60 % du poids (`* 6 / 10`), et `couler(metal)` qui compte les lingots de 5 kg entiers (des `u32`). Pour 120 puis 45 kg de minerai, affiche les trois étapes.',
+    indices: [
+      '`couler` ne reçoit **pas** le minerai : elle reçoit ce que `fondre` a produit.',
+      'Dans la boucle, range le résultat de chaque étape dans sa propre variable, puis affiche les trois.',
+    ],
+    solution: `fn fondre(minerai: u32) -> u32 {
+    minerai * 6 / 10
 }
 
-fn a_de_la_fievre(c: f64) -> bool {
-    vers_fahrenheit(c) > 100.4
+fn couler(metal: u32) -> u32 {
+    metal / 5
 }
 
 fn main() {
-    for c in [37.0, 38.5] {
-        let etat = if a_de_la_fievre(c) { "fièvre" } else { "normal" };
-        println!("{c:.1} °C → {:.1} °F : {etat}", vers_fahrenheit(c));
+    for minerai in [120, 45] {
+        let metal = fondre(minerai);
+        let lingots = couler(metal);
+        println!("{minerai} kg de minerai -> {metal} kg de métal -> {lingots} lingots");
     }
 }`,
   },
@@ -493,7 +499,7 @@ fn main() {
             break n;
         }
     };
-    println!("Premier carré > 50 : {premier} × {premier} = {}", premier * premier);
+    println!("Premier carré > 50 : {premier} x {premier} = {}", premier * premier);
 }`,
   },
   {
@@ -675,7 +681,7 @@ fn aire() -> u32 {
 }
 
 fn main() {
-    println!("Plaque de {LARGEUR} × {HAUTEUR}");
+    println!("Plaque de {LARGEUR} x {HAUTEUR}");
     println!("Aire : {}", aire());
 }`,
   },

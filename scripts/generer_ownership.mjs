@@ -856,7 +856,7 @@ fn main() {
 
 fn main() {
     for phrase in ["Kael est formidable", "Rust", "La forge chauffe"] {
-        println!("{phrase} → {}", premier_mot(phrase));
+        println!("{phrase} -> {}", premier_mot(phrase));
     }
 }`,
   },

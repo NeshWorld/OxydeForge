@@ -18,12 +18,12 @@ Avec `let premier = loop { … };`, trouve le premier entier dont le carré dép
 Résultat attendu :
 
 ```text
-Premier carré > 50 : 8 × 8 = 64
+Premier carré > 50 : 8 x 8 = 64
 ```
 '''
 
 sortie_attendue = '''
-Premier carré > 50 : 8 × 8 = 64
+Premier carré > 50 : 8 x 8 = 64
 '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
@@ -39,6 +39,6 @@ fn main() {
             break n;
         }
     };
-    println!("Premier carré > 50 : {premier} × {premier} = {}", premier * premier);
+    println!("Premier carré > 50 : {premier} x {premier} = {}", premier * premier);
 }
 '''
