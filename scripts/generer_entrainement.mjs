@@ -809,15 +809,33 @@ fn main() {
     slug: 'shadow-unites',
     titre: 'Changer d’unité',
     notion: 'shadowing et changement de type',
-    kael: 'La route jusqu’à la mine fait 5 kilomètres. Le géomètre veut des mètres, puis des centimètres. Il est très, très précis, le géomètre.',
-    rappels: [
-      'le masquage peut **changer le type** : `f64` puis `i64`',
-      '`distance as i64` convertit un décimal en entier (la virgule est coupée)',
-    ],
-    mission: 'Pars de `let distance = 5.0;` (km). Masque-la en mètres et affiche-la, puis en centimètres entiers (`i64`) et affiche-la.',
-    indices: ['`let distance = distance * 1000.0;`', '`let distance = distance as i64 * 100;`'],
+    kael: 'La route jusqu’à la mine fait 2,75 kilomètres. Le géomètre veut des mètres, puis des centimètres entiers. Il est très, très précis, le géomètre. Si je perds un seul centimètre, il me le fera remarquer.',
+    lecon: [
+      '**Ce qu’on travaille ici :** le masquage peut **changer le type**. Et surtout : **à quel moment** changer.',
+      '',
+      '**`as` convertit un décimal en entier… en coupant la virgule.** Il n’arrondit **pas** :',
+      '',
+      '| Écriture | Résultat |',
+      '|---|---|',
+      '| `3.9 as i32` | **3** (pas 4 !) |',
+      '| `0.6 as i32` | **0** |',
+      '| `12.0 as i32` | 12 |',
+      '',
+      'Donc, si on convertit **trop tôt**, on perd des morceaux :',
+      '',
+      '```rust',
+      'let litres = 1.5;',
+      'let trop_tot = litres as i32 * 1000;   // 1 * 1000 = 1000 ❌ le demi-litre a disparu',
+      'let bon_moment = (litres * 1000.0) as i32;   // 1500 ✅ on calcule d’abord, on coupe ensuite',
+      '```',
+      '',
+      '**La règle :** on garde le **décimal** (`f64`) pendant les calculs, et on passe à l’**entier** seulement à la **fin**, quand il n’y a plus de virgule à perdre.',
+    ].join('\n'),
+    rappels: [],
+    mission: 'Pars de `let distance = 2.75;` (km). Masque-la en mètres (toujours en décimal) et affiche-la. Puis masque-la en centimètres **entiers** (`i64`) et affiche-la.',
+    indices: ['Les mètres restent un `f64` : multiplie par un décimal.', 'La conversion en `i64` vient **en dernier** : si elle arrive avant la multiplication, tu perds les 0,75 km.'],
     solution: `fn main() {
-    let distance = 5.0;
+    let distance = 2.75;
     let distance = distance * 1000.0;
     println!("En mètres : {distance}");
     let distance = distance as i64 * 100;
