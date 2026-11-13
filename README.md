@@ -51,17 +51,58 @@ Je suis technicien à la fonderie. Ici, on remet les machines en marche… en é
 
 **Attends, attends ! Ne touche pas au levier tout de suite.**
 
-La dernière fois que quelqu'un a lancé la forge sans les bons outils, on a passé l'après-midi à éponger. Vérifie d'abord que tu as ces trois-là :
+La dernière fois que quelqu'un a lancé la forge sans les bons outils, on a passé l'après-midi à éponger. Il te faut **Rust** et **Node.js**, plus un petit outil selon ton système :
 
 <br clear="left">
 
-| Outil | Pourquoi | Où le trouver | Pour vérifier |
-|---|---|---|---|
-| **Rust** | compiler l'app **et** tes exercices | [rustup.rs](https://rustup.rs) | `rustc --version` |
-| **Node.js** (LTS) | faire tourner l'interface | [nodejs.org](https://nodejs.org) | `node --version` |
-| **WebView2** | la fenêtre de l'app | déjà présent sur Windows 10 et 11 | — |
+| Outil | Pourquoi | Pour vérifier |
+|---|---|---|
+| **Rust** | compiler l'app **et** tes exercices | `rustc --version` |
+| **Node.js** (LTS) | faire tourner l'interface | `node --version` |
+| **Git** | télécharger la forge | `git --version` |
 
-> Sous Windows, `rustup` te proposera aussi les **outils de compilation C++ de Microsoft**. Accepte : Rust en a besoin.
+<details open>
+<summary><b>🪟 Windows</b></summary>
+
+1. Installe **Rust** avec [rustup.rs](https://rustup.rs). Il te proposera les **outils de compilation C++ de Microsoft** : accepte, Rust en a besoin.
+2. Installe **Node.js** (version LTS) depuis [nodejs.org](https://nodejs.org).
+3. **WebView2**, la fenêtre de l'app, est déjà présent sur Windows 10 et 11.
+
+</details>
+
+<details>
+<summary><b>🍎 macOS</b></summary>
+
+1. Les outils de compilation d'Apple :
+   ```bash
+   xcode-select --install
+   ```
+2. **Rust** :
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
+3. **Node.js** (LTS) depuis [nodejs.org](https://nodejs.org), ou avec Homebrew : `brew install node`.
+
+</details>
+
+<details>
+<summary><b>🐧 Linux</b> (Debian, Ubuntu, Mint…)</summary>
+
+1. Les bibliothèques dont la fenêtre a besoin :
+   ```bash
+   sudo apt update
+   sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
+   ```
+   Fedora, Arch… : la liste pour ta distribution est dans le [guide de Tauri](https://v2.tauri.app/start/prerequisites/#linux).
+2. **Rust** :
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
+3. **Node.js** (LTS) depuis [nodejs.org](https://nodejs.org) ou le gestionnaire de paquets de ta distribution.
+
+</details>
+
+> Après avoir installé Rust, **ferme et rouvre ton terminal** : sinon il ne trouvera pas `rustc`.
 
 ---
 
@@ -71,15 +112,25 @@ La dernière fois que quelqu'un a lancé la forge sans les bons outils, on a pas
 
 **Bon. Tout est là ? Alors on y va !**
 
-Le plus simple : double-clique sur **`OxydeForge.bat`**. Il installe ce qu'il faut au premier lancement, puis ouvre l'app.
+D'abord, télécharge la forge :
 
 <br clear="left">
-
-Ou à la main, dans un terminal :
 
 ```bash
 git clone https://github.com/NeshWorld/OxydeForge.git
 cd OxydeForge
+```
+
+Puis allume-la :
+
+| Système | Le plus simple | Ce qu'il fait |
+|---|---|---|
+| 🪟 Windows | double-clique sur **`OxydeForge.bat`** | installe ce qu'il faut au premier lancement, puis ouvre l'app |
+| 🍎 macOS · 🐧 Linux | `./OxydeForge.sh` dans le terminal | pareil |
+
+Ou à la main, sur tous les systèmes :
+
+```bash
 npm install
 npm run app
 ```
@@ -99,13 +150,15 @@ npm run app
 
 **Euh… ce n'est pas moi, promis.**
 
-`rustc` compile en 0,2 seconde. C'est l'**antivirus** qui inspecte chaque nouveau programme avant de le laisser partir. Pour aller plus vite, exclus le dossier de travail d'OxydeForge dans ton antivirus :
+`rustc` compile en 0,2 seconde. C'est l'**antivirus** qui inspecte chaque nouveau programme avant de le laisser partir. Surtout sous **Windows**. Pour aller plus vite, exclus le dossier de travail d'OxydeForge dans ton antivirus :
 
 <br clear="left">
 
 ```text
 %TEMP%\oxydeforge
 ```
+
+Sous macOS et Linux, c'est le dossier `oxydeforge` du répertoire temporaire (`$TMPDIR` ou `/tmp`).
 
 ---
 
@@ -118,6 +171,8 @@ npm run app
 Moi si. Mais toi, tu vaux mieux que ça.
 
 <br clear="left">
+
+Sur Mac, remplace **`Ctrl`** par **`Cmd`**.
 
 | Touche | Action |
 |---|---|
@@ -174,5 +229,5 @@ cargo test
 <p align="center">
   <img src="src/assets/kael/sur-de-lui.png" width="90" alt="Kael"><br>
   <i>« Allez, la forge est chaude. À toi de taper. »</i><br>
-  <sub>Testé sous Windows.</sub>
+  <sub>Testé sous Windows. macOS et Linux : prévus, pas encore testés. Un souci ? Ouvre une <a href="https://github.com/NeshWorld/OxydeForge/issues">issue</a>.</sub>
 </p>

@@ -113,10 +113,10 @@ export function App() {
   const toggleSidebar = useCallback(() => setSidebarCollapsed((c) => !c), []);
   useEffect(() => saveSidebarCollapsed(sidebarCollapsed), [sidebarCollapsed]);
 
-  // Ctrl + B replie ou déplie le menu, comme dans Nullforge.
+  // Ctrl + B (Cmd + B sur Mac) replie ou déplie le menu, comme dans Nullforge.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && !event.shiftKey && event.key.toLowerCase() === 'b') {
+      if ((event.ctrlKey || event.metaKey) && !event.shiftKey && event.key.toLowerCase() === 'b') {
         event.preventDefault();
         toggleSidebar();
       }
