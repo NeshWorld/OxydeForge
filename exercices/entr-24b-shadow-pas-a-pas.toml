@@ -1,0 +1,58 @@
+id = "entr-24b"
+module = "entrainement"
+titre = "Le masquage pas à pas"
+notion = "shadowing, sans parse"
+type = "lecon"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le compteur de la presse fait des étapes : il double, puis il ajoute 3. Le patron veut voir chaque étape. Il dit que c’est « pédagogique ». Moi, je dis qu’il s’ennuie."
+
+lecon = '''
+Commençons **sans** `.parse()`, juste le masquage.
+
+```rust
+let x = 4;
+let x = x * 10;   // le x de droite est l’ANCIEN (4) → le nouveau vaut 40
+println!("{x}");  // 40
+```
+
+Lis la 2e ligne **de droite à gauche** :
+1. Rust calcule `x * 10` avec l’**ancien** `x` (4)
+2. puis crée un **nouveau** `x` qui reçoit 40
+3. l’ancien est **caché** : on ne peut plus l’atteindre
+
+> Pas besoin de `mut` : on ne **modifie** pas `x`, on en crée un **nouveau** à chaque `let`.
+'''
+
+mission = '''
+Pars de `let compteur = 6;`. Affiche-le. Masque-le en double, affiche-le. Masque-le encore en ajoutant 3, affiche-le.
+
+Résultat attendu :
+
+```text
+Départ : 6
+Doublé : 12
+Plus 3 : 15
+```
+'''
+
+sortie_attendue = '''
+Départ : 6
+Doublé : 12
+Plus 3 : 15
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Un `let compteur` par étape, et un `println!` après chacun."]
+
+solution = '''
+fn main() {
+    let compteur = 6;
+    println!("Départ : {compteur}");
+    let compteur = compteur * 2;
+    println!("Doublé : {compteur}");
+    let compteur = compteur + 3;
+    println!("Plus 3 : {compteur}");
+}
+'''

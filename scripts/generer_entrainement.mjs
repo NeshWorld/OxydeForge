@@ -549,12 +549,34 @@ fn main() {
     titre: 'Le tableau de service',
     notion: 'for, .iter() et .enumerate()',
     kael: 'Il faut afficher le tableau de service avec des numéros. Ferris, moi, et Rusty le chat de l’atelier. Oui, le chat est de service.',
-    rappels: [
-      '`.iter().enumerate()` donne des paires `(numéro, valeur)`, comme `enumerate` en Python',
-      'le numéro commence à **0** : affiche `i + 1` pour commencer à 1',
-    ],
-    mission: 'Avec `["Ferris", "Kael", "Rusty"]`, affiche une liste numérotée à partir de 1.',
-    indices: ['`for (i, nom) in equipe.iter().enumerate() { println!("{}. {nom}", i + 1); }`'],
+    // Une vraie petite leçon : enumerate n'est pas supposé connu (ni en Python, ni ailleurs).
+    lecon: [
+      'Un `for` normal te donne **seulement les valeurs**. Parfois, il te faut **aussi leur numéro** (leur position).',
+      '',
+      '**`.iter().enumerate()`** donne les deux à la fois, sous forme de **paire** `(numéro, valeur)` :',
+      '',
+      '```rust',
+      'let fruits = ["pomme", "kiwi"];',
+      'for (n, fruit) in fruits.iter().enumerate() {',
+      '    println!("case {n} : {fruit}");',
+      '}',
+      '```',
+      '',
+      '| Tour | `n` | `fruit` | Affiche |',
+      '|---|---|---|---|',
+      '| 1 | 0 | `"pomme"` | `case 0 : pomme` |',
+      '| 2 | 1 | `"kiwi"` | `case 1 : kiwi` |',
+      '',
+      '- **`.iter()`** : « parcours la liste, élément par élément »',
+      '- **`.enumerate()`** : « et colle un numéro devant chaque élément »',
+      '- `(n, fruit)` **découpe** la paire en deux variables, comme un tuple',
+      '- le numéro commence à **0**, comme les index',
+      '',
+      '> En Python, la même idée s’écrit `for n, fruit in enumerate(fruits):`.',
+    ].join('\n'),
+    rappels: [],
+    mission: 'Avec `["Ferris", "Kael", "Rusty"]`, affiche une liste numérotée à partir de **1**.',
+    indices: ['Le numéro donné par `enumerate` commence à 0 : il faut le décaler pour l’affichage.', 'Le calcul peut se faire **directement** dans le `println!`, avec des `{}` vides.'],
     solution: `fn main() {
     let equipe = ["Ferris", "Kael", "Rusty"];
     for (i, nom) in equipe.iter().enumerate() {
@@ -569,18 +591,179 @@ fn main() {
     titre: 'Du texte au nombre',
     notion: 'shadowing et .parse()',
     kael: 'L’apprenti a tapé son âge au clavier : « 42 ». Mais c’est du texte ! Je ne peux pas lui ajouter un an. Enfin, pas en texte.',
-    rappels: [
-      '`"42".parse()` transforme du texte en nombre',
-      '`.unwrap()` dit « je suis sûr que ça marche » (sinon le programme s’arrête)',
-      'le masquage garde **le même nom** : `let age: i32 = age.parse().unwrap();`',
-    ],
+    lecon: [
+      '**1. Un texte n’est pas un nombre.** Pour Rust, `"42"` (avec guillemets) est un **texte** : on ne peut pas lui ajouter 1.',
+      '',
+      '| Écriture | Type | `+ 1` ? |',
+      '|---|---|---|',
+      '| `42` | nombre (`i32`) | ✅ 43 |',
+      '| `"42"` | texte (`&str`) | ❌ refusé |',
+      '',
+      '**2. `.parse()` essaie de convertir.** Ça peut rater (`"douze"` n’est pas un nombre), alors Rust renvoie une **boîte** : réussi ou raté. **`.unwrap()`** ouvre la boîte : « je suis sûr que c’est bon ». Si c’est raté, le programme s’arrête net.',
+      '',
+      '**3. `.parse()` doit savoir en quoi convertir.** C’est le type écrit après le nom, ici `: u32`, qui le lui dit.',
+      '',
+      '```rust',
+      'let taille = "180";                      // un texte',
+      'let taille: u32 = taille.parse().unwrap(); // un NOUVEAU taille, nombre cette fois',
+      'println!("{}", taille + 5);               // 185',
+      '```',
+      '',
+      '**4. Le masquage** (*shadowing*) : un nouveau `let` avec **le même nom** crée une **nouvelle** variable, qui **cache** l’ancienne. Elle peut avoir **un autre type**. Pratique : pas besoin d’inventer `taille_texte` et `taille_nombre`.',
+    ].join('\n'),
+    rappels: [],
     mission: 'Pars de `let age = "42";`. Masque-le en nombre (`i32`), puis encore pour lui ajouter 1. Affiche le résultat.',
-    indices: ['Trois `let age` à la suite : le texte, le nombre, puis `age + 1`.'],
+    indices: ['Il te faut **trois** `let age` à la suite : le texte, le nombre, puis le nombre + 1.', 'Sur la 2e ligne, n’oublie pas le type après le nom : c’est lui qui guide `.parse()`.'],
     solution: `fn main() {
     let age = "42";
     let age: i32 = age.parse().unwrap();
     let age = age + 1;
     println!("L'an prochain : {age} ans");
+}`,
+  },
+  // Cinq exercices de plus sur le même principe (26b à 26f), sans décaler les numéros suivants.
+  {
+    variante: true,
+    slug: 'shadow-pas-a-pas',
+    titre: 'Le masquage pas à pas',
+    notion: 'shadowing, sans parse',
+    kael: 'Le compteur de la presse fait des étapes : il double, puis il ajoute 3. Le patron veut voir chaque étape. Il dit que c’est « pédagogique ». Moi, je dis qu’il s’ennuie.',
+    lecon: [
+      'Commençons **sans** `.parse()`, juste le masquage.',
+      '',
+      '```rust',
+      'let x = 4;',
+      'let x = x * 10;   // le x de droite est l’ANCIEN (4) → le nouveau vaut 40',
+      'println!("{x}");  // 40',
+      '```',
+      '',
+      'Lis la 2e ligne **de droite à gauche** :',
+      '1. Rust calcule `x * 10` avec l’**ancien** `x` (4)',
+      '2. puis crée un **nouveau** `x` qui reçoit 40',
+      '3. l’ancien est **caché** : on ne peut plus l’atteindre',
+      '',
+      '> Pas besoin de `mut` : on ne **modifie** pas `x`, on en crée un **nouveau** à chaque `let`.',
+    ].join('\n'),
+    rappels: [],
+    mission: 'Pars de `let compteur = 6;`. Affiche-le. Masque-le en double, affiche-le. Masque-le encore en ajoutant 3, affiche-le.',
+    indices: ['Un `let compteur` par étape, et un `println!` après chacun.'],
+    solution: `fn main() {
+    let compteur = 6;
+    println!("Départ : {compteur}");
+    let compteur = compteur * 2;
+    println!("Doublé : {compteur}");
+    let compteur = compteur + 3;
+    println!("Plus 3 : {compteur}");
+}`,
+  },
+  {
+    variante: true,
+    slug: 'shadow-ou-mut',
+    titre: 'Masquer ou mut ?',
+    notion: 'shadowing contre mut',
+    kael: 'Le bon de commande dit « 7 » caisses. En texte, évidemment. Et il en faut le triple. Je pourrais utiliser mut… ou pas ?',
+    lecon: [
+      '`mut` et le masquage se ressemblent, mais ne font **pas** la même chose :',
+      '',
+      '| | `mut` | masquage (`let` à nouveau) |',
+      '|---|---|---|',
+      '| Combien de variables ? | **une seule**, modifiée | une **nouvelle** à chaque `let` |',
+      '| Changer de **type** ? | ❌ jamais | ✅ oui |',
+      '',
+      '```rust',
+      'let mut code = "5";',
+      '// code = 5;          ❌ refusé : code reste un texte pour toujours',
+      '',
+      'let code = "5";',
+      'let code: u8 = code.parse().unwrap();   // ✅ texte → nombre',
+      '```',
+      '',
+      'Pour passer du **texte** au **nombre**, seul le masquage fonctionne.',
+    ].join('\n'),
+    rappels: [],
+    mission: 'Pars de `let caisses = "7";`. Masque-le en nombre (`u32`), puis masque-le encore pour le tripler. Affiche le résultat.',
+    indices: ['Le type `u32` se met juste après le nom, sur la ligne du `.parse()`.', 'Le triple se calcule avec l’ancien `caisses`, dans un nouveau `let`.'],
+    solution: `fn main() {
+    let caisses = "7";
+    let caisses: u32 = caisses.parse().unwrap();
+    let caisses = caisses * 3;
+    println!("Il faut {caisses} caisses");
+}`,
+  },
+  {
+    variante: true,
+    slug: 'parse-decimal',
+    titre: 'Un texte à virgule',
+    notion: '.parse() vers f64',
+    kael: 'La balance affiche « 2.5 » kg. Toujours en texte, cette balance. Et il me faut le double pour la commande.',
+    lecon: [
+      '`.parse()` sait convertir vers **n’importe quel** type de nombre : il suffit de le lui dire.',
+      '',
+      '| Texte | Type demandé | Résultat |',
+      '|---|---|---|',
+      '| `"12"` | `i32` | ✅ 12 |',
+      '| `"0.75"` | `f64` | ✅ 0.75 |',
+      '| `"0.75"` | `i32` | 💥 un entier n’a pas de virgule |',
+      '',
+      '```rust',
+      'let litres = "0.75";',
+      'let litres: f64 = litres.parse().unwrap();',
+      'println!("{}", litres * 4.0);   // 3',
+      '```',
+      '',
+      '> Attention : avec un `f64`, on calcule avec des **décimaux** : `* 4.0`, pas `* 4`.',
+    ].join('\n'),
+    rappels: [],
+    mission: 'Pars de `let poids = "2.5";`. Masque-le en décimal (`f64`), puis en double. Affiche le résultat.',
+    indices: ['Le type à demander, c’est celui des nombres à virgule.', 'Pour doubler un `f64`, multiplie par un décimal.'],
+    solution: `fn main() {
+    let poids = "2.5";
+    let poids: f64 = poids.parse().unwrap();
+    let poids = poids * 2.0;
+    println!("Commande : {poids} kg");
+}`,
+  },
+  {
+    variante: true,
+    slug: 'parse-deux-textes',
+    titre: 'Additionner deux textes',
+    notion: '.parse() sur deux valeurs',
+    kael: 'Deux apprentis ont compté les boulons : « 12 » et « 30 ». En texte, tous les deux. Si je les colle, j’obtiens « 1230 ». Le patron n’a pas ri.',
+    rappels: [
+      'chaque texte doit être converti **séparément**',
+      'le type après le nom guide `.parse()`',
+      'on ne peut additionner que des **nombres**',
+    ],
+    mission: 'Pars de `let a = "12";` et `let b = "30";`. Masque-les tous les deux en `i32`, puis affiche leur somme.',
+    indices: ['Deux lignes de masquage : une pour `a`, une pour `b`.', 'Le calcul peut se faire directement dans le `println!`.'],
+    solution: `fn main() {
+    let a = "12";
+    let b = "30";
+    let a: i32 = a.parse().unwrap();
+    let b: i32 = b.parse().unwrap();
+    println!("Total : {} boulons", a + b);
+}`,
+  },
+  {
+    variante: true,
+    slug: 'defi-tours-heure',
+    titre: 'Le rapport de la roue',
+    notion: 'défi : texte, parse, masquages',
+    kael: 'Le capteur de la roue envoie « 1450 » tours par minute. En texte, bien sûr. Le chef veut les tours par heure, puis par journée de 8 heures.',
+    rappels: [
+      'texte → nombre : un `let` avec le type, `.parse()` et `.unwrap()`',
+      'chaque nouveau calcul peut **masquer** le précédent',
+      'une heure = 60 minutes',
+    ],
+    mission: 'Pars de `let tours = "1450";`. Masque-le en `u32`, puis en tours par heure (affiche), puis en tours par journée de 8 heures (affiche).',
+    indices: ['Trois masquages : nombre, × 60, × 8.', 'Affiche après le 2e et après le 3e.'],
+    solution: `fn main() {
+    let tours = "1450";
+    let tours: u32 = tours.parse().unwrap();
+    let tours = tours * 60;
+    println!("Par heure : {tours} tours");
+    let tours = tours * 8;
+    println!("Par journée : {tours} tours");
 }`,
   },
   {
@@ -1073,13 +1256,14 @@ for (const ex of EXERCICES) {
     `module = "entrainement"`,
     `titre = ${JSON.stringify(ex.titre)}`,
     `notion = ${JSON.stringify(ex.notion)}`,
-    `type = "defi"`,
+    // Avec une vraie leçon (notion nouvelle), l'exercice s'affiche comme un cours, pas comme des rappels.
+    `type = "${ex.lecon ? 'lecon' : 'defi'}"`,
     ``,
     `# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.`,
     `kael = ${JSON.stringify(ex.kael)}`,
     ...(ex.humeur ? [`humeur = "${ex.humeur}"`] : []),
     ``,
-    `lecon = ${literal(ex.rappels.map((r) => `- ${r}`).join('\n'))}`,
+    `lecon = ${literal(ex.lecon ?? ex.rappels.map((r) => `- ${r}`).join('\n'))}`,
     ``,
     ...(ex.digression ? [`digression = ${literal(ex.digression)}`, ``] : []),
     `mission = ${literal(`${ex.mission}\n\nRésultat attendu :\n\n\`\`\`text\n${propre}\n\`\`\``)}`,

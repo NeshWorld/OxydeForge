@@ -1,0 +1,54 @@
+id = "entr-24c"
+module = "entrainement"
+titre = "Masquer ou mut ?"
+notion = "shadowing contre mut"
+type = "lecon"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le bon de commande dit « 7 » caisses. En texte, évidemment. Et il en faut le triple. Je pourrais utiliser mut… ou pas ?"
+
+lecon = '''
+`mut` et le masquage se ressemblent, mais ne font **pas** la même chose :
+
+| | `mut` | masquage (`let` à nouveau) |
+|---|---|---|
+| Combien de variables ? | **une seule**, modifiée | une **nouvelle** à chaque `let` |
+| Changer de **type** ? | ❌ jamais | ✅ oui |
+
+```rust
+let mut code = "5";
+// code = 5;          ❌ refusé : code reste un texte pour toujours
+
+let code = "5";
+let code: u8 = code.parse().unwrap();   // ✅ texte → nombre
+```
+
+Pour passer du **texte** au **nombre**, seul le masquage fonctionne.
+'''
+
+mission = '''
+Pars de `let caisses = "7";`. Masque-le en nombre (`u32`), puis masque-le encore pour le tripler. Affiche le résultat.
+
+Résultat attendu :
+
+```text
+Il faut 21 caisses
+```
+'''
+
+sortie_attendue = '''
+Il faut 21 caisses
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Le type `u32` se met juste après le nom, sur la ligne du `.parse()`.", "Le triple se calcule avec l’ancien `caisses`, dans un nouveau `let`."]
+
+solution = '''
+fn main() {
+    let caisses = "7";
+    let caisses: u32 = caisses.parse().unwrap();
+    let caisses = caisses * 3;
+    println!("Il faut {caisses} caisses");
+}
+'''

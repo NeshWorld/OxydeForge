@@ -2,15 +2,30 @@ id = "entr-24"
 module = "entrainement"
 titre = "Du texte au nombre"
 notion = "shadowing et .parse()"
-type = "defi"
+type = "lecon"
 
 # Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
 kael = "L’apprenti a tapé son âge au clavier : « 42 ». Mais c’est du texte ! Je ne peux pas lui ajouter un an. Enfin, pas en texte."
 
 lecon = '''
-- `"42".parse()` transforme du texte en nombre
-- `.unwrap()` dit « je suis sûr que ça marche » (sinon le programme s’arrête)
-- le masquage garde **le même nom** : `let age: i32 = age.parse().unwrap();`
+**1. Un texte n’est pas un nombre.** Pour Rust, `"42"` (avec guillemets) est un **texte** : on ne peut pas lui ajouter 1.
+
+| Écriture | Type | `+ 1` ? |
+|---|---|---|
+| `42` | nombre (`i32`) | ✅ 43 |
+| `"42"` | texte (`&str`) | ❌ refusé |
+
+**2. `.parse()` essaie de convertir.** Ça peut rater (`"douze"` n’est pas un nombre), alors Rust renvoie une **boîte** : réussi ou raté. **`.unwrap()`** ouvre la boîte : « je suis sûr que c’est bon ». Si c’est raté, le programme s’arrête net.
+
+**3. `.parse()` doit savoir en quoi convertir.** C’est le type écrit après le nom, ici `: u32`, qui le lui dit.
+
+```rust
+let taille = "180";                      // un texte
+let taille: u32 = taille.parse().unwrap(); // un NOUVEAU taille, nombre cette fois
+println!("{}", taille + 5);               // 185
+```
+
+**4. Le masquage** (*shadowing*) : un nouveau `let` avec **le même nom** crée une **nouvelle** variable, qui **cache** l’ancienne. Elle peut avoir **un autre type**. Pratique : pas besoin d’inventer `taille_texte` et `taille_nombre`.
 '''
 
 mission = '''
@@ -29,7 +44,7 @@ L'an prochain : 43 ans
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Trois `let age` à la suite : le texte, le nombre, puis `age + 1`."]
+indices = ["Il te faut **trois** `let age` à la suite : le texte, le nombre, puis le nombre + 1.", "Sur la 2e ligne, n’oublie pas le type après le nom : c’est lui qui guide `.parse()`."]
 
 solution = '''
 fn main() {

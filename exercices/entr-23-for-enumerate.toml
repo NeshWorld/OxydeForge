@@ -2,18 +2,38 @@ id = "entr-23"
 module = "entrainement"
 titre = "Le tableau de service"
 notion = "for, .iter() et .enumerate()"
-type = "defi"
+type = "lecon"
 
 # Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
 kael = "Il faut afficher le tableau de service avec des numéros. Ferris, moi, et Rusty le chat de l’atelier. Oui, le chat est de service."
 
 lecon = '''
-- `.iter().enumerate()` donne des paires `(numéro, valeur)`, comme `enumerate` en Python
-- le numéro commence à **0** : affiche `i + 1` pour commencer à 1
+Un `for` normal te donne **seulement les valeurs**. Parfois, il te faut **aussi leur numéro** (leur position).
+
+**`.iter().enumerate()`** donne les deux à la fois, sous forme de **paire** `(numéro, valeur)` :
+
+```rust
+let fruits = ["pomme", "kiwi"];
+for (n, fruit) in fruits.iter().enumerate() {
+    println!("case {n} : {fruit}");
+}
+```
+
+| Tour | `n` | `fruit` | Affiche |
+|---|---|---|---|
+| 1 | 0 | `"pomme"` | `case 0 : pomme` |
+| 2 | 1 | `"kiwi"` | `case 1 : kiwi` |
+
+- **`.iter()`** : « parcours la liste, élément par élément »
+- **`.enumerate()`** : « et colle un numéro devant chaque élément »
+- `(n, fruit)` **découpe** la paire en deux variables, comme un tuple
+- le numéro commence à **0**, comme les index
+
+> En Python, la même idée s’écrit `for n, fruit in enumerate(fruits):`.
 '''
 
 mission = '''
-Avec `["Ferris", "Kael", "Rusty"]`, affiche une liste numérotée à partir de 1.
+Avec `["Ferris", "Kael", "Rusty"]`, affiche une liste numérotée à partir de **1**.
 
 Résultat attendu :
 
@@ -32,7 +52,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`for (i, nom) in equipe.iter().enumerate() { println!(\"{}. {nom}\", i + 1); }`"]
+indices = ["Le numéro donné par `enumerate` commence à 0 : il faut le décaler pour l’affichage.", "Le calcul peut se faire **directement** dans le `println!`, avec des `{}` vides."]
 
 solution = '''
 fn main() {

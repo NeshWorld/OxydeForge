@@ -1,0 +1,45 @@
+id = "entr-24f"
+module = "entrainement"
+titre = "Le rapport de la roue"
+notion = "défi : texte, parse, masquages"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Le capteur de la roue envoie « 1450 » tours par minute. En texte, bien sûr. Le chef veut les tours par heure, puis par journée de 8 heures."
+
+lecon = '''
+- texte → nombre : un `let` avec le type, `.parse()` et `.unwrap()`
+- chaque nouveau calcul peut **masquer** le précédent
+- une heure = 60 minutes
+'''
+
+mission = '''
+Pars de `let tours = "1450";`. Masque-le en `u32`, puis en tours par heure (affiche), puis en tours par journée de 8 heures (affiche).
+
+Résultat attendu :
+
+```text
+Par heure : 87000 tours
+Par journée : 696000 tours
+```
+'''
+
+sortie_attendue = '''
+Par heure : 87000 tours
+Par journée : 696000 tours
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Trois masquages : nombre, × 60, × 8.", "Affiche après le 2e et après le 3e."]
+
+solution = '''
+fn main() {
+    let tours = "1450";
+    let tours: u32 = tours.parse().unwrap();
+    let tours = tours * 60;
+    println!("Par heure : {tours} tours");
+    let tours = tours * 8;
+    println!("Par journée : {tours} tours");
+}
+'''

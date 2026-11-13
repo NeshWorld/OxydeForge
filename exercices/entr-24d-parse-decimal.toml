@@ -1,0 +1,53 @@
+id = "entr-24d"
+module = "entrainement"
+titre = "Un texte à virgule"
+notion = ".parse() vers f64"
+type = "lecon"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "La balance affiche « 2.5 » kg. Toujours en texte, cette balance. Et il me faut le double pour la commande."
+
+lecon = '''
+`.parse()` sait convertir vers **n’importe quel** type de nombre : il suffit de le lui dire.
+
+| Texte | Type demandé | Résultat |
+|---|---|---|
+| `"12"` | `i32` | ✅ 12 |
+| `"0.75"` | `f64` | ✅ 0.75 |
+| `"0.75"` | `i32` | 💥 un entier n’a pas de virgule |
+
+```rust
+let litres = "0.75";
+let litres: f64 = litres.parse().unwrap();
+println!("{}", litres * 4.0);   // 3
+```
+
+> Attention : avec un `f64`, on calcule avec des **décimaux** : `* 4.0`, pas `* 4`.
+'''
+
+mission = '''
+Pars de `let poids = "2.5";`. Masque-le en décimal (`f64`), puis en double. Affiche le résultat.
+
+Résultat attendu :
+
+```text
+Commande : 5 kg
+```
+'''
+
+sortie_attendue = '''
+Commande : 5 kg
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Le type à demander, c’est celui des nombres à virgule.", "Pour doubler un `f64`, multiplie par un décimal."]
+
+solution = '''
+fn main() {
+    let poids = "2.5";
+    let poids: f64 = poids.parse().unwrap();
+    let poids = poids * 2.0;
+    println!("Commande : {poids} kg");
+}
+'''

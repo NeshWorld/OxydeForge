@@ -1,0 +1,42 @@
+id = "entr-24e"
+module = "entrainement"
+titre = "Additionner deux textes"
+notion = ".parse() sur deux valeurs"
+type = "defi"
+
+# Généré par scripts/generer_entrainement.mjs : modifie le générateur, pas ce fichier.
+kael = "Deux apprentis ont compté les boulons : « 12 » et « 30 ». En texte, tous les deux. Si je les colle, j’obtiens « 1230 ». Le patron n’a pas ri."
+
+lecon = '''
+- chaque texte doit être converti **séparément**
+- le type après le nom guide `.parse()`
+- on ne peut additionner que des **nombres**
+'''
+
+mission = '''
+Pars de `let a = "12";` et `let b = "30";`. Masque-les tous les deux en `i32`, puis affiche leur somme.
+
+Résultat attendu :
+
+```text
+Total : 42 boulons
+```
+'''
+
+sortie_attendue = '''
+Total : 42 boulons
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Deux lignes de masquage : une pour `a`, une pour `b`.", "Le calcul peut se faire directement dans le `println!`."]
+
+solution = '''
+fn main() {
+    let a = "12";
+    let b = "30";
+    let a: i32 = a.parse().unwrap();
+    let b: i32 = b.parse().unwrap();
+    println!("Total : {} boulons", a + b);
+}
+'''
