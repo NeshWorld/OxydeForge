@@ -7,7 +7,7 @@
 <p align="center">
   <b>Apprendre le Rust en forgeant.</b><br>
   Une app écrite en Rust, pour apprendre le Rust.<br>
-  114 exercices · un éditeur vide · le vrai compilateur
+  119 exercices · un éditeur vide · le vrai compilateur
 </p>
 
 ---
@@ -37,7 +37,7 @@ Je suis technicien à la fonderie. Ici, on remet les machines en marche… en é
 | Chapitre | Exercices | Ce qu'on y forge |
 |---|:---:|---|
 | **Les bases** | 14 | `fn main`, variables, types, `if`, boucles, `match`, textes |
-| **Entraînement** | 46 | remettre la main dedans, notion par notion |
+| **Entraînement** | 51 | remettre la main dedans, notion par notion |
 | **Possession et emprunt** | 27 | l'ownership, le cœur de Rust : *move*, `clone`, `&`, `&mut`, tranches |
 | **Vec : la liste qui grandit** | 9 | ta première collection : `vec!`, `push`, parcourir sans perdre la liste |
 | **Lis l'erreur** | 6 | un code cassé, son erreur `E0xxx` : comprendre, puis réparer |
