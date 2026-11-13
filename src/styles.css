@@ -21,7 +21,7 @@
   --syn-type: #b9e769;
   --syn-string: #7ff0d0;
   --syn-number: #e2a3ff;
-  --syn-param: #ff6b6b;
+  --syn-param: #ffd166; /* doré : pas de rouge, réservé aux erreurs */
   --sans: 'IBM Plex Sans', system-ui, sans-serif;
   --mono: 'JetBrains Mono', Consolas, monospace;
   color-scheme: dark;
