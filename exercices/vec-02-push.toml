@@ -1,0 +1,52 @@
+id = "vec-02"
+module = "vec"
+titre = "Ajouter avec push"
+notion = "Vec::new, mut et push"
+type = "lecon"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "Les commandes arrivent une par une au guichet. Je les note au fur et à mesure. Enfin, j’essaie. Mon carnet n’a que trois pages."
+
+lecon = '''
+On peut partir d’un `Vec` **vide**, puis le remplir avec **`.push()`**, qui ajoute à la fin.
+
+```rust
+let mut scores = Vec::new();   // vide pour l’instant
+scores.push(4);
+scores.push(9);
+println!("{:?}", scores);       // [4, 9]
+```
+
+- **`mut`** est obligatoire : ajouter un élément **modifie** le `Vec`.
+- Rust devine le type des éléments au premier `push` : ici des `i32`.
+
+> En Python, c’est `scores.append(4)`.
+'''
+
+mission = '''
+Pars d’un `Vec` vide de commandes. Ajoute les numéros 12, 7 puis 30, et affiche la liste.
+
+Résultat attendu :
+
+```text
+Commandes : [12, 7, 30]
+```
+'''
+
+sortie_attendue = '''
+Commandes : [12, 7, 30]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Un `Vec` qu’on remplit doit être déclaré modifiable.", "Un `push` par commande, dans l’ordre demandé."]
+
+solution = '''
+fn main() {
+    let mut commandes = Vec::new();
+    commandes.push(12);
+    commandes.push(7);
+    commandes.push(30);
+    println!("Commandes : {:?}", commandes);
+}
+'''

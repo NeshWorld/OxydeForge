@@ -1,0 +1,77 @@
+id = "vec-03"
+module = "vec"
+titre = "Le carnet verrouillé"
+notion = "push sur un Vec non mut : E0596"
+type = "lis-erreur"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai voulu ajouter une commande au carnet… et il refuse. Le compilateur dit que le carnet n’est pas modifiable. Qui l’a verrouillé ? Ah. Moi."
+humeur = "gene"
+
+lecon = '''
+`.push()` **modifie** le `Vec`. Si la variable n’est pas `mut`, Rust refuse : c’est la règle **immuable par défaut**, la même que pour un nombre.
+
+**Lire l’erreur** :
+- `cannot borrow ... as mutable` : « je ne peux pas le **prêter pour modification** »
+- c’est exactement ce que fait `push` : il emprunte le `Vec` avec `&mut`
+- le `help:` te montre **où** ajouter le mot qui manque
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l’erreur, puis réécris-le corrigé.
+
+Résultat attendu :
+
+```text
+Carnet : ["boulons", "rivets"]
+```
+'''
+
+code_casse = '''
+fn main() {
+    let carnet = Vec::new();
+    carnet.push("boulons");
+    carnet.push("rivets");
+    println!("Carnet : {:?}", carnet);
+}
+'''
+
+erreur = '''
+error[E0596]: cannot borrow `carnet` as mutable, as it is not declared as mutable
+ --> main.rs:2:9
+  |
+2 |     let carnet = Vec::new();
+  |         ^^^^^^ not mutable
+3 |     carnet.push("boulons");
+  |     ------ cannot borrow as mutable
+4 |     carnet.push("rivets");
+  |     ------ cannot borrow as mutable
+  |
+help: consider changing this to be mutable
+  |
+2 |     let mut carnet = Vec::new();
+  |         +++
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0596`.
+'''
+
+erreur_corrigee = "E0596"
+
+sortie_attendue = '''
+Carnet : ["boulons", "rivets"]
+'''
+
+criteres = ["L'erreur `E0596` a **disparu**", "Le programme affiche le **bon texte**"]
+
+indices = ["La correction tient en **un seul mot**, sur la ligne du `let`."]
+
+solution = '''
+fn main() {
+    let mut carnet = Vec::new();
+    carnet.push("boulons");
+    carnet.push("rivets");
+    println!("Carnet : {:?}", carnet);
+}
+'''

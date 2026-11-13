@@ -1,0 +1,61 @@
+id = "vec-08"
+module = "vec"
+titre = "Prêter une liste à une fonction"
+notion = "&Vec devient &[T]"
+type = "lecon"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "Le contrôleur veut voir la liste des températures pour trouver la plus haute. Je lui prête. Je ne la donne PAS. La dernière fois, il l’a perdue."
+
+lecon = '''
+Pour qu’une fonction **lise** un `Vec` sans le prendre, on lui **prête** : `&v`. Côté paramètre, on écrit une **tranche** `&[T]` :
+
+```rust
+fn premier(liste: &[i32]) -> i32 {
+    liste[0]
+}
+
+let v = vec![8, 3];
+println!("{}", premier(&v));   // &v se transforme tout seul en &[i32]
+```
+
+> C’est le même réflexe que **`&str` pour un texte** : `&[i32]` accepte un `Vec`, mais aussi un tableau. Le paramètre le plus **souple** gagne.
+'''
+
+mission = '''
+Écris `plus_chaud(temps)` qui reçoit une tranche d’`i32` et renvoie la plus grande valeur, avec une boucle. Teste-la avec 820, 1100 et 950, puis affiche la liste pour prouver qu’elle est toujours là.
+
+Résultat attendu :
+
+```text
+Plus chaud : 1100 degrés
+Relevés intacts : [820, 1100, 950]
+```
+'''
+
+sortie_attendue = '''
+Plus chaud : 1100 degrés
+Relevés intacts : [820, 1100, 950]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Commence avec le premier élément comme « record », puis compare chaque élément à ce record.", "Dans la boucle, `x` est un prêt : la valeur pointée s’écrit avec `*`."]
+
+solution = '''
+fn plus_chaud(temps: &[i32]) -> i32 {
+    let mut record = temps[0];
+    for t in temps {
+        if *t > record {
+            record = *t;
+        }
+    }
+    record
+}
+
+fn main() {
+    let releves = vec![820, 1100, 950];
+    println!("Plus chaud : {} degrés", plus_chaud(&releves));
+    println!("Relevés intacts : {:?}", releves);
+}
+'''

@@ -1,0 +1,52 @@
+id = "vec-04"
+module = "vec"
+titre = "Lire un élément"
+notion = "index et len - 1"
+type = "lecon"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "Le four a noté ses températures toute la nuit. Le patron veut seulement la première et la dernière. Il dit que le milieu, c’est « du remplissage »."
+
+lecon = '''
+Comme pour un tableau, on lit un élément avec son **index**, entre crochets. Le premier est à l’index **0**.
+
+```rust
+let notes = vec![14, 9, 17];
+println!("{}", notes[0]);               // 14 : le premier
+println!("{}", notes[notes.len() - 1]); // 17 : le dernier
+```
+
+- Le dernier index vaut **`len() - 1`** : avec 3 éléments, les index vont de 0 à 2.
+- Un index trop grand ne compile pas en erreur : le programme **s’arrête net** à l’exécution (*panic*), comme pour le dépassement d’un `i32`.
+'''
+
+mission = '''
+Avec les températures 820, 950, 1100 et 760, affiche la première, la dernière, puis le nombre de relevés.
+
+Résultat attendu :
+
+```text
+Première : 820 degrés
+Dernière : 760 degrés
+4 relevés
+```
+'''
+
+sortie_attendue = '''
+Première : 820 degrés
+Dernière : 760 degrés
+4 relevés
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["La première est à l’index 0.", "Pour la dernière, sers-toi de la longueur de la liste."]
+
+solution = '''
+fn main() {
+    let temperatures = vec![820, 950, 1100, 760];
+    println!("Première : {} degrés", temperatures[0]);
+    println!("Dernière : {} degrés", temperatures[temperatures.len() - 1]);
+    println!("{} relevés", temperatures.len());
+}
+'''

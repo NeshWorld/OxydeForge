@@ -1,0 +1,54 @@
+id = "vec-01"
+module = "vec"
+titre = "Une liste qui grandit"
+notion = "vec! et len"
+type = "lecon"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "Le patron veut l’inventaire de la caisse à outils. Sauf que la caisse change tout le temps de taille. Un tableau à taille fixe ? Il a ri. Longtemps."
+
+lecon = '''
+Un **tableau** `[T; N]` a une taille **fixée** à la compilation. Un **`Vec`** (pour *vecteur*) peut **grandir et rétrécir** pendant que le programme tourne.
+
+```rust
+let couleurs = vec!["rouge", "vert"];   // la macro vec! crée un Vec déjà rempli
+println!("{:?}", couleurs);              // {:?} affiche tout le contenu
+println!("{} couleurs", couleurs.len()); // .len() : le nombre d’éléments
+```
+
+| | Tableau | `Vec` |
+|---|---|---|
+| Taille | fixe | **variable** |
+| Où vivent les éléments | sur la **pile** | sur le **tas** |
+| Création | `[1, 2, 3]` | `vec![1, 2, 3]` |
+
+> C’est l’équivalent de la **liste** Python : `[1, 2, 3]` en Python, `vec![1, 2, 3]` en Rust.
+'''
+
+mission = '''
+Crée un `Vec` avec trois outils : « marteau », « pince » et « lime ». Affiche-le avec `{:?}`, puis affiche combien il contient d’outils.
+
+Résultat attendu :
+
+```text
+["marteau", "pince", "lime"]
+3 outils dans la caisse
+```
+'''
+
+sortie_attendue = '''
+["marteau", "pince", "lime"]
+3 outils dans la caisse
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Les crochets de `vec!` ressemblent à ceux d’un tableau.", "`.len()` se met après le nom de la liste, et donne un nombre."]
+
+solution = '''
+fn main() {
+    let outils = vec!["marteau", "pince", "lime"];
+    println!("{:?}", outils);
+    println!("{} outils dans la caisse", outils.len());
+}
+'''

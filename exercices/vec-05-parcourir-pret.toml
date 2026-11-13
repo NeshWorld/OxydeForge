@@ -1,0 +1,59 @@
+id = "vec-05"
+module = "vec"
+titre = "Parcourir sans perdre"
+notion = "for x in &v"
+type = "lecon"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "Je dois peser chaque lingot de la réserve, puis rendre la liste au patron. Entière. Il compte, le patron."
+
+lecon = '''
+Un `for` peut parcourir un `Vec`. Mais attention : **comment** tu le parcours décide de qui garde la liste.
+
+| Écriture | Ce que fait la boucle | Après la boucle |
+|---|---|---|
+| `for x in &v` | **emprunte** la liste | `v` existe toujours ✅ |
+| `for x in v` | **prend** la liste (*move*) | `v` est vide ❌ |
+
+```rust
+let ages = vec![30, 41];
+for age in &ages {        // un prêt, comme &String
+    println!("{age}");
+}
+println!("{:?}", ages);   // ✅ la liste est toujours là
+```
+
+C’est la **possession** que tu connais : un `Vec` possède ses éléments, et la boucle peut soit **l’emprunter**, soit **le prendre**.
+'''
+
+mission = '''
+Avec les poids 4, 7 et 2, calcule le poids total avec une boucle, affiche-le, puis affiche la liste entière.
+
+Résultat attendu :
+
+```text
+Poids total : 13 kg
+Lingots pesés : [4, 7, 2]
+```
+'''
+
+sortie_attendue = '''
+Poids total : 13 kg
+Lingots pesés : [4, 7, 2]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Il te faut un total modifiable, qui commence à 0.", "Pour pouvoir afficher la liste **après** la boucle, la boucle doit seulement l’emprunter."]
+
+solution = '''
+fn main() {
+    let poids = vec![4, 7, 2];
+    let mut total = 0;
+    for p in &poids {
+        total += p;
+    }
+    println!("Poids total : {total} kg");
+    println!("Lingots pesés : {:?}", poids);
+}
+'''

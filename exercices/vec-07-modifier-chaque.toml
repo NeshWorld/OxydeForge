@@ -1,0 +1,52 @@
+id = "vec-07"
+module = "vec"
+titre = "Modifier chaque élément"
+notion = "for x in &mut v et *x"
+type = "lecon"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "Le patron augmente tous les prix de 5 pièces. « L’inflation », il dit. Moi je dis qu’il veut une nouvelle enclume."
+
+lecon = '''
+Pour **modifier** chaque élément, la boucle emprunte la liste **en écriture** : `&mut`.
+
+```rust
+let mut niveaux = vec![1, 2, 3];
+for n in &mut niveaux {
+    *n *= 10;      // * : « la valeur au bout du prêt »
+}
+println!("{:?}", niveaux);   // [10, 20, 30]
+```
+
+- `n` n’est pas un nombre, c’est un **prêt** vers un nombre de la liste.
+- **`*n`** veut dire : « la valeur **pointée** par ce prêt ». C’est elle qu’on change.
+- Le `Vec` doit être `mut`, sinon pas de prêt en écriture (E0596, tu connais).
+'''
+
+mission = '''
+Avec les prix 20, 35 et 50, augmente chaque prix de 5 avec une boucle, puis affiche la nouvelle liste.
+
+Résultat attendu :
+
+```text
+Nouveaux prix : [25, 40, 55]
+```
+'''
+
+sortie_attendue = '''
+Nouveaux prix : [25, 40, 55]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["La boucle doit emprunter la liste **en écriture**.", "Dans la boucle, c’est la valeur **au bout** du prêt qu’on augmente."]
+
+solution = '''
+fn main() {
+    let mut prix = vec![20, 35, 50];
+    for p in &mut prix {
+        *p += 5;
+    }
+    println!("Nouveaux prix : {:?}", prix);
+}
+'''

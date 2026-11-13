@@ -1,0 +1,51 @@
+id = "vec-09"
+module = "vec"
+titre = "Le tri des lingots"
+notion = "construire deux Vec"
+type = "defi"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "Dernière tâche avant la pause : trier les lingots. Les légers à gauche, les lourds à droite. Moi, je les trie surtout par « celui-là me fait mal au dos »."
+
+lecon = '''
+- `Vec::new()` crée une liste vide, `.push()` ajoute à la fin
+- `for x in &v` parcourt sans prendre la liste
+- `*x` donne la valeur au bout du prêt
+'''
+
+mission = '''
+Avec les lingots de 3, 8, 5, 12 et 1 kg, range dans `legers` ceux de moins de 5 kg, et les autres dans `lourds`. Affiche les deux listes.
+
+Résultat attendu :
+
+```text
+Légers : [3, 1]
+Lourds : [8, 5, 12]
+```
+'''
+
+sortie_attendue = '''
+Légers : [3, 1]
+Lourds : [8, 5, 12]
+'''
+
+criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
+
+indices = ["Deux listes vides et modifiables, puis une seule boucle.", "Dans la boucle, un `if` décide dans quelle liste faire le `push`."]
+
+solution = '''
+fn main() {
+    let lingots = vec![3, 8, 5, 12, 1];
+    let mut legers = Vec::new();
+    let mut lourds = Vec::new();
+    for l in &lingots {
+        if *l < 5 {
+            legers.push(*l);
+        } else {
+            lourds.push(*l);
+        }
+    }
+    println!("Légers : {:?}", legers);
+    println!("Lourds : {:?}", lourds);
+}
+'''

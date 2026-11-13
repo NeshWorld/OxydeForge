@@ -16,6 +16,11 @@ titre = "Possession et emprunt"
 accroche = "Le cœur de Rust"
 
 [[modules]]
+id = "vec"
+titre = "Vec : la liste qui grandit"
+accroche = "Ta première collection"
+
+[[modules]]
 id = "erreurs"
 titre = "Lis l'erreur"
 accroche = "Le compilateur te parle"

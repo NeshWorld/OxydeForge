@@ -1,0 +1,91 @@
+id = "vec-06"
+module = "vec"
+titre = "La boucle a tout mangé"
+notion = "for x in v déplace le Vec : E0382"
+type = "lis-erreur"
+
+# Généré par scripts/generer_vec.mjs : modifie le générateur, pas ce fichier.
+kael = "J’ai fait l’appel des apprentis avec une boucle. Et maintenant la liste a disparu. La boucle l’a… mangée ?"
+humeur = "inquiet"
+
+lecon = '''
+`for x in v` **prend** le `Vec` : la liste déménage dans la boucle, qui la libère à la fin. Après, `v` est vide : c’est l’erreur **E0382**, la même que pour une `String` déplacée.
+
+**Lire l’erreur** :
+- `value moved here` : la boucle `for` a **pris** la liste
+- `value borrowed here after move` : tu t’en sers après
+- le `help:` propose déjà la solution : **emprunter** au lieu de prendre
+'''
+
+mission = '''
+Ce programme ne compile pas. Lis l’erreur, puis réécris-le corrigé : la boucle ne doit plus prendre la liste.
+
+Résultat attendu :
+
+```text
+Présent : Lina
+Présent : Bao
+Présent : Ines
+3 apprentis
+```
+'''
+
+code_casse = '''
+fn main() {
+    let apprentis = vec!["Lina", "Bao", "Ines"];
+    for nom in apprentis {
+        println!("Présent : {nom}");
+    }
+    println!("{} apprentis", apprentis.len());
+}
+'''
+
+erreur = '''
+error[E0382]: borrow of moved value: `apprentis`
+   --> main.rs:6:30
+    |
+  2 |     let apprentis = vec!["Lina", "Bao", "Ines"];
+    |         --------- move occurs because `apprentis` has type `Vec<&str>`, which does not implement the `Copy` trait
+  3 |     for nom in apprentis {
+    |                --------- `apprentis` moved due to this implicit call to `.into_iter()`
+...
+  6 |     println!("{} apprentis", apprentis.len());
+    |                              ^^^^^^^^^ value borrowed here after move
+    |
+note: the `for` loop is desugared into a call to `std::iter::IntoIterator::into_iter`, which takes ownership of the receiver `self`, which moves `apprentis`
+   --> C:\Users\apapi\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library/core\src\iter\traits\collect.rs:312:18
+    |
+312 |     fn into_iter(self) -> Self::IntoIter;
+    |                  ^^^^
+help: consider iterating over a slice of the `Vec<&str>`'s content to avoid moving into the `for` loop
+    |
+  3 |     for nom in &apprentis {
+    |                +
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0382`.
+'''
+
+erreur_corrigee = "E0382"
+
+sortie_attendue = '''
+Présent : Lina
+Présent : Bao
+Présent : Ines
+3 apprentis
+'''
+
+criteres = ["L'erreur `E0382` a **disparu**", "Le programme affiche le **bon texte**"]
+
+indices = ["Relis le tableau de l’exercice précédent : une seule des deux écritures garde la liste."]
+
+solution = '''
+fn main() {
+    let apprentis = vec!["Lina", "Bao", "Ines"];
+    for nom in &apprentis {
+        println!("Présent : {nom}");
+    }
+    println!("{} apprentis", apprentis.len());
+}
+'''
