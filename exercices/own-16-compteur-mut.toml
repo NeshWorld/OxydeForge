@@ -8,9 +8,36 @@ type = "defi"
 kael = "Chaque fois qu’une pièce sort de la presse, une machine doit ajouter 1 au compteur. Pas le compteur de la machine : LE compteur. Celui du mur."
 
 lecon = '''
-- on peut prêter un nombre en mutable : `fn ajouter(compteur: &mut i32)`
-- pour modifier la valeur **derrière** la référence, il faut l’étoile : `*compteur += 1;`
-- `*` se lit « la valeur pointée par »
+On peut prêter un **nombre** en écriture, comme une `String`.
+
+```rust
+fn vider(jauge: &mut i32) {
+    *jauge = 0;
+}
+
+fn main() {
+    let mut reservoir = 50;
+    vider(&mut reservoir);
+    println!("{reservoir}"); // affiche 0
+}
+```
+
+| Étape | Ce qui se passe | `reservoir` vaut |
+|---|---|---|
+| 1 | `main` crée `reservoir` | **50** |
+| 2 | `main` **prête** `reservoir` à `vider` | 50 |
+| 3 | dans `vider`, `jauge` **désigne** `reservoir` | 50 |
+| 4 | `*jauge = 0` change **la variable que `jauge` désigne** | **0** |
+| 5 | retour dans `main` | **0** ✅ |
+
+`jauge` n’a pas sa propre valeur : il dit seulement « c’est `reservoir`, là-bas dans `main` ».
+
+| Écriture | Se lit |
+|---|---|
+| `jauge` | « le **panneau** qui montre `reservoir` » |
+| `*jauge` | « `reservoir` **lui-même** » |
+
+> Avec une **méthode** (`s.push(…)`), Rust passe le panneau tout seul. Avec `=` ou `+=`, l’étoile est obligatoire.
 '''
 
 mission = '''
@@ -29,7 +56,7 @@ Pièces sorties : 3
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`*compteur += 1;` dans la fonction.", "Dans la boucle : `ajouter(&mut pieces);`"]
+indices = ["Dans la fonction, tu ajoutes 1 à la variable que `compteur` **désigne**. Quel symbole faut-il devant ?", "Dans la boucle, tu prêtes `pieces` **en écriture** : avec quoi devant ?"]
 
 solution = '''
 fn ajouter(compteur: &mut i32) {
