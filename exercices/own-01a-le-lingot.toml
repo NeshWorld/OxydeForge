@@ -18,11 +18,11 @@ C’est **exactement** la règle n°1 de Rust : chaque valeur a **un seul propri
 Le lingot sera une `String`. Le forgeron qui le tient sera une **variable**.
 
 ```rust
-let forgeron_a = String::from("lingot d'acier");  // A fabrique le lingot
-println!("A tient : {forgeron_a}");
+let kael = String::from("clé de 12");  // Kael fabrique sa clé
+println!("Kael tient : {kael}");
 ```
 
-> `{forgeron_a}` dans le `println!` affiche ce que A tient entre les mains.
+> `{kael}` dans le `println!` affiche ce que Kael tient entre les mains.
 '''
 
 mission = '''
@@ -41,7 +41,7 @@ A tient : lingot d'acier
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let forgeron_a = String::from(\"lingot d'acier\");`", "`println!(\"A tient : {forgeron_a}\");`"]
+indices = ["Le modèle de la leçon, avec le nom `forgeron_a` et le texte « lingot d’acier ».", "Dans le `println!`, le nom de la variable va entre `{}`."]
 
 solution = '''
 fn main() {

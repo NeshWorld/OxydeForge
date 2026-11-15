@@ -88,7 +88,7 @@ Nom gardé : Ferris
 
 criteres = ["L'erreur `E0382` a **disparu**", "Le programme affiche le **bon texte**"]
 
-indices = ["`graver(nom.clone());` : la graveuse reçoit une copie."]
+indices = ["Au moment de l’appel, donne à `graver` une **copie** au lieu de l’original. Quelle méthode fabrique une copie ?"]
 
 solution = '''
 fn graver(texte: String) {

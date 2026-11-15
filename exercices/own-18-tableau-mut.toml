@@ -31,7 +31,7 @@ Après : [6, 10, 4, 16]
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`for i in 0..production.len() { production[i] *= 2; }`", "L’appel : `doubler(&mut production);`"]
+indices = ["Une boucle sur les **positions** du tableau. Dans la boucle, multiplie la case par 2 : quel opérateur combine `*` et `=` ?", "À l’appel, `production` est prêté **en écriture** : avec quoi devant ?"]
 
 solution = '''
 fn doubler(production: &mut [i32; 4]) {

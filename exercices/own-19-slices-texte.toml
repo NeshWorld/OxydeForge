@@ -11,16 +11,16 @@ lecon = '''
 Une **slice** (tranche) est un **prêt d’un morceau** : elle regarde une partie d’un texte, sans rien copier.
 
 ```rust
-let s = String::from("OxydeForge");
-let debut = &s[0..5];   // "Oxyde" : de la position 0 à 5 (exclu)
-let fin = &s[5..];      // "Forge" : de 5 jusqu’au bout
+let s = String::from("RustLang");
+let debut = &s[0..4];   // "Rust" : de la position 0 à 4 (exclu)
+let fin = &s[4..];      // "Lang" : de 4 jusqu’au bout
 ```
 
 | Écriture | Morceau |
 |---|---|
-| `&s[0..5]` | positions 0 à 4 |
-| `&s[..5]` | pareil : depuis le début |
-| `&s[5..]` | de 5 jusqu’à la fin |
+| `&s[0..4]` | positions 0 à 3 |
+| `&s[..4]` | pareil : depuis le début |
+| `&s[4..]` | de 4 jusqu’à la fin |
 | `&s[..]` | tout |
 
 Le type d’une tranche de texte ? **`&str`** ! C’est exactement ce qu’est `&str` : une vue sur un morceau de texte.
@@ -48,7 +48,7 @@ Porte droite : Forge
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`&s[0..5]` et `&s[5..]`"]
+indices = ["Compte les lettres de « Oxyde » : c’est la position où tu coupes."]
 
 solution = '''
 fn main() {

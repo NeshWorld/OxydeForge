@@ -11,17 +11,13 @@ lecon = '''
 Une fonction qui prend `&[i32; 5]` n’accepte **que** les tableaux de 5. Avec `&[i32]` (sans taille), elle accepte **n’importe quel** tableau, ou un morceau.
 
 ```rust
-fn somme(valeurs: &[i32]) -> i32 {
-    let mut total = 0;
-    for v in valeurs {
-        total += v;
-    }
-    total
+fn premier(valeurs: &[i32]) -> i32 {
+    valeurs[0]
 }
 
-let semaine = [4, 7, 5, 9, 3];
-somme(&semaine);        // tout le tableau
-somme(&semaine[1..4]);  // une tranche : 7, 5, 9
+let mois = [10, 20, 30, 40];
+premier(&mois);        // tout le tableau : 10
+premier(&mois[2..]);   // une tranche (30, 40) : 30
 ```
 
 | Paramètre | Accepte |
@@ -50,7 +46,7 @@ Milieu de semaine : 21
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`somme(&semaine)` puis `somme(&semaine[1..4])`"]
+indices = ["La somme : un total qui commence à 0, une boucle sur les valeurs, et `+=`.", "Pour le milieu de semaine, prête une **tranche** au lieu du tableau entier."]
 
 solution = '''
 fn somme(valeurs: &[i32]) -> i32 {

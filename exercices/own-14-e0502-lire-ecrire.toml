@@ -69,7 +69,7 @@ Après : 10 boulons + 5
 
 criteres = ["L'erreur `E0502` a **disparu**", "Le programme affiche le **bon texte**"]
 
-indices = ["Déplace le `println!(\"Avant : …\")` juste après `let lecture = &stocks;`."]
+indices = ["Le lecteur doit avoir **fini** avant le `push_str`. Où doit se trouver sa **dernière utilisation** ?"]
 
 solution = '''
 fn main() {

@@ -83,7 +83,7 @@ A n'a plus rien dans les mains
 
 criteres = ["L'erreur `E0382` a **disparu**", "Le programme affiche le **bon texte**"]
 
-indices = ["Tu n’as **pas** besoin de réafficher A (c’est justement ça qui casse). Ajoute juste une ligne de texte simple.", "`println!(\"A n'a plus rien dans les mains\");`"]
+indices = ["Tu n’as **pas** besoin de réafficher A (c’est justement ça qui casse). Ajoute juste une ligne de texte simple.", "Un `println!` tout simple, avec le texte de la mission entre guillemets, **sans** `{}`."]
 
 solution = '''
 fn main() {

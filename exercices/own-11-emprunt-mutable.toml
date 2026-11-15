@@ -11,24 +11,24 @@ lecon = '''
 Un prêt `&` permet seulement de **lire**. Pour **modifier**, il faut un prêt **mutable** : `&mut`.
 
 ```rust
-fn crier(s: &mut String) {
-    s.push('!');
+fn tamponner(fiche: &mut String) {
+    fiche.push_str(" [OK]");
 }
 
-let mut cri = String::from("Ca tourne");   // ① la variable doit être mut
-crier(&mut cri);                             // ② on prête avec &mut
-println!("{cri}");                           // Ca tourne!
+let mut rapport = String::from("Fiche 12");   // ① la variable doit être mut
+tamponner(&mut rapport);                        // ② on prête avec &mut
+println!("{rapport}");                          // Fiche 12 [OK]
 ```
 
 **Trois** `mut` à ne pas oublier :
 
 | Où | Pourquoi |
 |---|---|
-| `let mut cri` | la variable elle-même doit être modifiable |
-| `s: &mut String` | la fonction annonce qu’elle va modifier |
-| `crier(&mut cri)` | l’appel le dit aussi : on **voit** qui modifie quoi |
+| `let mut rapport` | la variable elle-même doit être modifiable |
+| `fiche: &mut String` | la fonction annonce qu’elle va modifier |
+| `tamponner(&mut rapport)` | l’appel le dit aussi : on **voit** qui modifie quoi |
 
-> Le `&mut` à l’appel est précieux : en lisant `crier(&mut cri)`, tu sais tout de suite que `cri` peut changer.
+> Le `&mut` à l’appel est précieux : en lisant `tamponner(&mut rapport)`, tu sais tout de suite que `rapport` peut changer.
 '''
 
 mission = '''
@@ -47,7 +47,7 @@ Ca tourne!!
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let mut cri = …;` puis deux fois `crier(&mut cri);`"]
+indices = ["Pour ajouter **un seul caractère**, il existe `.push(…)`, avec le caractère entre apostrophes.", "Combien de fois appelles-tu `crier` ? Et à chaque appel, comment prêtes-tu la variable ?"]
 
 solution = '''
 fn crier(s: &mut String) {

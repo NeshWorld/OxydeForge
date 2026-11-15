@@ -11,13 +11,13 @@ lecon = '''
 Pour une fonction qui **lit** du texte, l’habitude est `&str`, pas `&String`.
 
 ```rust
-fn saluer(nom: &str) {
-    println!("Bonjour, {nom} !");
+fn annoncer(machine: &str) {
+    println!("En marche : {machine}");
 }
 
-let ferris = String::from("Ferris");
-saluer(&ferris);   // ✅ une String prêtée
-saluer("Kael");    // ✅ un texte fixe
+let four = String::from("Four");
+annoncer(&four);     // ✅ une String prêtée
+annoncer("Presse");  // ✅ un texte fixe
 ```
 
 | Paramètre | Accepte une `String` prêtée | Accepte un texte fixe `"…"` |
@@ -46,7 +46,7 @@ Bonjour, Kael !
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`saluer(&ferris);` puis `saluer(\"Kael\");`"]
+indices = ["Deux appels : un avec la `String` **prêtée**, un avec le texte fixe directement entre guillemets."]
 
 solution = '''
 fn saluer(nom: &str) {

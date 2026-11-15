@@ -23,11 +23,12 @@ Toutes les erreurs de l’étage tiennent en **une** règle :
 **Et la durée d’un prêt ?** Il s’arrête à sa **dernière utilisation**, pas à la `}`. Donc ceci marche :
 
 ```rust
-let r1 = &s;
-let r2 = &s;
-println!("{r1} {r2}");   // dernière utilisation des lecteurs
-let w = &mut s;          // ✅ les lecteurs ont fini
-w.push('!');
+let mut lame = String::from("acier");
+let l1 = &lame;
+let l2 = &lame;
+println!("{l1} / {l2}");   // dernière utilisation des lecteurs
+let e = &mut lame;         // ✅ les lecteurs ont fini
+e.push_str(" trempé");
 ```
 
 > C’est exactement la règle d’un verrou en base de données : plusieurs `SELECT` en même temps, mais un `UPDATE` attend que personne ne lise.
@@ -51,7 +52,7 @@ Après l'écrivain : forge!
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Deux `&s`, un `println!` qui les utilise, puis `let w = &mut s; w.push('!');`"]
+indices = ["Trois temps, dans l’ordre : créer les deux lecteurs, les **utiliser**, **puis** créer l’écrivain.", "Une fois l’écrivain créé, n’utilise plus les lecteurs."]
 
 solution = '''
 fn main() {

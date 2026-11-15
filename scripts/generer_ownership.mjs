@@ -39,8 +39,8 @@ const EXERCICES = [
       '```rust',
       'fn main() {',
       '    {',
-      '        let atelier = String::from("Fonderie");   // atelier possède la String',
-      '        println!("{atelier}");',
+      '        let outil = String::from("Marteau");   // outil possède la String',
+      '        println!("{outil}");',
       '    }   // ← fin de la portée : la String est libérée, ici, automatiquement',
       '}',
       '```',
@@ -50,7 +50,7 @@ const EXERCICES = [
       'Pas de ramasse-miettes, pas d’oubli de libération comme en C : c’est ce qui rend Rust à la fois **rapide** et **sûr**.',
     ),
     mission: 'Dans un bloc `{ }`, crée une `String` « Fonderie » et affiche qu’elle ouvre. Après le bloc, affiche que l’atelier a fermé.',
-    indices: ['La `String` vit dans le bloc : `{ let atelier = String::from("Fonderie"); println!(…); }`', 'Après la `}`, `atelier` n’existe plus : écris juste le message de fermeture.'],
+    indices: ['Ouvre un bloc `{`, crée la `String` **dedans**, affiche-la, puis ferme le bloc `}`.', 'Après la `}`, ta variable n’existe plus : écris juste le message de fermeture.'],
     solution: `fn main() {
     {
         let atelier = String::from("Fonderie");
@@ -94,7 +94,7 @@ const EXERCICES = [
       '> Les types copiables ont un nom en Rust : ils implémentent `Copy`. C’est le `does not implement the Copy trait` des messages d’erreur.',
     ),
     mission: 'Copie un `i32` et affiche les deux variables. Puis fais déménager une `String` « Ferris » vers `nouveau` et affiche le nouveau propriétaire.',
-    indices: ['`let a = 7; let b = a;` puis les deux dans un `println!`.', 'Après `let nouveau = ancien;`, n’utilise **que** `nouveau`.'],
+    indices: ['Comme dans la leçon, avec ton propre nombre : deux variables, puis un seul `println!` qui affiche les deux.', 'Après le déménagement, **qui** possède encore la `String` ? N’utilise que celle-là.'],
     solution: `fn main() {
     let a = 7;
     let b = a;
@@ -143,7 +143,7 @@ fn main() {
     graver(nom);
     println!("Nom gardé : {nom}");
 }`,
-    indices: ['`graver(nom.clone());` : la graveuse reçoit une copie.'],
+    indices: ['Au moment de l’appel, donne à `graver` une **copie** au lieu de l’original. Quelle méthode fabrique une copie ?'],
     solution: `fn graver(texte: String) {
     println!("Gravé : {texte}");
 }
@@ -165,24 +165,24 @@ fn main() {
       'Une fonction peut **prendre** une `String`… et la **rendre** à la fin, en la renvoyant.',
       '',
       '```rust',
-      'fn signer(mut plan: String) -> String {',
-      '    plan.push_str(" (signé)");',
-      '    plan    // la String repart vers l’appelant',
+      'fn tamponner(mut colis: String) -> String {',
+      '    colis.push_str(" [tamponné]");',
+      '    colis    // la String repart vers l’appelant',
       '}',
       '',
-      'let plan = String::from("Plan");',
-      'let plan = signer(plan);   // elle part… et revient (masquage !)',
+      'let colis = String::from("Colis 7");',
+      'let colis = tamponner(colis);   // elle part… et revient (masquage !)',
       '```',
       '',
       '| Écriture | Sens |',
       '|---|---|',
-      '| `mut plan: String` | la fonction devient propriétaire, **et** peut modifier |',
+      '| `mut colis: String` | la fonction devient propriétaire, **et** peut modifier |',
       '| `-> String` | la propriété est **rendue** à l’appelant |',
       '',
       '> Ça marche, mais c’est lourd : prendre puis rendre à chaque fois… Garde ça en tête, l’étage 2 a une solution plus élégante.',
     ),
     mission: 'Écris `signer(mut plan: String) -> String` qui ajoute « - signé par Kael ». Fais passer « Plan de la presse » dedans, puis affiche le résultat.',
-    indices: ['`plan.push_str(" - signé par Kael");` puis `plan` sans point-virgule.', 'Dans `main` : `let plan = signer(plan);`'],
+    indices: ['Dans `signer` : ajoute le texte avec `push_str`, puis renvoie `plan`. La dernière ligne **sans** `;` est renvoyée.', 'Dans `main`, récupère ce que `signer` renvoie dans une variable **du même nom** : c’est du masquage.'],
     solution: `fn signer(mut plan: String) -> String {
     plan.push_str(" - signé par Kael");
     plan
@@ -205,10 +205,10 @@ fn main() {
       '`.clone()` fabrique une **vraie copie**, complète et indépendante.',
       '',
       '```rust',
-      'let original = String::from("Modèle");',
-      'let mut copie = original.clone();',
-      'copie.push_str(" bis");   // on modifie la copie…',
-      '// …l’original n’a pas bougé',
+      'let plan = String::from("Plan A");',
+      'let mut brouillon = plan.clone();',
+      'brouillon.push_str(" v2");   // on modifie le brouillon…',
+      '// …plan n’a pas bougé : toujours « Plan A »',
       '```',
       '',
       '**Le prix** : cloner une `String`, c’est recopier **tout** son texte en mémoire. Avec un texte de 10 lettres, rien. Avec un fichier entier, c’est lent.',
@@ -220,7 +220,7 @@ fn main() {
       '> En Rust, chaque `.clone()` se **voit** dans le code. C’est voulu : les copies coûteuses ne se cachent jamais.',
     ),
     mission: 'Clone « Modèle » dans une copie modifiable, ajoute « (copie) » à la copie seulement, puis affiche les deux.',
-    indices: ['`let mut copie = original.clone();`'],
+    indices: ['Quelle méthode fabrique une copie ? Et la copie doit être **modifiable** : que faut-il après `let` ?'],
     solution: `fn main() {
     let original = String::from("Modèle");
     let mut copie = original.clone();
@@ -239,10 +239,10 @@ fn main() {
     rappels: [
       'une fonction peut renvoyer **plusieurs** valeurs dans un tuple : `-> (String, usize)`',
       '`usize` : le type des tailles et des positions (ce que renvoie `.len()`)',
-      'on récupère tout avec une déstructuration : `let (etiquette, taille) = mesurer(etiquette);`',
+      'on récupère tout avec une déstructuration, par exemple : `let (colis, poids) = peser(colis);`',
     ],
     mission: 'Écris `mesurer(s: String) -> (String, usize)` qui rend la `String` **et** sa longueur. Mesure « OxydeForge », puis affiche l’étiquette et sa taille.',
-    indices: ['`let n = s.len(); (s, n)`', 'Remarque comme c’est lourd : c’est exactement ce que le prêt `&` va simplifier.'],
+    indices: ['Mesure **d’abord** avec `.len()` dans une variable, **puis** renvoie le tuple. Pourquoi cet ordre ? Une fois `s` rangé dans le tuple, tu ne peux plus t’en servir.', 'Remarque comme c’est lourd : c’est exactement ce que le prêt `&` va simplifier.'],
     solution: `fn mesurer(s: String) -> (String, usize) {
     let n = s.len();
     (s, n)
@@ -264,10 +264,11 @@ fn main() {
     rappels: [
       '`String::from(nom)` crée une `String` à partir d’un texte fixe',
       'la fonction **prend** la `String` et en **renvoie** une nouvelle',
-      '`format!("[{}]", nom.to_uppercase())` construit le badge',
+      '`format!` fabrique une `String` au lieu de l’afficher : `format!("<{}>", x)` donne par exemple `<x>`',
+      '`.to_uppercase()` met un texte en majuscules',
     ],
     mission: 'Écris `fabriquer_badge(nom: String) -> String`. Pour « Ferris », « Kael » et « Rusty », fabrique et affiche le badge.',
-    indices: ['`for nom in ["Ferris", "Kael", "Rusty"] { let badge = fabriquer_badge(String::from(nom)); … }`'],
+    indices: ['Range les trois noms dans un tableau et parcours-le avec `for`.', 'Les noms du tableau sont des textes fixes : convertis chacun **au moment de l’appel**.'],
     solution: `fn fabriquer_badge(nom: String) -> String {
     format!("[{}]", nom.to_uppercase())
 }
@@ -313,7 +314,7 @@ fn main() {
       '> Compare avec l’exercice « Mesurer sans perdre » : plus besoin de rendre la `String` dans un tuple !',
     ),
     mission: 'Écris `longueur(s: &String) -> usize`. Prête-lui « Ferris », affiche sa longueur, puis affiche encore le nom pour prouver que tu l’as gardé.',
-    indices: ['L’appel : `longueur(&nom)`, avec le `&`.'],
+    indices: ['Au moment de l’appel, quel symbole met-on devant `nom` pour le **prêter** ?'],
     solution: `fn longueur(s: &String) -> usize {
     s.len()
 }
@@ -336,13 +337,13 @@ fn main() {
       'Pour une fonction qui **lit** du texte, l’habitude est `&str`, pas `&String`.',
       '',
       '```rust',
-      'fn saluer(nom: &str) {',
-      '    println!("Bonjour, {nom} !");',
+      'fn annoncer(machine: &str) {',
+      '    println!("En marche : {machine}");',
       '}',
       '',
-      'let ferris = String::from("Ferris");',
-      'saluer(&ferris);   // ✅ une String prêtée',
-      'saluer("Kael");    // ✅ un texte fixe',
+      'let four = String::from("Four");',
+      'annoncer(&four);     // ✅ une String prêtée',
+      'annoncer("Presse");  // ✅ un texte fixe',
       '```',
       '',
       '| Paramètre | Accepte une `String` prêtée | Accepte un texte fixe `"…"` |',
@@ -353,7 +354,7 @@ fn main() {
       '> `&str` est une **vue** sur du texte, où qu’il soit : dans une `String` ou écrit en dur dans le programme. C’est pour ça qu’il accepte tout.',
     ),
     mission: 'Écris `saluer(nom: &str)`. Appelle-la avec une `String` prêtée (« Ferris »), puis avec le texte fixe « Kael ».',
-    indices: ['`saluer(&ferris);` puis `saluer("Kael");`'],
+    indices: ['Deux appels : un avec la `String` **prêtée**, un avec le texte fixe directement entre guillemets.'],
     solution: `fn saluer(nom: &str) {
     println!("Bonjour, {nom} !");
 }
@@ -375,27 +376,27 @@ fn main() {
       'Un prêt `&` permet seulement de **lire**. Pour **modifier**, il faut un prêt **mutable** : `&mut`.',
       '',
       '```rust',
-      'fn crier(s: &mut String) {',
-      '    s.push(\'!\');',
+      'fn tamponner(fiche: &mut String) {',
+      '    fiche.push_str(" [OK]");',
       '}',
       '',
-      'let mut cri = String::from("Ca tourne");   // ① la variable doit être mut',
-      'crier(&mut cri);                             // ② on prête avec &mut',
-      'println!("{cri}");                           // Ca tourne!',
+      'let mut rapport = String::from("Fiche 12");   // ① la variable doit être mut',
+      'tamponner(&mut rapport);                        // ② on prête avec &mut',
+      'println!("{rapport}");                          // Fiche 12 [OK]',
       '```',
       '',
       '**Trois** `mut` à ne pas oublier :',
       '',
       '| Où | Pourquoi |',
       '|---|---|',
-      '| `let mut cri` | la variable elle-même doit être modifiable |',
-      '| `s: &mut String` | la fonction annonce qu’elle va modifier |',
-      '| `crier(&mut cri)` | l’appel le dit aussi : on **voit** qui modifie quoi |',
+      '| `let mut rapport` | la variable elle-même doit être modifiable |',
+      '| `fiche: &mut String` | la fonction annonce qu’elle va modifier |',
+      '| `tamponner(&mut rapport)` | l’appel le dit aussi : on **voit** qui modifie quoi |',
       '',
-      '> Le `&mut` à l’appel est précieux : en lisant `crier(&mut cri)`, tu sais tout de suite que `cri` peut changer.',
+      '> Le `&mut` à l’appel est précieux : en lisant `tamponner(&mut rapport)`, tu sais tout de suite que `rapport` peut changer.',
     ),
     mission: 'Écris `crier(s: &mut String)` qui ajoute « ! ». Appelle-la deux fois sur « Ca tourne », puis affiche le résultat.',
-    indices: ['`let mut cri = …;` puis deux fois `crier(&mut cri);`'],
+    indices: ['Pour ajouter **un seul caractère**, il existe `.push(…)`, avec le caractère entre apostrophes.', 'Combien de fois appelles-tu `crier` ? Et à chaque appel, comment prêtes-tu la variable ?'],
     solution: `fn crier(s: &mut String) {
     s.push('!');
 }
@@ -474,7 +475,7 @@ fn main() {
     b.push('?');
     println!("{plaque}");
 }`,
-    indices: ['Utilise `a` **avant** de créer `b` : `let a = &mut plaque; a.push(\'!\');` puis `let b = …`'],
+    indices: ['Le premier écrivain doit **finir** son travail avant que le second soit créé. Quelles deux lignes faut-il échanger ?'],
     solution: `fn main() {
     let mut plaque = String::from("forge");
     let a = &mut plaque;
@@ -515,7 +516,7 @@ fn main() {
     println!("Avant : {lecture}");
     println!("Après : {stocks}");
 }`,
-    indices: ['Déplace le `println!("Avant : …")` juste après `let lecture = &stocks;`.'],
+    indices: ['Le lecteur doit avoir **fini** avant le `push_str`. Où doit se trouver sa **dernière utilisation** ?'],
     solution: `fn main() {
     let mut stocks = String::from("10 boulons");
     let lecture = &stocks;
@@ -547,17 +548,18 @@ fn main() {
       '**Et la durée d’un prêt ?** Il s’arrête à sa **dernière utilisation**, pas à la `}`. Donc ceci marche :',
       '',
       '```rust',
-      'let r1 = &s;',
-      'let r2 = &s;',
-      'println!("{r1} {r2}");   // dernière utilisation des lecteurs',
-      'let w = &mut s;          // ✅ les lecteurs ont fini',
-      'w.push(\'!\');',
+      'let mut lame = String::from("acier");',
+      'let l1 = &lame;',
+      'let l2 = &lame;',
+      'println!("{l1} / {l2}");   // dernière utilisation des lecteurs',
+      'let e = &mut lame;         // ✅ les lecteurs ont fini',
+      'e.push_str(" trempé");',
       '```',
       '',
       '> C’est exactement la règle d’un verrou en base de données : plusieurs `SELECT` en même temps, mais un `UPDATE` attend que personne ne lise.',
     ),
     mission: 'Avec `let mut s = String::from("forge");` : deux lecteurs affichent la valeur, puis un écrivain ajoute « ! », puis affiche le résultat final.',
-    indices: ['Deux `&s`, un `println!` qui les utilise, puis `let w = &mut s; w.push(\'!\');`'],
+    indices: ['Trois temps, dans l’ordre : créer les deux lecteurs, les **utiliser**, **puis** créer l’écrivain.', 'Une fois l’écrivain créé, n’utilise plus les lecteurs.'],
     solution: `fn main() {
     let mut s = String::from("forge");
     let r1 = &s;
@@ -668,7 +670,7 @@ fn main() {
       '`{:?}` affiche le tableau entier',
     ],
     mission: 'Écris `doubler(production: &mut [i32; 4])`. Applique-la à `[3, 5, 2, 8]` et affiche le tableau avant et après.',
-    indices: ['`for i in 0..production.len() { production[i] *= 2; }`', 'L’appel : `doubler(&mut production);`'],
+    indices: ['Une boucle sur les **positions** du tableau. Dans la boucle, multiplie la case par 2 : quel opérateur combine `*` et `=` ?', 'À l’appel, `production` est prêté **en écriture** : avec quoi devant ?'],
     solution: `fn doubler(production: &mut [i32; 4]) {
     for i in 0..production.len() {
         production[i] *= 2;
@@ -695,16 +697,16 @@ fn main() {
       'Une **slice** (tranche) est un **prêt d’un morceau** : elle regarde une partie d’un texte, sans rien copier.',
       '',
       '```rust',
-      'let s = String::from("OxydeForge");',
-      'let debut = &s[0..5];   // "Oxyde" : de la position 0 à 5 (exclu)',
-      'let fin = &s[5..];      // "Forge" : de 5 jusqu’au bout',
+      'let s = String::from("RustLang");',
+      'let debut = &s[0..4];   // "Rust" : de la position 0 à 4 (exclu)',
+      'let fin = &s[4..];      // "Lang" : de 4 jusqu’au bout',
       '```',
       '',
       '| Écriture | Morceau |',
       '|---|---|',
-      '| `&s[0..5]` | positions 0 à 4 |',
-      '| `&s[..5]` | pareil : depuis le début |',
-      '| `&s[5..]` | de 5 jusqu’à la fin |',
+      '| `&s[0..4]` | positions 0 à 3 |',
+      '| `&s[..4]` | pareil : depuis le début |',
+      '| `&s[4..]` | de 4 jusqu’à la fin |',
       '| `&s[..]` | tout |',
       '',
       'Le type d’une tranche de texte ? **`&str`** ! C’est exactement ce qu’est `&str` : une vue sur un morceau de texte.',
@@ -714,7 +716,7 @@ fn main() {
       '> En Python, c’est `s[0:5]`… mais Python **copie** le morceau. Rust, lui, se contente de le **regarder**.',
     ),
     mission: 'Découpe « OxydeForge » en deux tranches (« Oxyde » et « Forge ») et affiche-les sur deux lignes.',
-    indices: ['`&s[0..5]` et `&s[5..]`'],
+    indices: ['Compte les lettres de « Oxyde » : c’est la position où tu coupes.'],
     solution: `fn main() {
     let enseigne = String::from("OxydeForge");
     let porte_gauche = &enseigne[0..5];
@@ -734,17 +736,13 @@ fn main() {
       'Une fonction qui prend `&[i32; 5]` n’accepte **que** les tableaux de 5. Avec `&[i32]` (sans taille), elle accepte **n’importe quel** tableau, ou un morceau.',
       '',
       '```rust',
-      'fn somme(valeurs: &[i32]) -> i32 {',
-      '    let mut total = 0;',
-      '    for v in valeurs {',
-      '        total += v;',
-      '    }',
-      '    total',
+      'fn premier(valeurs: &[i32]) -> i32 {',
+      '    valeurs[0]',
       '}',
       '',
-      'let semaine = [4, 7, 5, 9, 3];',
-      'somme(&semaine);        // tout le tableau',
-      'somme(&semaine[1..4]);  // une tranche : 7, 5, 9',
+      'let mois = [10, 20, 30, 40];',
+      'premier(&mois);        // tout le tableau : 10',
+      'premier(&mois[2..]);   // une tranche (30, 40) : 30',
       '```',
       '',
       '| Paramètre | Accepte |',
@@ -755,7 +753,7 @@ fn main() {
       '> C’est le même principe qu’avec le texte : `&str` est la tranche de `String`, et `&[i32]` est la tranche de tableau.',
     ),
     mission: 'Écris `somme(valeurs: &[i32]) -> i32`. Avec `[4, 7, 5, 9, 3]`, affiche la somme de la semaine, puis celle des jours 1 à 3 (`&semaine[1..4]`).',
-    indices: ['`somme(&semaine)` puis `somme(&semaine[1..4])`'],
+    indices: ['La somme : un total qui commence à 0, une boucle sur les valeurs, et `+=`.', 'Pour le milieu de semaine, prête une **tranche** au lieu du tableau entier.'],
     solution: `fn somme(valeurs: &[i32]) -> i32 {
     let mut total = 0;
     for v in valeurs {
@@ -779,11 +777,11 @@ fn main() {
     kael: 'Commande spéciale ! Le four a relevé ses températures toute la journée. Il me faut le pic du matin, et le pic de la journée entière. Et vite, ça chauffe.',
     rappels: [
       '`fn maximum(valeurs: &[i32]) -> i32` accepte le tableau entier **ou** une tranche',
-      'commence avec la première valeur : `let mut max = valeurs[0];`',
+      'commence avec la **première** valeur comme maximum provisoire',
       '`for &v in valeurs` récupère chaque valeur directement (le `&` « déballe » l’emprunt)',
     ],
     mission: 'Écris `maximum`. Avec `[820, 950, 1010, 990, 1180, 1050]`, affiche le pic du matin (les 3 premières) puis celui de la journée.',
-    indices: ['Le matin : `maximum(&releves[..3])`', 'Dans la boucle : `if v > max { max = v; }`'],
+    indices: ['Le matin = les 3 premières valeurs : une tranche **depuis le début**, jusqu’à 3.', 'Dans la boucle : si la valeur dépasse le maximum provisoire, elle **devient** le maximum.'],
     solution: `fn maximum(valeurs: &[i32]) -> i32 {
     let mut max = valeurs[0];
     for &v in valeurs {
@@ -813,7 +811,7 @@ fn main() {
       '`usize` est le type des positions dans un tableau',
     ],
     mission: 'Avec `[12, 4, 7]` : livre 10 pièces sur l’étagère 2 (position 1), puis affiche les stocks avec `{:?}` et le total.',
-    indices: ['`livrer(&mut stocks, 1, 10);`', '`total(&stocks)` : un simple prêt suffit pour lire.'],
+    indices: ['L’appel à `livrer` prête `stocks` **en écriture**, puis donne la position et la quantité.', 'Pour `total`, un simple prêt suffit : la fonction ne fait que lire.'],
     solution: `fn livrer(stocks: &mut [u32], etagere: usize, quantite: u32) {
     stocks[etagere] += quantite;
 }
@@ -846,7 +844,7 @@ fn main() {
       'moyenne : convertir avec `as f64` avant de diviser, puis `{:.1}`',
     ],
     mission: 'Écris `rapport`. Affiche le rapport de « Presse » `[12, 15, 9]` et de « Four » `[30, 28]`.',
-    indices: ['Somme dans une boucle, puis `somme as f64 / production.len() as f64`.', '`format!("{nom} : moyenne {moyenne:.1} pièces")`'],
+    indices: ['La somme dans une boucle. Pour la moyenne, convertis **les deux** nombres en `f64` avant de diviser.', '`format!` accepte la même chose que `println!`, y compris `{x:.1}` pour un chiffre après la virgule.'],
     solution: `fn rapport(nom: &str, production: &[u32]) -> String {
     let mut somme = 0;
     for p in production {
@@ -872,10 +870,10 @@ fn main() {
     rappels: [
       'une fonction peut **renvoyer une tranche** de ce qu’on lui prête : `fn premier_mot(phrase: &str) -> &str`',
       '`.char_indices()` donne `(position, caractère)` : on cherche le premier espace',
-      '`return &phrase[..i];` dès qu’on le trouve ; s’il n’y en a pas, toute la phrase est le premier mot',
+      'dès qu’on trouve l’espace, on **renvoie** une tranche ; s’il n’y en a pas, toute la phrase est le premier mot',
     ],
     mission: 'Écris `premier_mot`. Affiche le premier mot de « Kael est formidable », « Rust » et « La forge chauffe ».',
-    indices: ['`for (i, c) in phrase.char_indices() { if c == \' \' { return &phrase[..i]; } }`', 'Après la boucle : `phrase` sans point-virgule.'],
+    indices: ['Parcours avec `.char_indices()`. Quand tu tombes sur un espace à la position `i`, tu renvoies une tranche qui va du début jusqu’à… ?', 'Si la boucle se termine sans espace, que renvoies-tu ?'],
     solution: `fn premier_mot(phrase: &str) -> &str {
     for (i, c) in phrase.char_indices() {
         if c == ' ' {

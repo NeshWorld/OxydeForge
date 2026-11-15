@@ -53,7 +53,7 @@ Déménagement : Ferris a un nouveau propriétaire
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let a = 7; let b = a;` puis les deux dans un `println!`.", "Après `let nouveau = ancien;`, n’utilise **que** `nouveau`."]
+indices = ["Comme dans la leçon, avec ton propre nombre : deux variables, puis un seul `println!` qui affiche les deux.", "Après le déménagement, **qui** possède encore la `String` ? N’utilise que celle-là."]
 
 solution = '''
 fn main() {

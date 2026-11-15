@@ -65,7 +65,7 @@ forge!?
 
 criteres = ["L'erreur `E0499` a **disparu**", "Le programme affiche le **bon texte**"]
 
-indices = ["Utilise `a` **avant** de créer `b` : `let a = &mut plaque; a.push('!');` puis `let b = …`"]
+indices = ["Le premier écrivain doit **finir** son travail avant que le second soit créé. Quelles deux lignes faut-il échanger ?"]
 
 solution = '''
 fn main() {

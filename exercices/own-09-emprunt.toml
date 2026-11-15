@@ -50,7 +50,7 @@ Toujours à moi : Ferris
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["L’appel : `longueur(&nom)`, avec le `&`."]
+indices = ["Au moment de l’appel, quel symbole met-on devant `nom` pour le **prêter** ?"]
 
 solution = '''
 fn longueur(s: &String) -> usize {

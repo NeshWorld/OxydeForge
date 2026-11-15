@@ -42,16 +42,16 @@ const ETAPES = [
       'Le lingot sera une `String`. Le forgeron qui le tient sera une **variable**.',
       '',
       '```rust',
-      'let forgeron_a = String::from("lingot d\'acier");  // A fabrique le lingot',
-      'println!("A tient : {forgeron_a}");',
+      'let kael = String::from("clé de 12");  // Kael fabrique sa clé',
+      'println!("Kael tient : {kael}");',
       '```',
       '',
-      '> `{forgeron_a}` dans le `println!` affiche ce que A tient entre les mains.',
+      '> `{kael}` dans le `println!` affiche ce que Kael tient entre les mains.',
     ],
     mission: 'Crée le lingot : une `String` « lingot d’acier » tenue par `forgeron_a`. Puis affiche `A tient : …`.',
     indices: [
-      '`let forgeron_a = String::from("lingot d\'acier");`',
-      '`println!("A tient : {forgeron_a}");`',
+      'Le modèle de la leçon, avec le nom `forgeron_a` et le texte « lingot d’acier ».',
+      'Dans le `println!`, le nom de la variable va entre `{}`.',
     ],
     solution: `fn main() {
     let forgeron_a = String::from("lingot d'acier");
@@ -75,16 +75,16 @@ const ETAPES = [
       'On appelle ça un **déménagement** (*move*) : le lingot **quitte** A pour aller chez B.',
       '',
       '```rust',
-      'let forgeron_b = forgeron_a;   // le lingot DÉMÉNAGE : il part de A, il arrive chez B',
-      'println!("B tient : {forgeron_b}");',
+      'let apprenti = kael;   // la clé DÉMÉNAGE : elle part de Kael, elle arrive chez l’apprenti',
+      'println!("L’apprenti tient : {apprenti}");',
       '```',
       '',
       '> Le lingot est **unique**. Après cette ligne, c’est **B** qui l’a. Et A ? On vérifie juste après… 👀',
     ],
     mission: 'Garde ton code. **Ajoute** le passage de main : A tend le lingot à B (`let forgeron_b = forgeron_a;`), puis affiche `B tient : …`.',
     indices: [
-      '`let forgeron_b = forgeron_a;`',
-      '`println!("B tient : {forgeron_b}");`',
+      'La ligne du passage de main est écrite dans la mission.',
+      'Pour afficher, même modèle que pour A, avec le nouveau propriétaire.',
     ],
     solution: `fn main() {
     let forgeron_a = String::from("lingot d'acier");
@@ -129,7 +129,7 @@ const ETAPES = [
 }`,
     indices: [
       'Tu n’as **pas** besoin de réafficher A (c’est justement ça qui casse). Ajoute juste une ligne de texte simple.',
-      '`println!("A n\'a plus rien dans les mains");`',
+      'Un `println!` tout simple, avec le texte de la mission entre guillemets, **sans** `{}`.',
     ],
     solution: `fn main() {
     let forgeron_a = String::from("lingot d'acier");

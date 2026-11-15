@@ -11,18 +11,18 @@ lecon = '''
 Une fonction peut **prendre** une `String`… et la **rendre** à la fin, en la renvoyant.
 
 ```rust
-fn signer(mut plan: String) -> String {
-    plan.push_str(" (signé)");
-    plan    // la String repart vers l’appelant
+fn tamponner(mut colis: String) -> String {
+    colis.push_str(" [tamponné]");
+    colis    // la String repart vers l’appelant
 }
 
-let plan = String::from("Plan");
-let plan = signer(plan);   // elle part… et revient (masquage !)
+let colis = String::from("Colis 7");
+let colis = tamponner(colis);   // elle part… et revient (masquage !)
 ```
 
 | Écriture | Sens |
 |---|---|
-| `mut plan: String` | la fonction devient propriétaire, **et** peut modifier |
+| `mut colis: String` | la fonction devient propriétaire, **et** peut modifier |
 | `-> String` | la propriété est **rendue** à l’appelant |
 
 > Ça marche, mais c’est lourd : prendre puis rendre à chaque fois… Garde ça en tête, l’étage 2 a une solution plus élégante.
@@ -44,7 +44,7 @@ Plan de la presse - signé par Kael
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`plan.push_str(\" - signé par Kael\");` puis `plan` sans point-virgule.", "Dans `main` : `let plan = signer(plan);`"]
+indices = ["Dans `signer` : ajoute le texte avec `push_str`, puis renvoie `plan`. La dernière ligne **sans** `;` est renvoyée.", "Dans `main`, récupère ce que `signer` renvoie dans une variable **du même nom** : c’est du masquage."]
 
 solution = '''
 fn signer(mut plan: String) -> String {

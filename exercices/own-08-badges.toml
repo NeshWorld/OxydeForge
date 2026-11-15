@@ -10,7 +10,8 @@ kael = "Il faut des badges pour tout le monde : nom en majuscules, entre crochet
 lecon = '''
 - `String::from(nom)` crée une `String` à partir d’un texte fixe
 - la fonction **prend** la `String` et en **renvoie** une nouvelle
-- `format!("[{}]", nom.to_uppercase())` construit le badge
+- `format!` fabrique une `String` au lieu de l’afficher : `format!("<{}>", x)` donne par exemple `<x>`
+- `.to_uppercase()` met un texte en majuscules
 '''
 
 mission = '''
@@ -33,7 +34,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`for nom in [\"Ferris\", \"Kael\", \"Rusty\"] { let badge = fabriquer_badge(String::from(nom)); … }`"]
+indices = ["Range les trois noms dans un tableau et parcours-le avec `for`.", "Les noms du tableau sont des textes fixes : convertis chacun **au moment de l’appel**."]
 
 solution = '''
 fn fabriquer_badge(nom: String) -> String {

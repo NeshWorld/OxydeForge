@@ -31,7 +31,7 @@ Total : 33
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`livrer(&mut stocks, 1, 10);`", "`total(&stocks)` : un simple prêt suffit pour lire."]
+indices = ["L’appel à `livrer` prête `stocks` **en écriture**, puis donne la position et la quantité.", "Pour `total`, un simple prêt suffit : la fonction ne fait que lire."]
 
 solution = '''
 fn livrer(stocks: &mut [u32], etagere: usize, quantite: u32) {

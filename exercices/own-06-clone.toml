@@ -11,10 +11,10 @@ lecon = '''
 `.clone()` fabrique une **vraie copie**, complète et indépendante.
 
 ```rust
-let original = String::from("Modèle");
-let mut copie = original.clone();
-copie.push_str(" bis");   // on modifie la copie…
-// …l’original n’a pas bougé
+let plan = String::from("Plan A");
+let mut brouillon = plan.clone();
+brouillon.push_str(" v2");   // on modifie le brouillon…
+// …plan n’a pas bougé : toujours « Plan A »
 ```
 
 **Le prix** : cloner une `String`, c’est recopier **tout** son texte en mémoire. Avec un texte de 10 lettres, rien. Avec un fichier entier, c’est lent.
@@ -44,7 +44,7 @@ Copie : Modèle (copie)
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let mut copie = original.clone();`"]
+indices = ["Quelle méthode fabrique une copie ? Et la copie doit être **modifiable** : que faut-il après `let` ?"]
 
 solution = '''
 fn main() {

@@ -11,7 +11,7 @@ humeur = "sourire-en-coin"
 lecon = '''
 - une fonction peut **renvoyer une tranche** de ce qu’on lui prête : `fn premier_mot(phrase: &str) -> &str`
 - `.char_indices()` donne `(position, caractère)` : on cherche le premier espace
-- `return &phrase[..i];` dès qu’on le trouve ; s’il n’y en a pas, toute la phrase est le premier mot
+- dès qu’on trouve l’espace, on **renvoie** une tranche ; s’il n’y en a pas, toute la phrase est le premier mot
 '''
 
 mission = '''
@@ -34,7 +34,7 @@ La forge chauffe -> La
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`for (i, c) in phrase.char_indices() { if c == ' ' { return &phrase[..i]; } }`", "Après la boucle : `phrase` sans point-virgule."]
+indices = ["Parcours avec `.char_indices()`. Quand tu tombes sur un espace à la position `i`, tu renvoies une tranche qui va du début jusqu’à… ?", "Si la boucle se termine sans espace, que renvoies-tu ?"]
 
 solution = '''
 fn premier_mot(phrase: &str) -> &str {

@@ -20,8 +20,8 @@ Mais un lingot, **ça ne se copie pas**. Il **change de mains**.
 On appelle ça un **déménagement** (*move*) : le lingot **quitte** A pour aller chez B.
 
 ```rust
-let forgeron_b = forgeron_a;   // le lingot DÉMÉNAGE : il part de A, il arrive chez B
-println!("B tient : {forgeron_b}");
+let apprenti = kael;   // la clé DÉMÉNAGE : elle part de Kael, elle arrive chez l’apprenti
+println!("L’apprenti tient : {apprenti}");
 ```
 
 > Le lingot est **unique**. Après cette ligne, c’est **B** qui l’a. Et A ? On vérifie juste après… 👀
@@ -45,7 +45,7 @@ B tient : lingot d'acier
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let forgeron_b = forgeron_a;`", "`println!(\"B tient : {forgeron_b}\");`"]
+indices = ["La ligne du passage de main est écrite dans la mission.", "Pour afficher, même modèle que pour A, avec le nouveau propriétaire."]
 
 solution = '''
 fn main() {

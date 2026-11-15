@@ -31,7 +31,7 @@ Four : moyenne 29.0 pièces
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Somme dans une boucle, puis `somme as f64 / production.len() as f64`.", "`format!(\"{nom} : moyenne {moyenne:.1} pièces\")`"]
+indices = ["La somme dans une boucle. Pour la moyenne, convertis **les deux** nombres en `f64` avant de diviser.", "`format!` accepte la même chose que `println!`, y compris `{x:.1}` pour un chiffre après la virgule."]
 
 solution = '''
 fn rapport(nom: &str, production: &[u32]) -> String {

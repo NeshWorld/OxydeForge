@@ -10,7 +10,7 @@ kael = "Je veux mesurer la longueur d’une étiquette. Mais si je la donne à l
 lecon = '''
 - une fonction peut renvoyer **plusieurs** valeurs dans un tuple : `-> (String, usize)`
 - `usize` : le type des tailles et des positions (ce que renvoie `.len()`)
-- on récupère tout avec une déstructuration : `let (etiquette, taille) = mesurer(etiquette);`
+- on récupère tout avec une déstructuration, par exemple : `let (colis, poids) = peser(colis);`
 '''
 
 mission = '''
@@ -29,7 +29,7 @@ OxydeForge : 10 octets
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let n = s.len(); (s, n)`", "Remarque comme c’est lourd : c’est exactement ce que le prêt `&` va simplifier."]
+indices = ["Mesure **d’abord** avec `.len()` dans une variable, **puis** renvoie le tuple. Pourquoi cet ordre ? Une fois `s` rangé dans le tuple, tu ne peux plus t’en servir.", "Remarque comme c’est lourd : c’est exactement ce que le prêt `&` va simplifier."]
 
 solution = '''
 fn mesurer(s: String) -> (String, usize) {

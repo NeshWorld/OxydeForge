@@ -19,8 +19,8 @@ Rust ne range pas la mémoire comme Python. Il suit **trois règles**, vérifié
 ```rust
 fn main() {
     {
-        let atelier = String::from("Fonderie");   // atelier possède la String
-        println!("{atelier}");
+        let outil = String::from("Marteau");   // outil possède la String
+        println!("{outil}");
     }   // ← fin de la portée : la String est libérée, ici, automatiquement
 }
 ```
@@ -48,7 +48,7 @@ L'atelier a fermé, sa String est libérée
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["La `String` vit dans le bloc : `{ let atelier = String::from(\"Fonderie\"); println!(…); }`", "Après la `}`, `atelier` n’existe plus : écris juste le message de fermeture."]
+indices = ["Ouvre un bloc `{`, crée la `String` **dedans**, affiche-la, puis ferme le bloc `}`.", "Après la `}`, ta variable n’existe plus : écris juste le message de fermeture."]
 
 solution = '''
 fn main() {

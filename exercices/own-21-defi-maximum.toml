@@ -9,7 +9,7 @@ kael = "Commande spéciale ! Le four a relevé ses températures toute la journ�
 
 lecon = '''
 - `fn maximum(valeurs: &[i32]) -> i32` accepte le tableau entier **ou** une tranche
-- commence avec la première valeur : `let mut max = valeurs[0];`
+- commence avec la **première** valeur comme maximum provisoire
 - `for &v in valeurs` récupère chaque valeur directement (le `&` « déballe » l’emprunt)
 '''
 
@@ -31,7 +31,7 @@ Pic de la journée : 1180 degrés
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Le matin : `maximum(&releves[..3])`", "Dans la boucle : `if v > max { max = v; }`"]
+indices = ["Le matin = les 3 premières valeurs : une tranche **depuis le début**, jusqu’à 3.", "Dans la boucle : si la valeur dépasse le maximum provisoire, elle **devient** le maximum."]
 
 solution = '''
 fn maximum(valeurs: &[i32]) -> i32 {
