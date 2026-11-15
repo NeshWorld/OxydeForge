@@ -34,7 +34,7 @@ Jour 9 : jour invalide
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`1..=5 => \"travail\", 6 | 7 => \"week-end\", _ => \"jour invalide\",`"]
+indices = ["Trois branches : un intervalle pour la semaine, deux valeurs avec `|` pour le week-end, et `_` pour le reste."]
 
 solution = '''
 fn main() {

@@ -30,7 +30,7 @@ Périmètre : 14.0
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`fn perimetre(l: f64, h: f64) -> f64 { 2.0 * (l + h) }`"]
+indices = ["Même modèle que `aire`, avec la formule du périmètre : deux fois (largeur + hauteur). Attention, le 2 doit être un décimal."]
 
 solution = '''
 fn aire(l: f64, h: f64) -> f64 {

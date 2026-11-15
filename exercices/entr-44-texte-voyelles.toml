@@ -29,7 +29,7 @@ Voyelles dans fonderie : 4
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`for c in mot.chars() { match c { … => voyelles += 1, _ => {} } }`"]
+indices = ["Une boucle sur les caractères du mot. Dedans, un `match` : une branche pour les voyelles, et `_ => {}` pour le reste."]
 
 solution = '''
 fn main() {

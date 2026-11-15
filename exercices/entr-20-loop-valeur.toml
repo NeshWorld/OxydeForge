@@ -28,7 +28,7 @@ Premier carré > 50 : 8 x 8 = 64
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`n += 1; if n * n > 50 { break n; }`"]
+indices = ["À chaque tour : passe au nombre suivant. Si son carré dépasse 50, sors du `loop` **en renvoyant** ce nombre."]
 
 solution = '''
 fn main() {

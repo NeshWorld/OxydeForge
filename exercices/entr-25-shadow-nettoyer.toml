@@ -10,7 +10,7 @@ kael = "Les étiquettes de l’imprimante sortent avec des espaces partout et en
 lecon = '''
 - `.trim()` enlève les espaces au début et à la fin
 - `.to_uppercase()` met en majuscules (et renvoie une `String`)
-- chaque étape peut masquer la précédente : `let nom = nom.trim();`
+- chaque étape peut masquer la précédente, par exemple : `let code = code.trim();`
 '''
 
 mission = '''
@@ -29,7 +29,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let nom = nom.trim();` puis `let nom = nom.to_uppercase();`", "Les crochets montrent qu’il n’y a plus d’espaces : `println!(\"[{nom}]\");`"]
+indices = ["Deux masquages : un pour enlever les espaces, un pour les majuscules.", "Affiche le résultat entre crochets : ils prouvent qu’il ne reste plus d’espaces."]
 
 solution = '''
 fn main() {

@@ -35,7 +35,7 @@ Pièce forgée !
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`coups += 1;` puis `println!`, puis `if coups == 3 { break; }`"]
+indices = ["Dans le `loop` : compte un coup, affiche-le, puis sors quand tu en es à 3."]
 
 solution = '''
 fn main() {

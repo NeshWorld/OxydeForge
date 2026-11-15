@@ -38,7 +38,7 @@ Ouverture !
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let mut n = 5; while n > 0 { …; n -= 1; }`"]
+indices = ["Un compteur `mut` qui part de 5, une condition « tant que plus grand que 0 », et `-= 1` à la fin de chaque tour."]
 
 solution = '''
 fn main() {

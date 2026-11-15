@@ -48,7 +48,7 @@ Dette totale : 25 pièces
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`dette / apprentis` et `dette % apprentis`.", "Rust donne -6 et -1, pas -7 et 3 comme Python."]
+indices = ["Les mêmes opérateurs qu’à l’exercice précédent, avec un nombre négatif.", "Rust donne -6 et -1, pas -7 et 3 comme Python."]
 
 solution = '''
 fn main() {

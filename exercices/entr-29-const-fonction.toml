@@ -30,7 +30,7 @@ Aire : 40
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`fn aire() -> u32 { LARGEUR * HAUTEUR }`"]
+indices = ["`aire` ne prend aucun paramètre : son corps multiplie directement les deux constantes."]
 
 solution = '''
 const LARGEUR: u32 = 8;

@@ -25,7 +25,7 @@ const EXERCICES = [
       '`u8::MIN` et `u8::MAX` donnent les limites d’un type, sans les apprendre par cœur',
     ],
     mission: 'Affiche les limites d’un `u8`, puis celles d’un `i8`, en utilisant `::MIN` et `::MAX`.',
-    indices: ['`println!("Un u8 va de {} à {}", u8::MIN, u8::MAX);`'],
+    indices: ['Deux `{}` dans le texte, puis les deux limites après la virgule, dans l’ordre.'],
     solution: `fn main() {
     println!("Un u8 va de {} à {}", u8::MIN, u8::MAX);
     println!("Un i8 va de {} à {}", i8::MIN, i8::MAX);
@@ -37,12 +37,12 @@ const EXERCICES = [
     notion: 'u8 et addition',
     kael: 'La jauge de vapeur affiche 200. J’ajoute 55… elle est pleine ! J’en ajoute encore un ? Non ? Bon, je ne touche plus à rien.',
     rappels: [
-      'précise le type avec `: u8` : `let jauge: u8 = 200;`',
+      'précise le type avec `: u8`, par exemple : `let niveau: u8 = 90;`',
       'deux `u8` s’additionnent en un `u8`',
       'si le résultat dépassait 255, le programme **s’arrêterait** (panic) : Rust ne déborde jamais en silence',
     ],
     mission: 'Crée `jauge` (un `u8` qui vaut 200) et `ajout` (un `u8` qui vaut 55). Affiche le total sur 255.',
-    indices: ['`let total = jauge + ajout;` puis `println!("Jauge : {total} / {}", u8::MAX);`'],
+    indices: ['Additionne les deux variables dans une nouvelle, puis affiche-la avec la limite `u8::MAX`.'],
     solution: `fn main() {
     let jauge: u8 = 200;
     let ajout: u8 = 55;
@@ -62,7 +62,7 @@ const EXERCICES = [
       'une moyenne entière : `(a + b + c) / 3` (les **parenthèses** d’abord, sinon seul `c` est divisé)',
     ],
     mission: 'Avec `nuit = -17`, `matin = 6` et `midi = 14` (des `i32`), affiche l’écart entre la nuit et midi, le froid de la nuit sans signe, puis la moyenne des trois relevés.',
-    indices: ['`let ecart = midi - nuit;`', '`nuit.abs()` enlève le signe.', '`(nuit + matin + midi) / 3`'],
+    indices: ['L’écart, c’est la plus haute moins la plus basse.', 'Quelle méthode enlève le signe ?', 'Pour la moyenne : la somme des trois **entre parenthèses**, puis la division.'],
     solution: `fn main() {
     let nuit: i32 = -17;
     let matin: i32 = 6;
@@ -86,7 +86,7 @@ const EXERCICES = [
       '`.abs()` enlève le signe : `(-7).abs()` vaut 7',
     ],
     mission: 'Le bain démarre à 5 degrés et perd 3 degrés par heure pendant 7 heures. Affiche la température finale, combien de degrés sous zéro, puis la chute totale.',
-    indices: ['`let fin = depart - perte * heures;`', '`fin.abs()` pour « sous zéro ».', 'La chute : `depart - fin`.'],
+    indices: ['Écris le calcul dans l’ordre de la phrase : le départ, moins la perte multipliée par les heures. Les priorités font le reste.', 'Quelle méthode enlève le signe, pour « sous zéro » ?', 'La chute : la différence entre le départ et la fin.'],
     solution: `fn main() {
     let depart: i32 = 5;
     let perte: i32 = 3;
@@ -107,7 +107,7 @@ const EXERCICES = [
       '`%` donne le **reste** : `47 % 6` vaut 5',
     ],
     mission: 'Avec 47 pièces et des caisses de 6, affiche le nombre de caisses pleines et les pièces restantes.',
-    indices: ['`pieces / par_caisse` et `pieces % par_caisse`.'],
+    indices: ['Les caisses pleines : quel opérateur ? Les pièces qui restent : quel autre ?'],
     solution: `fn main() {
     let pieces = 47;
     let par_caisse = 6;
@@ -141,7 +141,7 @@ const EXERCICES = [
       '- Exemple concret, 3 h avant minuit : `-3 % 24` vaut -3 (absurde), `(-3_i32).rem_euclid(24)` vaut **21** h.',
     ].join('\n'),
     mission: 'Avec une dette de `-25` partagée entre `4` apprentis (des `i32`), affiche la part de chacun, le reste, puis la dette sans signe.',
-    indices: ['`dette / apprentis` et `dette % apprentis`.', 'Rust donne -6 et -1, pas -7 et 3 comme Python.'],
+    indices: ['Les mêmes opérateurs qu’à l’exercice précédent, avec un nombre négatif.', 'Rust donne -6 et -1, pas -7 et 3 comme Python.'],
     solution: `fn main() {
     let dette: i32 = -25;
     let apprentis: i32 = 4;
@@ -160,7 +160,7 @@ const EXERCICES = [
       'les `_` rendent un grand nombre lisible : `1_450` vaut 1450',
     ],
     mission: 'La roue tourne à `1_450` tours par minute, 60 minutes par heure, 8 heures par jour (des `u32`). Affiche le nombre de tours par jour.',
-    indices: ['`let par_jour = tours_minute * 60 * 8;`'],
+    indices: ['Par minute → par heure : × 60. Par heure → par journée de travail : × le nombre d’heures de la journée.'],
     solution: `fn main() {
     let tours_minute: u32 = 1_450;
     let par_jour = tours_minute * 60 * 8;
@@ -178,7 +178,7 @@ const EXERCICES = [
       '`{:.1}` arrondit l’affichage à une décimale',
     ],
     mission: 'Avec `utilises = 1_234` et `total = 5_000` (des `u32`), affiche le pourcentage utilisé, arrondi à une décimale.',
-    indices: ['`let pct = utilises as f64 / total as f64 * 100.0;`', 'Puis `{pct:.1}` dans le texte.'],
+    indices: ['Convertis **chaque** nombre en `f64` avant de diviser, puis multiplie par un décimal.', 'Une décimale à l’affichage : `{x:.1}`, avec le nom de ta variable à la place de `x`.'],
     solution: `fn main() {
     let utilises: u32 = 1_234;
     let total: u32 = 5_000;
@@ -195,10 +195,10 @@ const EXERCICES = [
     rappels: [
       '`i32` s’arrête vers 2,1 milliards : trop petit ici',
       '`i64` va jusqu’à environ 9 milliards de milliards',
-      'écris le type : `let distance_m: i64 = 149_597_870_700;`',
+      'écris le type après le nom, par exemple : `let population: i64 = 8_000_000_000;`',
     ],
     mission: 'Stocke la distance Terre-Soleil en mètres dans un `i64`, puis affiche-la en kilomètres (division entière par 1000).',
-    indices: ['`distance_m / 1000`'],
+    indices: ['Un kilomètre, c’est combien de mètres ?'],
     solution: `fn main() {
     let distance_m: i64 = 149_597_870_700;
     println!("Distance Terre-Soleil : {} km", distance_m / 1000);
@@ -214,7 +214,7 @@ const EXERCICES = [
       'si `ans` est un `i64`, tout le calcul se fait en `i64`',
     ],
     mission: 'Avec `ans = 80` (un `i64`), calcule le nombre de secondes : 365 jours, 24 heures, 3600 secondes par heure.',
-    indices: ['`let ans: i64 = 80;` puis `ans * 365 * 24 * 3600`.'],
+    indices: ['Il suffit qu’**une** variable du calcul soit un `i64` : laquelle déclares-tu avec le type ?', 'Une année : 365 jours de 24 heures de 3600 secondes.'],
     solution: `fn main() {
     let ans: i64 = 80;
     let secondes = ans * 365 * 24 * 3600;
@@ -231,7 +231,7 @@ const EXERCICES = [
       '`{:.2}` affiche **deux** décimales, parfait pour des euros',
     ],
     mission: 'Avec `poids = 2.5` kg et `prix_kilo = 3.8` €, affiche le prix total avec deux décimales.',
-    indices: ['`let total = poids * prix_kilo;` puis `{total:.2}`.'],
+    indices: ['Multiplie le poids par le prix au kilo, puis affiche avec deux décimales.'],
     solution: `fn main() {
     let poids = 2.5;
     let prix_kilo = 3.8;
@@ -249,7 +249,7 @@ const EXERCICES = [
       'écris `15.0` et pas `15` pour rester en `f64`',
     ],
     mission: 'Calcule la moyenne pondérée de 12.5 (coef 2) et 15.0 (coef 3), affichée avec deux décimales.',
-    indices: ['`(12.5 * 2.0 + 15.0 * 3.0) / 5.0`'],
+    indices: ['Chaque note multipliée par son coefficient, on additionne, puis on divise par la somme des coefficients. Écris **tous** les nombres en décimaux.'],
     solution: `fn main() {
     let soudure = 12.5;
     let forge = 15.0;
@@ -266,11 +266,11 @@ const EXERCICES = [
     kael: 'J’ai une fonction qui fait les carrés. Pour les cubes, je me suis dit : et si une fonction en appelait une autre ? Ça marche, ce truc ?',
     rappels: [
       'une fonction peut **appeler** une autre fonction, comme en Python',
-      'une fonction **sans** `->` ne renvoie rien : `fn afficher(n: i32) { … }`',
+      'une fonction **sans** `->` ne renvoie rien, par exemple : `fn annoncer(n: i32) { … }`',
       'la dernière ligne **sans** `;` est la valeur renvoyée',
     ],
     mission: 'Écris `carre`, puis `cube` qui **utilise** `carre`, puis `afficher(n)` qui affiche le cube de `n`. Appelle `afficher(3)` et `afficher(4)`.',
-    indices: ['`fn cube(x: i32) -> i32 { carre(x) * x }`', '`fn afficher(n: i32) { println!("{n} au cube = {}", cube(n)); }`'],
+    indices: ['`cube` se sert de `carre` : le cube, c’est le carré multiplié encore une fois par le nombre.', '`afficher` ne renvoie rien : elle appelle `cube` **à l’intérieur** de son `println!`.'],
     solution: `fn carre(x: i32) -> i32 {
     x * x
 }
@@ -298,7 +298,7 @@ fn main() {
       'chaque paramètre a **son** type',
     ],
     mission: 'Écris `aire(l, h)` et `perimetre(l, h)` (des `f64`). Affiche-les pour une plaque de 4.0 sur 3.0, avec une décimale.',
-    indices: ['`fn perimetre(l: f64, h: f64) -> f64 { 2.0 * (l + h) }`'],
+    indices: ['Même modèle que `aire`, avec la formule du périmètre : deux fois (largeur + hauteur). Attention, le 2 doit être un décimal.'],
     solution: `fn aire(l: f64, h: f64) -> f64 {
     l * h
 }
@@ -322,7 +322,7 @@ fn main() {
       'une comparaison **est** déjà un `bool` : `n % 2 == 0` suffit, pas besoin de `if`',
     ],
     mission: 'Écris `est_pair(n)`. Pour chaque nombre de 1 à 4, affiche s’il est pair ou impair.',
-    indices: ['Le corps tient en une ligne : `n % 2 == 0`', 'Dans la boucle : `if est_pair(n) { … } else { … }`'],
+    indices: ['Le corps tient en une ligne : une comparaison avec le reste de la division par 2.', 'Dans la boucle, un `if` dont la condition **appelle** la fonction.'],
     solution: `fn est_pair(n: i32) -> bool {
     n % 2 == 0
 }
@@ -348,7 +348,7 @@ fn main() {
       'typique : vérifier un cas impossible tout au début',
     ],
     mission: 'Écris `diviser(a, b)` qui renvoie `0` si `b` vaut 0 (avec `return`), et `a / b` sinon. Affiche `diviser(10, 2)` puis `diviser(7, 0)`.',
-    indices: ['`if b == 0 { return 0; }` en première ligne.', 'La dernière ligne reste `a / b`, sans `return`.'],
+    indices: ['En première ligne : si le diviseur vaut 0, on sort tout de suite avec `return`.', 'La dernière ligne reste la division, sans `return`.'],
     solution: `fn diviser(a: i32, b: i32) -> i32 {
     if b == 0 {
         return 0;
@@ -406,7 +406,7 @@ fn main() {
       'n’oublie pas `mut` sur ce qui change',
     ],
     mission: 'Pars de `niveau = 0`. Tant que le niveau est sous 100, ajoute 30 et affiche le niveau.',
-    indices: ['`while niveau < 100 { niveau += 30; … }`', 'Le dernier niveau affiché dépasse 100 : c’est normal, le test vient avant l’ajout.'],
+    indices: ['La condition du `while` : tant que le niveau n’a pas atteint 100. Dans la boucle : ajoute 30, puis affiche.', 'Le dernier niveau affiché dépasse 100 : c’est normal, le test vient avant l’ajout.'],
     solution: `fn main() {
     let mut niveau = 0;
     while niveau < 100 {
@@ -425,7 +425,7 @@ fn main() {
       'après la boucle, le code continue normalement',
     ],
     mission: 'Avec un `while`, compte de 5 à 1 (un nombre par ligne), puis affiche « Ouverture ! ».',
-    indices: ['`let mut n = 5; while n > 0 { …; n -= 1; }`'],
+    indices: ['Un compteur `mut` qui part de 5, une condition « tant que plus grand que 0 », et `-= 1` à la fin de chaque tour.'],
     solution: `fn main() {
     let mut n = 5;
     while n > 0 {
@@ -445,7 +445,7 @@ fn main() {
       'quand on ne sait pas d’avance combien de tours il faut, c’est le travail de `while`',
     ],
     mission: 'Pars de `pression = 1`. Double-la tant qu’elle ne dépasse pas 1000, en comptant les étapes. Affiche le résultat final.',
-    indices: ['`while pression <= 1000 { pression *= 2; etapes += 1; }`'],
+    indices: ['Tant que la pression ne dépasse pas 1000 : on la double, et on compte une étape de plus.'],
     solution: `fn main() {
     let mut pression = 1;
     let mut etapes = 0;
@@ -467,7 +467,7 @@ fn main() {
       'pratique quand la condition d’arrêt est au milieu de la boucle',
     ],
     mission: 'Avec `loop`, affiche « Coup 1 » à « Coup 3 », puis sors de la boucle et affiche « Pièce forgée ! ».',
-    indices: ['`coups += 1;` puis `println!`, puis `if coups == 3 { break; }`'],
+    indices: ['Dans le `loop` : compte un coup, affiche-le, puis sors quand tu en es à 3.'],
     solution: `fn main() {
     let mut coups = 0;
     loop {
@@ -490,7 +490,7 @@ fn main() {
       'on la récupère avec `let resultat = loop { … };` (avec un `;` à la fin)',
     ],
     mission: 'Avec `let premier = loop { … };`, trouve le premier entier dont le carré dépasse 50, puis affiche-le avec son carré.',
-    indices: ['`n += 1; if n * n > 50 { break n; }`'],
+    indices: ['À chaque tour : passe au nombre suivant. Si son carré dépasse 50, sors du `loop` **en renvoyant** ce nombre.'],
     solution: `fn main() {
     let mut n = 0;
     let premier = loop {
@@ -512,7 +512,7 @@ fn main() {
       'avec un compteur manuel, incrémente **avant** le `continue`, sinon la boucle tourne en rond',
     ],
     mission: 'Avec `loop`, parcours les pièces 1 à 10 et affiche seulement celles qui ne sont pas multiples de 3.',
-    indices: ['Ordre dans la boucle : `n += 1;`, puis `if n > 10 { break; }`, puis `if n % 3 == 0 { continue; }`, puis le `println!`.'],
+    indices: ['Ordre dans la boucle : avancer le compteur, sortir si on dépasse 10, sauter les multiples de 3, puis afficher.'],
     solution: `fn main() {
     let mut n = 0;
     loop {
@@ -533,11 +533,11 @@ fn main() {
     notion: 'for et step_by',
     kael: 'Il faut graver des repères sur la règle de l’atelier, tous les 5 millimètres, jusqu’à 20. Ma règle actuelle a des repères… un peu partout.',
     rappels: [
-      '`(0..=20).step_by(5)` donne 0, 5, 10, 15, 20',
+      '`(0..=10).step_by(2)` donne 0, 2, 4, 6, 8, 10',
       'les parenthèses autour de l’intervalle sont obligatoires',
     ],
     mission: 'Affiche les repères de 0 à 20 mm, de 5 en 5.',
-    indices: ['`for mm in (0..=20).step_by(5) { … }`'],
+    indices: ['Une plage de 0 à 20 **inclus**, avec `.step_by(…)` pour avancer de 5 en 5.'],
     solution: `fn main() {
     for mm in (0..=20).step_by(5) {
         println!("Repère : {mm} mm");
@@ -774,10 +774,10 @@ fn main() {
     rappels: [
       '`.trim()` enlève les espaces au début et à la fin',
       '`.to_uppercase()` met en majuscules (et renvoie une `String`)',
-      'chaque étape peut masquer la précédente : `let nom = nom.trim();`',
+      'chaque étape peut masquer la précédente, par exemple : `let code = code.trim();`',
     ],
     mission: 'Pars de `let nom = "  Ferris  ";`. Masque-le deux fois (sans espaces, puis en majuscules), et affiche-le entre crochets.',
-    indices: ['`let nom = nom.trim();` puis `let nom = nom.to_uppercase();`', 'Les crochets montrent qu’il n’y a plus d’espaces : `println!("[{nom}]");`'],
+    indices: ['Deux masquages : un pour enlever les espaces, un pour les majuscules.', 'Affiche le résultat entre crochets : ils prouvent qu’il ne reste plus d’espaces.'],
     solution: `fn main() {
     let nom = "  Ferris  ";
     let nom = nom.trim();
@@ -795,7 +795,7 @@ fn main() {
       'la variable d’avant **réapparaît**, intacte',
     ],
     mission: 'Avec `pression = 10`, ouvre un bloc qui la masque en triple et l’affiche. Après le bloc, affiche-la encore.',
-    indices: ['`{ let pression = pression * 3; println!(…); }`'],
+    indices: ['Ouvre un bloc `{ }`. Dedans : masque `pression` avec sa valeur × 3, et affiche. Après la `}`, affiche encore.'],
     solution: `fn main() {
     let pression = 10;
     {
@@ -850,11 +850,11 @@ fn main() {
     notion: 'const f64',
     kael: 'Le boulon coûte 15 centimes, depuis toujours et pour toujours. Le patron l’a gravé sur le mur. Avec mon front, presque.',
     rappels: [
-      '`const PRIX_BOULON: f64 = 0.15;` : type **obligatoire**, nom en MAJUSCULES',
+      'par exemple `const TVA: f64 = 0.2;` : type **obligatoire**, nom en MAJUSCULES',
       'une constante se déclare en dehors de `main`',
     ],
     mission: 'Déclare `PRIX_BOULON` (0.15). Calcule le prix de 120 boulons et affiche-le avec deux décimales.',
-    indices: ['`let quantite = 120;` puis `PRIX_BOULON * quantite as f64`'],
+    indices: ['La quantité est un entier : convertis-la en `f64` avant de la multiplier par le prix.'],
     solution: `const PRIX_BOULON: f64 = 0.15;
 
 fn main() {
@@ -873,7 +873,7 @@ fn main() {
       'une fonction sans paramètre peut s’en servir : `fn aire() -> u32`',
     ],
     mission: 'Déclare `LARGEUR` (8) et `HAUTEUR` (5) en `u32`. Écris `aire()` qui les utilise, et affiche les dimensions puis l’aire.',
-    indices: ['`fn aire() -> u32 { LARGEUR * HAUTEUR }`'],
+    indices: ['`aire` ne prend aucun paramètre : son corps multiplie directement les deux constantes.'],
     solution: `const LARGEUR: u32 = 8;
 const HAUTEUR: u32 = 5;
 
@@ -892,12 +892,12 @@ fn main() {
     notion: 'const à partir d’autres const',
     kael: 'Combien de secondes dans une journée de travail entière ? Je compte toujours mes pauses en double, alors fais-le toi.',
     rappels: [
-      'une constante peut être un **calcul** : `const SECONDES_PAR_HEURE: u32 = 60 * 60;`',
+      'une constante peut être un **calcul**, par exemple : `const GRAMMES_PAR_TONNE: u32 = 1000 * 1000;`',
       'et utiliser une autre constante',
       'le calcul est fait **à la compilation**, pas à l’exécution',
     ],
     mission: 'Déclare `SECONDES_PAR_HEURE` (60 × 60), puis `SECONDES_PAR_JOUR` à partir de la première. Affiche les deux.',
-    indices: ['`const SECONDES_PAR_JOUR: u32 = SECONDES_PAR_HEURE * 24;`'],
+    indices: ['Une constante peut se servir d’**une autre** constante dans son calcul : une journée, c’est 24 heures.'],
     solution: `const SECONDES_PAR_HEURE: u32 = 60 * 60;
 const SECONDES_PAR_JOUR: u32 = SECONDES_PAR_HEURE * 24;
 
@@ -916,7 +916,7 @@ fn main() {
       'si le seuil change un jour, une seule ligne à modifier',
     ],
     mission: 'Déclare `TEMPERATURE_MAX` (1200, en `i32`). Pour 800, 1250 et 1100, affiche « OK » ou « SURCHAUFFE ».',
-    indices: ['`for t in [800, 1250, 1100] { if t > TEMPERATURE_MAX { … } else { … } }`'],
+    indices: ['Parcours les trois températures, et compare chacune à la constante dans un `if … else`.'],
     solution: `const TEMPERATURE_MAX: i32 = 1200;
 
 fn main() {
@@ -941,7 +941,7 @@ fn main() {
       'la dernière est `tableau[tableau.len() - 1]` (on compte à partir de 0)',
     ],
     mission: 'Avec `["lun", "mar", "mer", "jeu", "ven"]`, affiche le premier jour, le dernier, puis le nombre de jours.',
-    indices: ['`jours[jours.len() - 1]` pour le dernier.'],
+    indices: ['Pour le dernier : sa position, c’est la longueur **moins 1**.'],
     solution: `fn main() {
     let jours = ["lun", "mar", "mer", "jeu", "ven"];
     println!("Premier : {}", jours[0]);
@@ -959,7 +959,7 @@ fn main() {
       'on l’augmente dans la boucle quand la condition est vraie',
     ],
     mission: 'Avec les notes `[12, 8, 15, 9, 17, 11]`, compte celles qui valent au moins 10. Affiche « Reçues : X sur 6 ».',
-    indices: ['`if note >= 10 { recues += 1; }`', 'Le 6 vient de `notes.len()`.'],
+    indices: ['Dans la boucle : si la note vaut au moins 10, ajoute 1 au compteur.', 'Le 6 vient de `notes.len()`.'],
     solution: `fn main() {
     let notes = [12, 8, 15, 9, 17, 11];
     let mut recues = 0;
@@ -981,7 +981,7 @@ fn main() {
       'on garde la valeur minimale **et** sa position dans deux variables `mut`',
     ],
     mission: 'Avec `[42, 17, 63, 8, 25]`, trouve la plus petite valeur et sa position (en partant de 0).',
-    indices: ['Commence avec `let mut min = cuves[0];` et `let mut position = 0;`', '`if cuves[i] < min { min = cuves[i]; position = i; }`'],
+    indices: ['Commence avec la **première** case comme minimum, et 0 comme position.', 'Dans la boucle sur les positions : si la case est plus petite que le minimum, mets à jour **les deux** variables.'],
     solution: `fn main() {
     let cuves = [42, 17, 63, 8, 25];
     let mut min = cuves[0];
@@ -1001,12 +1001,12 @@ fn main() {
     notion: 'let mut, tableau[i] = … et {:?}',
     kael: 'Inventaire ! Trois étagères : 10, 0 et 5 pièces. On a livré 7 pièces sur la deuxième, puis une pièce de plus partout. J’ai tout noté sur ma main. Elle est pleine.',
     rappels: [
-      '`let mut stocks = [10, 0, 5];` : le tableau devient modifiable',
-      '`stocks[1] = 7;` change une case',
-      '`{:?}` affiche le tableau entier : `[11, 8, 6]`',
+      'par exemple `let mut notes = [12, 8, 15];` : le tableau devient modifiable',
+      '`notes[1] = 10;` change une case',
+      '`{:?}` affiche le tableau entier : `[12, 10, 15]`',
     ],
     mission: 'Pars de `[10, 0, 5]`. Mets 7 dans la deuxième case, puis ajoute 1 à chaque case, et affiche le tableau avec `{:?}`.',
-    indices: ['`for i in 0..stocks.len() { stocks[i] += 1; }`'],
+    indices: ['Une boucle sur les **positions**, et `+= 1` sur chaque case.'],
     solution: `fn main() {
     let mut stocks = [10, 0, 5];
     stocks[1] = 7;
@@ -1024,11 +1024,11 @@ fn main() {
     notion: 'match sur des nombres',
     kael: 'Le calendrier de l’atelier numérote les jours de 1 à 7. Moi je préfère les noms. Et le 9, c’est quel jour ? Ah. Aucun.',
     rappels: [
-      'une branche par valeur : `1 => "lundi",`',
+      'une branche par valeur, par exemple : `1 => "un",`',
       '`_` attrape tout le reste (ici : les numéros invalides)',
     ],
     mission: 'Pour 1, 6 et 9, affiche le nom du jour (1 = lundi … 7 = dimanche), ou « inconnu ».',
-    indices: ['`let nom = match n { 1 => "lundi", 2 => "mardi", …, _ => "inconnu" };`'],
+    indices: ['Le résultat du `match` se range dans une variable, avec un `;` après la `}`. Une branche par jour, puis `_` pour le reste.'],
     solution: `fn main() {
     for n in [1, 6, 9] {
         let nom = match n {
@@ -1055,7 +1055,7 @@ fn main() {
       '`1..=5 =>` : tout un intervalle',
     ],
     mission: 'Pour 3, 6, 7 et 9, affiche « travail » (1 à 5), « week-end » (6 ou 7) ou « jour invalide ».',
-    indices: ['`1..=5 => "travail", 6 | 7 => "week-end", _ => "jour invalide",`'],
+    indices: ['Trois branches : un intervalle pour la semaine, deux valeurs avec `|` pour le week-end, et `_` pour le reste.'],
     solution: `fn main() {
     for jour in [3, 6, 7, 9] {
         let type_jour = match jour {
@@ -1077,7 +1077,7 @@ fn main() {
       'le texte doit correspondre **exactement**, majuscules comprises',
     ],
     mission: 'Pour les commandes `"start"`, `"pause"` et `"stop"`, affiche ce que fait la presse, ou « Commande inconnue ».',
-    indices: ['`"start" => "La presse démarre", "stop" => "La presse s\'arrête", _ => "Commande inconnue",`'],
+    indices: ['Une branche par commande, entre guillemets, puis `_` pour les commandes inconnues.'],
     solution: `fn main() {
     for commande in ["start", "pause", "stop"] {
         let action = match commande {
@@ -1099,7 +1099,7 @@ fn main() {
       '`n` reçoit la valeur, puis la condition est testée',
     ],
     mission: 'Pour -5, 18 et 31, affiche « gel » (moins de 0), « normal » (0 à 25) ou « chaud ».',
-    indices: ['`n if n < 0 => "gel", 0..=25 => "normal", _ => "chaud",`'],
+    indices: ['La première branche a une **garde** (`if`), la deuxième un intervalle, la dernière attrape le reste.'],
     solution: `fn main() {
     for t in [-5, 18, 31] {
         let etat = match t {
@@ -1122,7 +1122,7 @@ fn main() {
       '`(0, _) =>` : le premier vaut 0, le second peu importe',
     ],
     mission: 'Refais le FizzBuzz de 1 à 15 avec un seul `match` sur `(n % 3, n % 5)`.',
-    indices: ['`(0, 0) => println!("FizzBuzz"), (0, _) => println!("Fizz"), (_, 0) => println!("Buzz"), _ => println!("{n}"),`'],
+    indices: ['Quatre branches, de la plus précise à la moins précise : les deux restes à 0, puis le premier seul, puis le second seul, puis tout le reste.'],
     solution: `fn main() {
     for n in 1..=15 {
         match (n % 3, n % 5) {
@@ -1147,7 +1147,7 @@ fn main() {
       '`.len()` donne la longueur (en octets)',
     ],
     mission: 'Pars d’une `String` vide. Ajoute « Oxyde », puis « Forge », puis « ! ». Affiche-la, puis sa longueur.',
-    indices: ['`let mut enseigne = String::new();`'],
+    indices: ['Commence par une `String` **vide** et modifiable, puis ajoute les morceaux un par un.'],
     solution: `fn main() {
     let mut enseigne = String::new();
     enseigne.push_str("Oxyde");
@@ -1167,7 +1167,7 @@ fn main() {
       '`format!` marche comme `println!`, mais **renvoie** une `String` au lieu de l’afficher',
     ],
     mission: 'Écris `saluer(nom: &str) -> String` qui renvoie « Bonjour, … ! ». Affiche le salut pour Kael, puis pour Ferris.',
-    indices: ['`format!("Bonjour, {nom} !")` sans point-virgule.'],
+    indices: ['`format!` avec le nom entre `{}`, et **sans** point-virgule : c’est la valeur renvoyée.'],
     solution: `fn saluer(nom: &str) -> String {
     format!("Bonjour, {nom} !")
 }
@@ -1186,10 +1186,10 @@ fn main() {
     rappels: [
       '`String + &str` donne une nouvelle `String`',
       'la `String` de gauche **déménage** dans le résultat (on ne peut plus l’utiliser après)',
-      'le masquage permet de continuer : `let nom = nom + " v1";`',
+      'le masquage permet de continuer, par exemple : `let mot = mot + " !";`',
     ],
     mission: 'Pars de `String::from("Oxyde")` et `"Forge"`. Colle-les avec `+`, ajoute « v1 » de la même façon, et affiche le résultat.',
-    indices: ['`let nom = debut + fin;` puis `let nom = nom + " v1";`'],
+    indices: ['Colle les deux morceaux avec `+`, puis masque pour ajouter la fin.'],
     solution: `fn main() {
     let debut = String::from("Oxyde");
     let fin = "Forge";
@@ -1209,7 +1209,7 @@ fn main() {
       '`\'a\' | \'e\' | \'i\' =>` : plusieurs caractères dans une branche ; `_ => {}` ne fait rien',
     ],
     mission: 'Compte les voyelles (a, e, i, o, u, y) du mot « fonderie » et affiche le total.',
-    indices: ['`for c in mot.chars() { match c { … => voyelles += 1, _ => {} } }`'],
+    indices: ['Une boucle sur les caractères du mot. Dedans, un `match` : une branche pour les voyelles, et `_ => {}` pour le reste.'],
     solution: `fn main() {
     let mot = "fonderie";
     let mut voyelles = 0;

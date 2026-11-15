@@ -28,7 +28,7 @@ Total : 9.50 €
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let total = poids * prix_kilo;` puis `{total:.2}`."]
+indices = ["Multiplie le poids par le prix au kilo, puis affiche avec deux décimales."]
 
 solution = '''
 fn main() {

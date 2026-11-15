@@ -28,7 +28,7 @@ Tours par jour : 696000
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let par_jour = tours_minute * 60 * 8;`"]
+indices = ["Par minute → par heure : × 60. Par heure → par journée de travail : × le nombre d’heures de la journée."]
 
 solution = '''
 fn main() {

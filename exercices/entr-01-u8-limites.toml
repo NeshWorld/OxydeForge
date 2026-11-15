@@ -31,7 +31,7 @@ Un i8 va de -128 à 127
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`println!(\"Un u8 va de {} à {}\", u8::MIN, u8::MAX);`"]
+indices = ["Deux `{}` dans le texte, puis les deux limites après la virgule, dans l’ordre."]
 
 solution = '''
 fn main() {

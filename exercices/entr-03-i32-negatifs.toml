@@ -34,7 +34,7 @@ Moyenne du jour : 1 degré
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let ecart = midi - nuit;`", "`nuit.abs()` enlève le signe.", "`(nuit + matin + midi) / 3`"]
+indices = ["L’écart, c’est la plus haute moins la plus basse.", "Quelle méthode enlève le signe ?", "Pour la moyenne : la somme des trois **entre parenthèses**, puis la division."]
 
 solution = '''
 fn main() {

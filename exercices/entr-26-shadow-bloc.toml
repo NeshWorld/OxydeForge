@@ -30,7 +30,7 @@ Après le test : 10 bars
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`{ let pression = pression * 3; println!(…); }`"]
+indices = ["Ouvre un bloc `{ }`. Dedans : masque `pression` avec sa valeur × 3, et affiche. Après la `}`, affiche encore."]
 
 solution = '''
 fn main() {

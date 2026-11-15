@@ -11,7 +11,7 @@ humeur = "surpris"
 lecon = '''
 - `i32` s’arrête vers 2,1 milliards : trop petit ici
 - `i64` va jusqu’à environ 9 milliards de milliards
-- écris le type : `let distance_m: i64 = 149_597_870_700;`
+- écris le type après le nom, par exemple : `let population: i64 = 8_000_000_000;`
 '''
 
 mission = '''
@@ -30,7 +30,7 @@ Distance Terre-Soleil : 149597870 km
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`distance_m / 1000`"]
+indices = ["Un kilomètre, c’est combien de mètres ?"]
 
 solution = '''
 fn main() {

@@ -30,7 +30,7 @@ Pièces restantes : 5
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`pieces / par_caisse` et `pieces % par_caisse`."]
+indices = ["Les caisses pleines : quel opérateur ? Les pièces qui restent : quel autre ?"]
 
 solution = '''
 fn main() {

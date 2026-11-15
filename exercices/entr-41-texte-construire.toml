@@ -31,7 +31,7 @@ OxydeForge!
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let mut enseigne = String::new();`"]
+indices = ["Commence par une `String` **vide** et modifiable, puis ajoute les morceaux un par un."]
 
 solution = '''
 fn main() {

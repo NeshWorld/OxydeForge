@@ -34,7 +34,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Le corps tient en une ligne : `n % 2 == 0`", "Dans la boucle : `if est_pair(n) { … } else { … }`"]
+indices = ["Le corps tient en une ligne : une comparaison avec le reste de la division par 2.", "Dans la boucle, un `if` dont la condition **appelle** la fonction."]
 
 solution = '''
 fn est_pair(n: i32) -> bool {

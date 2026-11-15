@@ -8,7 +8,7 @@ type = "defi"
 kael = "Il faut graver des repères sur la règle de l’atelier, tous les 5 millimètres, jusqu’à 20. Ma règle actuelle a des repères… un peu partout."
 
 lecon = '''
-- `(0..=20).step_by(5)` donne 0, 5, 10, 15, 20
+- `(0..=10).step_by(2)` donne 0, 2, 4, 6, 8, 10
 - les parenthèses autour de l’intervalle sont obligatoires
 '''
 
@@ -36,7 +36,7 @@ Repère : 20 mm
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`for mm in (0..=20).step_by(5) { … }`"]
+indices = ["Une plage de 0 à 20 **inclus**, avec `.step_by(…)` pour avancer de 5 en 5."]
 
 solution = '''
 fn main() {

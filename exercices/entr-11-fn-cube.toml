@@ -9,7 +9,7 @@ kael = "J’ai une fonction qui fait les carrés. Pour les cubes, je me suis dit
 
 lecon = '''
 - une fonction peut **appeler** une autre fonction, comme en Python
-- une fonction **sans** `->` ne renvoie rien : `fn afficher(n: i32) { … }`
+- une fonction **sans** `->` ne renvoie rien, par exemple : `fn annoncer(n: i32) { … }`
 - la dernière ligne **sans** `;` est la valeur renvoyée
 '''
 
@@ -31,7 +31,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`fn cube(x: i32) -> i32 { carre(x) * x }`", "`fn afficher(n: i32) { println!(\"{n} au cube = {}\", cube(n)); }`"]
+indices = ["`cube` se sert de `carre` : le cube, c’est le carré multiplié encore une fois par le nombre.", "`afficher` ne renvoie rien : elle appelle `cube` **à l’intérieur** de son `println!`."]
 
 solution = '''
 fn carre(x: i32) -> i32 {

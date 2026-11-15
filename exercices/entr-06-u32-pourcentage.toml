@@ -29,7 +29,7 @@ Utilisés : 24.7 %
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let pct = utilises as f64 / total as f64 * 100.0;`", "Puis `{pct:.1}` dans le texte."]
+indices = ["Convertis **chaque** nombre en `f64` avant de diviser, puis multiplie par un décimal.", "Une décimale à l’affichage : `{x:.1}`, avec le nom de ta variable à la place de `x`."]
 
 solution = '''
 fn main() {

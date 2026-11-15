@@ -40,7 +40,7 @@ Pièce 10 : bonne
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Ordre dans la boucle : `n += 1;`, puis `if n > 10 { break; }`, puis `if n % 3 == 0 { continue; }`, puis le `println!`."]
+indices = ["Ordre dans la boucle : avancer le compteur, sortir si on dépasse 10, sauter les multiples de 3, puis afficher."]
 
 solution = '''
 fn main() {

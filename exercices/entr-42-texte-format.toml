@@ -30,7 +30,7 @@ Bonjour, Ferris !
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`format!(\"Bonjour, {nom} !\")` sans point-virgule."]
+indices = ["`format!` avec le nom entre `{}`, et **sans** point-virgule : c’est la valeur renvoyée."]
 
 solution = '''
 fn saluer(nom: &str) -> String {

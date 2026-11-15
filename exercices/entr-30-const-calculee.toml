@@ -8,7 +8,7 @@ type = "defi"
 kael = "Combien de secondes dans une journée de travail entière ? Je compte toujours mes pauses en double, alors fais-le toi."
 
 lecon = '''
-- une constante peut être un **calcul** : `const SECONDES_PAR_HEURE: u32 = 60 * 60;`
+- une constante peut être un **calcul**, par exemple : `const GRAMMES_PAR_TONNE: u32 = 1000 * 1000;`
 - et utiliser une autre constante
 - le calcul est fait **à la compilation**, pas à l’exécution
 '''
@@ -31,7 +31,7 @@ Un jour : 86400 secondes
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`const SECONDES_PAR_JOUR: u32 = SECONDES_PAR_HEURE * 24;`"]
+indices = ["Une constante peut se servir d’**une autre** constante dans son calcul : une journée, c’est 24 heures."]
 
 solution = '''
 const SECONDES_PAR_HEURE: u32 = 60 * 60;

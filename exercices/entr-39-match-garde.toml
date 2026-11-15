@@ -32,7 +32,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`n if n < 0 => \"gel\", 0..=25 => \"normal\", _ => \"chaud\",`"]
+indices = ["La première branche a une **garde** (`if`), la deuxième un intervalle, la dernière attrape le reste."]
 
 solution = '''
 fn main() {

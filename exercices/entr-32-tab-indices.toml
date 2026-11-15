@@ -32,7 +32,7 @@ Nombre de jours : 5
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`jours[jours.len() - 1]` pour le dernier."]
+indices = ["Pour le dernier : sa position, c’est la longueur **moins 1**."]
 
 solution = '''
 fn main() {

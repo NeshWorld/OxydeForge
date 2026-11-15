@@ -10,7 +10,7 @@ kael = "J’ai deux moitiés de plaque : « Oxyde » et « Forge ». Il faut les
 lecon = '''
 - `String + &str` donne une nouvelle `String`
 - la `String` de gauche **déménage** dans le résultat (on ne peut plus l’utiliser après)
-- le masquage permet de continuer : `let nom = nom + " v1";`
+- le masquage permet de continuer, par exemple : `let mot = mot + " !";`
 '''
 
 mission = '''
@@ -29,7 +29,7 @@ OxydeForge v1
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let nom = debut + fin;` puis `let nom = nom + \" v1\";`"]
+indices = ["Colle les deux morceaux avec `+`, puis masque pour ajouter la fin."]
 
 solution = '''
 fn main() {

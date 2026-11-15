@@ -31,7 +31,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`if b == 0 { return 0; }` en première ligne.", "La dernière ligne reste `a / b`, sans `return`."]
+indices = ["En première ligne : si le diviseur vaut 0, on sort tout de suite avec `return`.", "La dernière ligne reste la division, sans `return`."]
 
 solution = '''
 fn diviser(a: i32, b: i32) -> i32 {

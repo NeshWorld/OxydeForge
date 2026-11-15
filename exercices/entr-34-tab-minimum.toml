@@ -28,7 +28,7 @@ Minimum : 8 (cuve 3)
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Commence avec `let mut min = cuves[0];` et `let mut position = 0;`", "`if cuves[i] < min { min = cuves[i]; position = i; }`"]
+indices = ["Commence avec la **première** case comme minimum, et 0 comme position.", "Dans la boucle sur les positions : si la case est plus petite que le minimum, mets à jour **les deux** variables."]
 
 solution = '''
 fn main() {

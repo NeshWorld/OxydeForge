@@ -8,7 +8,7 @@ type = "defi"
 kael = "La jauge de vapeur affiche 200. J’ajoute 55… elle est pleine ! J’en ajoute encore un ? Non ? Bon, je ne touche plus à rien."
 
 lecon = '''
-- précise le type avec `: u8` : `let jauge: u8 = 200;`
+- précise le type avec `: u8`, par exemple : `let niveau: u8 = 90;`
 - deux `u8` s’additionnent en un `u8`
 - si le résultat dépassait 255, le programme **s’arrêterait** (panic) : Rust ne déborde jamais en silence
 '''
@@ -29,7 +29,7 @@ Jauge : 255 / 255
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let total = jauge + ajout;` puis `println!(\"Jauge : {total} / {}\", u8::MAX);`"]
+indices = ["Additionne les deux variables dans une nouvelle, puis affiche-la avec la limite `u8::MAX`."]
 
 solution = '''
 fn main() {

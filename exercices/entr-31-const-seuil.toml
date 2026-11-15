@@ -32,7 +32,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`for t in [800, 1250, 1100] { if t > TEMPERATURE_MAX { … } else { … } }`"]
+indices = ["Parcours les trois températures, et compare chacune à la constante dans un `if … else`."]
 
 solution = '''
 const TEMPERATURE_MAX: i32 = 1200;

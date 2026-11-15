@@ -28,7 +28,7 @@ Reçues : 4 sur 6
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`if note >= 10 { recues += 1; }`", "Le 6 vient de `notes.len()`."]
+indices = ["Dans la boucle : si la note vaut au moins 10, ajoute 1 au compteur.", "Le 6 vient de `notes.len()`."]
 
 solution = '''
 fn main() {

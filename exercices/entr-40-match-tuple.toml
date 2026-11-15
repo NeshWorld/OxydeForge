@@ -57,7 +57,7 @@ FizzBuzz
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`(0, 0) => println!(\"FizzBuzz\"), (0, _) => println!(\"Fizz\"), (_, 0) => println!(\"Buzz\"), _ => println!(\"{n}\"),`"]
+indices = ["Quatre branches, de la plus précise à la moins précise : les deux restes à 0, puis le premier seul, puis le second seul, puis tout le reste."]
 
 solution = '''
 fn main() {

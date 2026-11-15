@@ -28,7 +28,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`while pression <= 1000 { pression *= 2; etapes += 1; }`"]
+indices = ["Tant que la pression ne dépasse pas 1000 : on la double, et on compte une étape de plus."]
 
 solution = '''
 fn main() {

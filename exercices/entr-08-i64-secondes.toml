@@ -28,7 +28,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let ans: i64 = 80;` puis `ans * 365 * 24 * 3600`."]
+indices = ["Il suffit qu’**une** variable du calcul soit un `i64` : laquelle déclares-tu avec le type ?", "Une année : 365 jours de 24 heures de 3600 secondes."]
 
 solution = '''
 fn main() {

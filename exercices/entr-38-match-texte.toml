@@ -32,7 +32,7 @@ stop : La presse s'arrête
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`\"start\" => \"La presse démarre\", \"stop\" => \"La presse s'arrête\", _ => \"Commande inconnue\",`"]
+indices = ["Une branche par commande, entre guillemets, puis `_` pour les commandes inconnues."]
 
 solution = '''
 fn main() {

@@ -33,7 +33,7 @@ Chute totale : 21 degrés
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let fin = depart - perte * heures;`", "`fin.abs()` pour « sous zéro ».", "La chute : `depart - fin`."]
+indices = ["Écris le calcul dans l’ordre de la phrase : le départ, moins la perte multipliée par les heures. Les priorités font le reste.", "Quelle méthode enlève le signe, pour « sous zéro » ?", "La chute : la différence entre le départ et la fin."]
 
 solution = '''
 fn main() {

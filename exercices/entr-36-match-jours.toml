@@ -8,7 +8,7 @@ type = "defi"
 kael = "Le calendrier de l’atelier numérote les jours de 1 à 7. Moi je préfère les noms. Et le 9, c’est quel jour ? Ah. Aucun."
 
 lecon = '''
-- une branche par valeur : `1 => "lundi",`
+- une branche par valeur, par exemple : `1 => "un",`
 - `_` attrape tout le reste (ici : les numéros invalides)
 '''
 
@@ -32,7 +32,7 @@ Jour 9 : inconnu
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let nom = match n { 1 => \"lundi\", 2 => \"mardi\", …, _ => \"inconnu\" };`"]
+indices = ["Le résultat du `match` se range dans une variable, avec un `;` après la `}`. Une branche par jour, puis `_` pour le reste."]
 
 solution = '''
 fn main() {

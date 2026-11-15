@@ -28,7 +28,7 @@ Moyenne : 14.00
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`(12.5 * 2.0 + 15.0 * 3.0) / 5.0`"]
+indices = ["Chaque note multipliée par son coefficient, on additionne, puis on divise par la somme des coefficients. Écris **tous** les nombres en décimaux."]
 
 solution = '''
 fn main() {

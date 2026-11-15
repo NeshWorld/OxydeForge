@@ -8,7 +8,7 @@ type = "defi"
 kael = "Le boulon coûte 15 centimes, depuis toujours et pour toujours. Le patron l’a gravé sur le mur. Avec mon front, presque."
 
 lecon = '''
-- `const PRIX_BOULON: f64 = 0.15;` : type **obligatoire**, nom en MAJUSCULES
+- par exemple `const TVA: f64 = 0.2;` : type **obligatoire**, nom en MAJUSCULES
 - une constante se déclare en dehors de `main`
 '''
 
@@ -28,7 +28,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let quantite = 120;` puis `PRIX_BOULON * quantite as f64`"]
+indices = ["La quantité est un entier : convertis-la en `f64` avant de la multiplier par le prix."]
 
 solution = '''
 const PRIX_BOULON: f64 = 0.15;

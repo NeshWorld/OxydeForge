@@ -35,7 +35,7 @@ Niveau : 120 litres
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`while niveau < 100 { niveau += 30; … }`", "Le dernier niveau affiché dépasse 100 : c’est normal, le test vient avant l’ajout."]
+indices = ["La condition du `while` : tant que le niveau n’a pas atteint 100. Dans la boucle : ajoute 30, puis affiche.", "Le dernier niveau affiché dépasse 100 : c’est normal, le test vient avant l’ajout."]
 
 solution = '''
 fn main() {
