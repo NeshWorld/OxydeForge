@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>Apprendre le Rust en forgeant.</b><br>
-  Une app écrite en Rust, pour apprendre le Rust.<br>
+  Une app pour apprendre le Rust.<br>
   119 exercices · un éditeur vide · le vrai compilateur
 </p>
 
