@@ -13,12 +13,12 @@ L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, 
 
 Décoder, c’est décaler **en arrière** : une clé **négative**. Mais un `u8` ne peut pas être négatif : la clé passe en `i32`.
 
-- la position doit suivre : `(c as u8 - b'A') as i32`
+- la position doit suivre : convertis-la en `i32` avec `as`
 - `%` garde le signe : `-2 % 26` vaut -2. Il faut **`rem_euclid(26)`**, qui donne 24 (souviens-toi des dettes de Kael !)
-- retour en lettre : `(b'A' + nouvelle as u8) as char`
-- `dechiffrer` peut simplement appeler `chiffrer(texte, -cle)`
+- retour en lettre : le résultat est un `i32`, reconvertis-le en `u8` avant de l’ajouter à `b'A'`
+- `dechiffrer` n’a rien à recalculer : elle peut appeler `chiffrer` avec la clé **opposée**
 
-Pour passer une `String` à une fonction qui attend un `&str` : `&secret` (on la **prête**).
+Pour passer une `String` à une fonction qui attend un `&str` : `&message` (on la **prête**).
 '''
 
 mission = '''
@@ -39,7 +39,7 @@ Clair : LE CREUSET EST FISSURE
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let nouvelle = (position + cle).rem_euclid(26);`", "`fn dechiffrer(texte: &str, cle: i32) -> String { chiffrer(texte, -cle) }`", "`let secret = chiffrer(\"LE CREUSET EST FISSURE\", 7);`, puis `dechiffrer(&secret, 7)`"]
+indices = ["Où remplacer `%` par `.rem_euclid(26)` ? Et quelles variables passent en `i32` ?", "`dechiffrer` tient en une ligne : un appel à `chiffrer`, avec la clé de l’autre signe.", "Range le code dans une variable, affiche-la, puis prête-la à `dechiffrer` avec `&`."]
 
 solution = '''
 fn decaler(c: char, cle: i32) -> char {

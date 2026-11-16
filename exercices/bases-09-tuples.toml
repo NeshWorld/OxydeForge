@@ -72,8 +72,8 @@ criteres = [
 
 indices = [
   "Le reste d'une division : `%`, comme en Python.",
-  "La fonction renvoie `(a / b, a % b)`, sans point-virgule.",
-  "Dans `main` : `let (quotient, reste) = division(17, 5);`",
+  "La fonction renvoie un tuple : la division et le reste, entre parenthèses, **sans** point-virgule.",
+  "Dans `main` : `let (…, …) = …;` range les deux cases dans deux variables d’un coup.",
 ]
 
 solution = '''

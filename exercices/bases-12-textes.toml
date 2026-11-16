@@ -18,12 +18,12 @@ Rust a **deux** types de texte. C'est déroutant au début, mais logique.
 Tout texte entre `" "` est un `&str`. Pour le modifier, il faut d'abord en faire une `String` :
 
 ```rust
-let mut salut = String::from("Bonjour");
-salut.push_str(", Ferris");   // ajoute un texte
-salut.push('!');              // ajoute UN caractère
+let mut cri = String::from("Hourra");
+cri.push_str(" pour Kael");   // ajoute un texte
+cri.push('?');                 // ajoute UN caractère
 ```
 
-> Attention : `push` prend un **caractère** entre apostrophes `'!'`, pas un texte entre guillemets.
+> Attention : `push` prend un **caractère** entre apostrophes `'?'`, pas un texte entre guillemets.
 
 | Rust | Python |
 |---|---|
@@ -58,8 +58,8 @@ criteres = [
 
 indices = [
   "Sans `mut`, impossible de modifier la String : souviens-toi d'E0384.",
-  "`push_str(\", Ferris \")` ajoute la virgule, le nom et l'espace ; `push('!')` termine.",
-  "La longueur : `salut.len()`.",
+  "`push_str` ajoute la virgule, le nom **et l’espace** d’un coup ; `push` ajoute le point d’exclamation, seul.",
+  "La longueur : la méthode `len()`, appelée sur ta variable.",
 ]
 
 solution = '''

@@ -23,8 +23,8 @@ En Rust, chaque nombre a un **type**, qui fixe sa **taille** et sa **nature**.
 On peut **préciser** le type après `:` :
 
 ```rust
-let notes: i32 = 59;
-let moyenne: f64 = 14.75;
+let etage: i32 = -2;
+let taille: f64 = 1.82;
 ```
 
 **Le piège** : entre deux entiers, `/` fait une division **entière**.
@@ -37,8 +37,8 @@ let moyenne: f64 = 14.75;
 Pour passer d'entier à décimal : `as`.
 
 ```rust
-let somme = 59;
-let moyenne = somme as f64 / 4.0;   // 14.75
+let distance = 17;
+let moitie = distance as f64 / 2.0;   // 8.5
 ```
 
 > En Python, `/` donne toujours un décimal et `//` un entier. Rust n'a que `/` : c'est le **type** qui décide.
@@ -66,8 +66,8 @@ criteres = [
 ]
 
 indices = [
-  "`let somme = 12 + 15 + 18 + 14;` puis `somme / 4` pour la moyenne entière.",
-  "Pour la moyenne exacte : `somme as f64 / 4.0`.",
+  "Range la somme des quatre notes dans une variable, puis divise-la par 4 pour la moyenne entière.",
+  "Pour la moyenne exacte : convertis la somme en décimal avec `as`, et divise par un **décimal**.",
 ]
 
 solution = '''

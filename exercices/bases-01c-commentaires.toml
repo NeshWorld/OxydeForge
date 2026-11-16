@@ -86,8 +86,8 @@ criteres = [
 ]
 
 indices = [
-  "La documentation se place juste au-dessus de `fn alarme() {`, avec trois barres : `///`.",
-  "Pour désactiver le troisième appel : `// alarme();`. Essaie **Ctrl + /** sur la ligne !",
+  "La documentation se place juste au-dessus de la ligne qui **déclare** la fonction, avec trois barres : `///`.",
+  "Pour désactiver le troisième appel, mets `//` devant sa ligne. Essaie **Ctrl + /** !",
 ]
 
 solution = '''

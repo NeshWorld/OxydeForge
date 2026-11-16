@@ -67,8 +67,8 @@ criteres = [
 ]
 
 indices = [
-  "Tout en haut du fichier : `const VITESSE_LUMIERE: u32 = 299_792;`",
-  "Dans `main` : `let secondes = 3;` puis `VITESSE_LUMIERE * secondes`.",
+  "Tout en haut du fichier, hors de `main` : `const`, le nom en MAJUSCULES, le type `u32`, puis la valeur.",
+  "Dans `main` : une variable pour les secondes, puis multiplie-la par la constante.",
 ]
 
 solution = '''

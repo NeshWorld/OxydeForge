@@ -13,13 +13,15 @@ L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, 
 
 Le problème : `Z` vaut 90, et 90 + 3 = 93, le code de `]`. Il faut **revenir à `A`** après `Z`, comme une horloge.
 
-L’astuce en 3 temps :
+L’astuce en 3 temps. Exemple avec les **chiffres** `'0'` à `'9'` (10 symboles), décalés de 5 :
 
-- **1 ·** la **position** dans l’alphabet : `c as u8 - b'A'` (A = 0, B = 1… Z = 25)
-- **2 ·** on décale **et on fait le tour** : `(position + cle) % 26`
-- **3 ·** on revient à une lettre : `(b'A' + nouvelle) as char`
+- **1 ·** la **position** : `let rang = ch as u8 - b'0';` (`'7'` donne 7)
+- **2 ·** on décale **et on fait le tour** : `let suivant = (rang + 5) % 10;` (7 + 5 = 12, donc 2)
+- **3 ·** on revient à un symbole : `(b'0' + suivant) as char` donne `'2'`
 
-`b'A'` est un raccourci pour `'A' as u8` : le nombre 65, directement en `u8`.
+Pour l’alphabet, c’est la même idée avec `b'A'` et **26** lettres.
+
+`b'0'` est un raccourci pour `'0' as u8` : le nombre 48, directement en `u8`.
 '''
 
 mission = '''
@@ -42,7 +44,7 @@ KAEL -> JZDK
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let position = c as u8 - b'A';`", "`let nouvelle = (position + cle) % 26;`, puis `(b'A' + nouvelle) as char`"]
+indices = ["D’abord la position de la lettre : 0 pour `A`, 25 pour `Z`.", "Puis les deux autres temps de la leçon : la clé et le tour avec `%`, puis le retour en lettre."]
 
 solution = '''
 fn decaler(c: char, cle: u8) -> char {

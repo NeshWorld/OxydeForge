@@ -51,9 +51,9 @@ criteres = [
 ]
 
 indices = [
-  "Pour chaque `n`, suppose qu'il est premier : `let mut premier = true;`",
+  "Pour chaque `n`, commence par supposer qu’il est premier : une variable booléenne **modifiable**, qui part de `true`.",
   "Puis teste chaque diviseur `d` de 2 à `n - 1` : si `n % d == 0`, il n'est pas premier.",
-  "Bonus : tester jusqu'à la racine carrée suffit (`d * d <= n`).",
+  "Bonus : tester jusqu’à la racine carrée suffit (`d * d <= n`).",
 ]
 
 solution = '''

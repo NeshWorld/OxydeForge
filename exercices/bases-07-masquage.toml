@@ -69,8 +69,8 @@ criteres = [
 ]
 
 indices = [
-  "Premier masquage : `let niveau = niveau + 1;`",
-  "Dans le bloc : `let niveau = niveau * 10;` puis le `println!`.",
+  "Premier masquage : un nouveau `let niveau`, qui vaut l’ancien plus 1.",
+  "Dans le bloc : encore un `let niveau`, dix fois plus grand, puis le `println!`.",
 ]
 
 solution = '''

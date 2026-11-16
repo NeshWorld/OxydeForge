@@ -73,8 +73,8 @@ criteres = [
 ]
 
 indices = [
-  "Une boucle `for i in 1..=10 { … }`.",
-  "Dans la boucle : `println!(\"7 x {} = {}\", i, 7 * i);`",
+  "Une boucle `for` sur une plage de 1 à 10 **inclus** : `..` ou `..=` ?",
+  "Dans la boucle : deux `{}` dans le texte, puis le numéro et le calcul après la virgule.",
 ]
 
 solution = '''

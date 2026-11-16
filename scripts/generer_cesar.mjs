@@ -43,8 +43,8 @@ const ETAPES = [
     ],
     mission: 'Écris une fonction `decaler(c: char, cle: u8) -> char` qui décale une lettre. Dans `main`, affiche `A`, `K` et `R` décalées (clés 3, 3 et 1).',
     indices: [
-      'Le corps de la fonction tient en une ligne : `(c as u8 + cle) as char`',
-      '`println!("A -> {}", decaler(\'A\', 3));`',
+      'Le corps tient en une ligne : la lettre devient un nombre, on ajoute la clé, puis le nombre redevient une lettre. Relis le dernier exemple de la leçon.',
+      'Dans `main` : un `{}` dans le texte, et l’appel de `decaler` après la virgule.',
     ],
     solution: `fn decaler(c: char, cle: u8) -> char {
     (c as u8 + cle) as char
@@ -64,17 +64,17 @@ fn main() {
     lecon: [
       REPRISE,
       '',
-      '- `texte.chars()` donne les lettres **une par une** : `for c in texte.chars() { … }`',
+      '- `mot.chars()` donne les lettres **une par une** : `for l in mot.chars() { … }`',
       '- `String::new()` crée un texte **vide**, qu’on remplit ensuite (il doit être `mut`)',
-      '- `resultat.push(c)` ajoute **une lettre** à la fin',
+      '- `sortie.push(l)` ajoute **une lettre** à la fin de `sortie`',
       '- la fonction reçoit un `&str` (elle **emprunte** le texte) et renvoie une `String` toute neuve',
       '',
       'En Python : `"".join(decaler(c) for c in texte)`. En Rust, on construit la `String` lettre par lettre.',
     ],
     mission: 'Garde `decaler`. Ajoute `chiffrer(texte: &str, cle: u8) -> String`, qui décale chaque lettre. Remplace le contenu de `main` : chiffre `KAEL` puis `FORGE`, avec la clé 3.',
     indices: [
-      '`let mut resultat = String::new();`, puis une boucle `for` sur `texte.chars()`',
-      'Dans la boucle : `resultat.push(decaler(c, cle));`. Après la boucle : `resultat` tout seul, **sans** `;`, pour le renvoyer.',
+      'Commence par une `String` **vide** et modifiable, puis une boucle `for` sur les lettres du texte.',
+      'Dans la boucle : ajoute la lettre **décalée** à ton texte. Après la boucle : ton texte tout seul, **sans** `;`, pour le renvoyer.',
     ],
     solution: `fn decaler(c: char, cle: u8) -> char {
     (c as u8 + cle) as char
@@ -104,18 +104,20 @@ fn main() {
       '',
       'Le problème : `Z` vaut 90, et 90 + 3 = 93, le code de `]`. Il faut **revenir à `A`** après `Z`, comme une horloge.',
       '',
-      'L’astuce en 3 temps :',
+      'L’astuce en 3 temps. Exemple avec les **chiffres** `\'0\'` à `\'9\'` (10 symboles), décalés de 5 :',
       '',
-      '- **1 ·** la **position** dans l’alphabet : `c as u8 - b\'A\'` (A = 0, B = 1… Z = 25)',
-      '- **2 ·** on décale **et on fait le tour** : `(position + cle) % 26`',
-      '- **3 ·** on revient à une lettre : `(b\'A\' + nouvelle) as char`',
+      '- **1 ·** la **position** : `let rang = ch as u8 - b\'0\';` (`\'7\'` donne 7)',
+      '- **2 ·** on décale **et on fait le tour** : `let suivant = (rang + 5) % 10;` (7 + 5 = 12, donc 2)',
+      '- **3 ·** on revient à un symbole : `(b\'0\' + suivant) as char` donne `\'2\'`',
       '',
-      '`b\'A\'` est un raccourci pour `\'A\' as u8` : le nombre 65, directement en `u8`.',
+      'Pour l’alphabet, c’est la même idée avec `b\'A\'` et **26** lettres.',
+      '',
+      '`b\'0\'` est un raccourci pour `\'0\' as u8` : le nombre 48, directement en `u8`.',
     ],
     mission: 'Corrige `decaler` pour qu’après `Z` on revienne à `A`. Dans `main`, chiffre `XYZ` et `ZEBRE` avec la clé 3, puis `KAEL` avec la clé 25.',
     indices: [
-      '`let position = c as u8 - b\'A\';`',
-      '`let nouvelle = (position + cle) % 26;`, puis `(b\'A\' + nouvelle) as char`',
+      'D’abord la position de la lettre : 0 pour `A`, 25 pour `Z`.',
+      'Puis les deux autres temps de la leçon : la clé et le tour avec `%`, puis le retour en lettre.',
     ],
     solution: `fn decaler(c: char, cle: u8) -> char {
     let position = c as u8 - b'A';
@@ -151,12 +153,12 @@ fn main() {
       'La solution : ne décaler **que les majuscules**, et laisser le reste tel quel.',
       '',
       '- `c.is_ascii_uppercase()` vaut `true` si `c` est une lettre de `A` à `Z`',
-      '- `!` veut dire **non** : `!c.is_ascii_uppercase()`',
-      '- `return c;` sort **tout de suite** de la fonction, en renvoyant `c`',
+      '- `!` veut dire **non** : `!pret` vaut `true` quand `pret` vaut `false`',
+      '- `return x;` sort **tout de suite** de la fonction, en renvoyant `x`',
     ],
     mission: 'Fais en sorte que `decaler` laisse passer tout ce qui n’est pas une majuscule. Dans `main`, chiffre `RDV A LA FORGE, 8H !` avec la clé 3.',
     indices: [
-      'Au tout début de `decaler` : `if !c.is_ascii_uppercase() { return c; }`',
+      'Au tout début de `decaler` : si `c` n’est **pas** une majuscule, sors tout de suite en la renvoyant telle quelle.',
     ],
     solution: `fn decaler(c: char, cle: u8) -> char {
     if !c.is_ascii_uppercase() {
@@ -190,18 +192,18 @@ fn main() {
       '',
       'Décoder, c’est décaler **en arrière** : une clé **négative**. Mais un `u8` ne peut pas être négatif : la clé passe en `i32`.',
       '',
-      '- la position doit suivre : `(c as u8 - b\'A\') as i32`',
+      '- la position doit suivre : convertis-la en `i32` avec `as`',
       '- `%` garde le signe : `-2 % 26` vaut -2. Il faut **`rem_euclid(26)`**, qui donne 24 (souviens-toi des dettes de Kael !)',
-      '- retour en lettre : `(b\'A\' + nouvelle as u8) as char`',
-      '- `dechiffrer` peut simplement appeler `chiffrer(texte, -cle)`',
+      '- retour en lettre : le résultat est un `i32`, reconvertis-le en `u8` avant de l’ajouter à `b\'A\'`',
+      '- `dechiffrer` n’a rien à recalculer : elle peut appeler `chiffrer` avec la clé **opposée**',
       '',
-      'Pour passer une `String` à une fonction qui attend un `&str` : `&secret` (on la **prête**).',
+      'Pour passer une `String` à une fonction qui attend un `&str` : `&message` (on la **prête**).',
     ],
     mission: 'Passe la clé en `i32` partout, puis ajoute `dechiffrer(texte: &str, cle: i32) -> String`. Dans `main`, chiffre `LE CREUSET EST FISSURE` avec la clé 7, affiche le code, puis déchiffre-le.',
     indices: [
-      '`let nouvelle = (position + cle).rem_euclid(26);`',
-      '`fn dechiffrer(texte: &str, cle: i32) -> String { chiffrer(texte, -cle) }`',
-      '`let secret = chiffrer("LE CREUSET EST FISSURE", 7);`, puis `dechiffrer(&secret, 7)`',
+      'Où remplacer `%` par `.rem_euclid(26)` ? Et quelles variables passent en `i32` ?',
+      '`dechiffrer` tient en une ligne : un appel à `chiffrer`, avec la clé de l’autre signe.',
+      'Range le code dans une variable, affiche-la, puis prête-la à `dechiffrer` avec `&`.',
     ],
     solution: `fn decaler(c: char, cle: i32) -> char {
     if !c.is_ascii_uppercase() {
@@ -243,13 +245,13 @@ fn main() {
       '',
       'Le César a un gros défaut : seulement **25 clés** utiles. On peut toutes les essayer : c’est l’attaque par **force brute**.',
       '',
-      '- `for cle in 1..26` : de 1 à 25 (le 26 est **exclu**)',
+      '- `for n in 1..26` : de 1 à 25 (le 26 est **exclu**)',
       '- une seule des 25 lignes sera lisible : c’est la bonne clé',
     ],
     mission: 'Garde tes fonctions. Dans `main`, essaie les clés de 1 à 25 sur le message intercepté `VLPW L ZFMWTP WL NWP OF NZQQCP`, une ligne par clé. Puis trouve la ligne lisible 😉',
     indices: [
-      '`let intercepte = "VLPW L ZFMWTP WL NWP OF NZQQCP";`',
-      '`for cle in 1..26 { println!("{cle} : {}", dechiffrer(intercepte, cle)); }`',
+      'Range le message intercepté dans une variable.',
+      'Une boucle sur les clés de 1 à 25. Dans la boucle : affiche la clé, puis le message déchiffré avec elle.',
     ],
     solution: `fn decaler(c: char, cle: i32) -> char {
     if !c.is_ascii_uppercase() {

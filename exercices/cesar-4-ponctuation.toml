@@ -16,8 +16,8 @@ Essaie d’abord **sans rien changer** : le programme plante avec `attempt to su
 La solution : ne décaler **que les majuscules**, et laisser le reste tel quel.
 
 - `c.is_ascii_uppercase()` vaut `true` si `c` est une lettre de `A` à `Z`
-- `!` veut dire **non** : `!c.is_ascii_uppercase()`
-- `return c;` sort **tout de suite** de la fonction, en renvoyant `c`
+- `!` veut dire **non** : `!pret` vaut `true` quand `pret` vaut `false`
+- `return x;` sort **tout de suite** de la fonction, en renvoyant `x`
 '''
 
 mission = '''
@@ -36,7 +36,7 @@ UGY D OD IRUJH, 8K !
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Au tout début de `decaler` : `if !c.is_ascii_uppercase() { return c; }`"]
+indices = ["Au tout début de `decaler` : si `c` n’est **pas** une majuscule, sors tout de suite en la renvoyant telle quelle."]
 
 solution = '''
 fn decaler(c: char, cle: u8) -> char {

@@ -12,11 +12,11 @@ lecon = '''
 `match` compare une valeur à une **liste de motifs**, et exécute la **première** branche qui correspond.
 
 ```rust
-let mention = match note {
-    0..=9 => "insuffisant",
-    10..=13 => "passable",
-    14..=20 => "bien",
-    _ => "note invalide",
+let taille = match pointure {
+    35..=38 => "petit",
+    39..=42 => "moyen",
+    43..=47 => "grand",
+    _ => "hors gamme",
 };
 ```
 
@@ -65,8 +65,8 @@ criteres = [
 ]
 
 indices = [
-  "Une boucle `for note in [8, 12, 16, 25] { … }`.",
-  "Dans la boucle : `let mention = match note { … };`",
+  "Une boucle `for` directement sur le tableau.",
+  "Dans la boucle : le résultat du `match` se range dans une variable, avec un `;` après la `}`.",
   "Le dernier motif, `_`, attrape le 25.",
 ]
 

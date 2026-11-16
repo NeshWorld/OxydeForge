@@ -51,9 +51,9 @@ criteres = [
 ]
 
 indices = [
-  "Deux variables modifiables avant la boucle : `let mut max = temperatures[0];` et `let mut total = 0;`",
-  "Dans la boucle : `total += t;` et `if t > max { max = t; }`",
-  "La moyenne en décimal : `total as f64 / temperatures.len() as f64`.",
+  "Deux variables **modifiables** avant la boucle : le maximum (qui part de la **première** case) et le total (qui part de 0).",
+  "Dans la boucle : ajoute la température au total, et si elle dépasse le maximum, remplace-le.",
+  "La moyenne en décimal : convertis le total **et** la taille du tableau en `f64` avant de diviser.",
 ]
 
 solution = '''

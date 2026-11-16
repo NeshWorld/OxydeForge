@@ -12,8 +12,8 @@ lecon = '''
 
 ```rust
 fn main() {
-    let nom = "Ferris";
-    let age = 7;
+    let outil = "Marteau";
+    let poids = 3;
 }
 ```
 
@@ -22,21 +22,21 @@ fn main() {
 Pour l'afficher, `println!` remplace chaque `{}` par une valeur, **dans l'ordre** :
 
 ```rust
-println!("{} a {} ans", nom, age);
+println!("{} pèse {} kg", outil, poids);
 ```
 
 Ou plus court : le **nom** de la variable directement entre les accolades.
 
 ```rust
-println!("{nom} a {age} ans");
+println!("{outil} pèse {poids} kg");
 ```
 
 | Rust | Python |
 |---|---|
-| `println!("{} a {} ans", nom, age)` | `print("{} a {} ans".format(nom, age))` |
-| `println!("{nom} a {age} ans")` | `print(f"{nom} a {age} ans")` |
+| `println!("{} pèse {} kg", outil, poids)` | `print("{} pèse {} kg".format(outil, poids))` |
+| `println!("{outil} pèse {poids} kg")` | `print(f"{outil} pèse {poids} kg")` |
 
-> **Attention** : entre les accolades, seulement un **nom** de variable. `{age + 1}` est refusé : pour un calcul, utilise `{}` et mets le calcul **après** la virgule.
+> **Attention** : entre les accolades, seulement un **nom** de variable. `{poids + 1}` est refusé : pour un calcul, utilise `{}` et mets le calcul **après** la virgule.
 '''
 
 mission = '''
@@ -63,8 +63,8 @@ criteres = [
 ]
 
 indices = [
-  "Première ligne : `println!(\"{nom} a {age} ans\");`",
-  "Pour la deuxième, le calcul `age + 1` va après la virgule, avec un `{}` dans le texte.",
+  "Première ligne : les deux **noms** de variables, directement entre les accolades.",
+  "Pour la deuxième, le calcul va après la virgule, avec un `{}` dans le texte.",
 ]
 
 solution = '''

@@ -11,12 +11,12 @@ lecon = '''
 Le `if` de Rust ressemble à celui de Python, avec des **accolades** et **sans** `:`.
 
 ```rust
-if temperature > 25 {
-    println!("Il fait chaud");
-} else if temperature > 15 {
-    println!("Il fait doux");
+if vitesse > 130 {
+    println!("Beaucoup trop vite");
+} else if vitesse > 90 {
+    println!("Vitesse d'autoroute");
 } else {
-    println!("Il fait froid");
+    println!("Vitesse de route");
 }
 ```
 
@@ -29,7 +29,7 @@ if temperature > 25 {
 **Le super-pouvoir** : un `if` **renvoie une valeur**. Chaque branche se termine **sans `;`**.
 
 ```rust
-let tenue = if temperature > 25 { "short" } else { "pull" };
+let amende = if vitesse > 130 { "oui" } else { "non" };
 ```
 
 > Toutes les branches doivent renvoyer **le même type** : c'est l'erreur E0308 du chapitre « Lis l'erreur ».
@@ -58,7 +58,7 @@ criteres = [
 ]
 
 indices = [
-  "La structure : `let tenue = if … { \"short\" } else if … { \"t-shirt\" } else { \"pull\" };`",
+  "Un `if` à l’intérieur du `let` : trois branches (`if`, `else if`, `else`), chacune avec son texte **sans** `;`.",
   "N'oublie pas le `;` après la dernière accolade : il termine le `let`.",
 ]
 

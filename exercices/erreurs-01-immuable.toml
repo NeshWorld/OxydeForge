@@ -16,8 +16,8 @@ Pour pouvoir la changer, il faut le **dire** : `let mut`.
 
 | Écriture | Modifiable ? |
 |---|---|
-| `let x = 5;` | **non** |
-| `let mut x = 5;` | **oui** |
+| `let score = 0;` | **non** |
+| `let mut score = 0;` | **oui** |
 
 > Pourquoi ? Si rien ne bouge, le compilateur peut **garantir** qu'aucune autre partie du code ne change ta valeur dans ton dos.
 

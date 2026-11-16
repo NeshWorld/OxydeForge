@@ -10,9 +10,9 @@ kael = "Une lettre, c’est bien. Mais « D », comme message secret, c’est un
 lecon = '''
 L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, tu ne repars pas de zéro.
 
-- `texte.chars()` donne les lettres **une par une** : `for c in texte.chars() { … }`
+- `mot.chars()` donne les lettres **une par une** : `for l in mot.chars() { … }`
 - `String::new()` crée un texte **vide**, qu’on remplit ensuite (il doit être `mut`)
-- `resultat.push(c)` ajoute **une lettre** à la fin
+- `sortie.push(l)` ajoute **une lettre** à la fin de `sortie`
 - la fonction reçoit un `&str` (elle **emprunte** le texte) et renvoie une `String` toute neuve
 
 En Python : `"".join(decaler(c) for c in texte)`. En Rust, on construit la `String` lettre par lettre.
@@ -36,7 +36,7 @@ FORGE -> IRUJH
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let mut resultat = String::new();`, puis une boucle `for` sur `texte.chars()`", "Dans la boucle : `resultat.push(decaler(c, cle));`. Après la boucle : `resultat` tout seul, **sans** `;`, pour le renvoyer."]
+indices = ["Commence par une `String` **vide** et modifiable, puis une boucle `for` sur les lettres du texte.", "Dans la boucle : ajoute la lettre **décalée** à ton texte. Après la boucle : ton texte tout seul, **sans** `;`, pour le renvoyer."]
 
 solution = '''
 fn decaler(c: char, cle: u8) -> char {

@@ -46,7 +46,7 @@ R -> S
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["Le corps de la fonction tient en une ligne : `(c as u8 + cle) as char`", "`println!(\"A -> {}\", decaler('A', 3));`"]
+indices = ["Le corps tient en une ligne : la lettre devient un nombre, on ajoute la clé, puis le nombre redevient une lettre. Relis le dernier exemple de la leçon.", "Dans `main` : un `{}` dans le texte, et l’appel de `decaler` après la virgule."]
 
 solution = '''
 fn decaler(c: char, cle: u8) -> char {

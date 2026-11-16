@@ -56,9 +56,9 @@ criteres = [
 ]
 
 indices = [
-  "La signature : `fn carre(n: i32) -> i32 {`",
-  "Dans le corps : `n * n`, **sans** point-virgule.",
-  "Dans `main` : `println!(\"Le carré de 9 est {}\", carre(9));`",
+  "La signature : un paramètre `i32`, et le type renvoyé après `->`. Inspire-toi de `double`.",
+  "Dans le corps : le nombre multiplié par lui-même, **sans** point-virgule.",
+  "Dans `main` : un `{}` dans le texte, et l’appel de ta fonction après la virgule.",
 ]
 
 solution = '''

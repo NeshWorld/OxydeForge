@@ -11,16 +11,16 @@ lecon = '''
 En Rust, un `if` peut **renvoyer une valeur**, comme le ternaire de Python.
 
 ```rust
-let statut = if age >= 18 { "majeur" } else { "mineur" };
+let sac = if pluie { "parapluie" } else { "lunettes" };
 ```
 
 | Python | Rust |
 |---|---|
-| `"majeur" if age >= 18 else "mineur"` | `if age >= 18 { "majeur" } else { "mineur" }` |
+| `"parapluie" if pluie else "lunettes"` | `if pluie { "parapluie" } else { "lunettes" }` |
 
 **La règle** : toutes les branches doivent renvoyer **le même type**.
 
-Pourquoi ? `statut` doit avoir **un seul type**, connu **avant** l'exécution. Rust ne peut pas deviner à l'avance quelle branche sera choisie.
+Pourquoi ? `sac` doit avoir **un seul type**, connu **avant** l'exécution. Rust ne peut pas deviner à l'avance quelle branche sera choisie.
 
 **Lire l'erreur** :
 - `if and else have incompatible types` : « le if et le else n'ont pas le même type »

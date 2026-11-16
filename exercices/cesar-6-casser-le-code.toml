@@ -13,7 +13,7 @@ L’éditeur reprend **ton code** de l’étape précédente : tu l’agrandis, 
 
 Le César a un gros défaut : seulement **25 clés** utiles. On peut toutes les essayer : c’est l’attaque par **force brute**.
 
-- `for cle in 1..26` : de 1 à 25 (le 26 est **exclu**)
+- `for n in 1..26` : de 1 à 25 (le 26 est **exclu**)
 - une seule des 25 lignes sera lisible : c’est la bonne clé
 '''
 
@@ -64,7 +64,7 @@ sortie_attendue = '''
 
 criteres = ["Le programme **compile**", "Il affiche le **bon texte**"]
 
-indices = ["`let intercepte = \"VLPW L ZFMWTP WL NWP OF NZQQCP\";`", "`for cle in 1..26 { println!(\"{cle} : {}\", dechiffrer(intercepte, cle)); }`"]
+indices = ["Range le message intercepté dans une variable.", "Une boucle sur les clés de 1 à 25. Dans la boucle : affiche la clé, puis le message déchiffré avec elle."]
 
 solution = '''
 fn decaler(c: char, cle: i32) -> char {
