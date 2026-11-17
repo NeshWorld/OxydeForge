@@ -1,7 +1,7 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Ce que la fenêtre principale a le droit de faire",
+  "description": "Ce que la fenêtre principale a le droit de faire. Seulement les droits de base : nos propres commandes Rust (#[tauri::command]) sont autorisées d'office. Les permissions des futurs plugins Tauri (fichiers, dialogues…) viendront s'ajouter ici.",
   "windows": ["main"],
   "permissions": ["core:default"]
 }
